@@ -27,7 +27,7 @@ jobs:
     # Build
     - name: build
       run: yarn build
-    - uses: ./
+    - uses: amondnet/now-deployment@v2
       id: now-deployment-production
       if: github.event_name == 'push'
       with:
