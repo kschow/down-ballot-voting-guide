@@ -21,15 +21,18 @@ jobs:
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
-      
-    # Install
+    # Install & Test
     - name: install
-      run: yarn
-      
-    # Test
-    - name: test
-      run: yarn test-ci
-
+      run: yarn && yarn test-ci
     # Build
     - name: build
       run: yarn build
+    - uses: ./
+      id: now-deployment-production
+      if: github.event_name == 'push'
+      with:
+        zeit-token: ${{ secrets.ZEIT_TOKEN }}
+        now-org-id: ${{ secrets.NOW_ORG_ID }}
+        now-project-id: ${{ secrets.NOW_PROJECT_ID }}
+        working-directory: ./.next
+        now-args: '--prod '
