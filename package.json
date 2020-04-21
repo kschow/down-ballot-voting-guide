@@ -6,20 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "jest --verbose=false",
+    "test": "jest --verbose=true --watchAll=true",
     "test-ci": "jest --verbose=false --watchAll=false",
     "lint": "eslint 'components/**/**.{js,jsx}' 'pages/**/**.{js,jsx}'",
     "tint": "yarn test-ci && yarn lint"
   },
   "dependencies": {
+    "lodash": "^4.17.15",
     "next": "9.3.4",
     "node-sass": "^4.13.1",
+    "prop-types": "latest",
     "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "prop-types": "latest"
+    "react-dom": "16.13.1"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.2",
+    "babel-preset-env": "^1.7.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.2",
