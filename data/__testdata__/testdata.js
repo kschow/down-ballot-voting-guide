@@ -2,13 +2,13 @@ const generateCandidate = (id, party, issues) => {
     const positions = issues.map((issue) => {
         return {
             'issueId': issue.issueId,
-            'position': issue.issueId.toString()
+            'position': `c${id}-i${issue.issueId}`
         };
     });
 
     return {
         'candidateId': id,
-        'candidateName': id.toString(),
+        'candidateName': `candidate ${id}`,
         party,
         positions,
         'education': 'Some School',
@@ -29,7 +29,7 @@ const generateNullCandidate = (id, party, issues) => {
 
     return {
         'candidateId': id,
-        'candidateName': id.toString(),
+        'candidateName': `candidate ${id}`,
         party,
         positions,
         'education': null,
@@ -46,8 +46,8 @@ const generateIssues = (count) => {
     for (let i = 0; i < count; i++) {
         issues.push({
             issueId: i,
-            issueName: i.toString(),
-            question: i.toString()
+            issueName: `issue ${i}`,
+            question: `issue question ${i}`
         });
     }
 
@@ -57,11 +57,15 @@ const generateIssues = (count) => {
 const generateRace = (id, issues, candidates) => {
     return {
         raceId: id,
-        raceName: id.toString(),
-        description: id.toString(),
+        raceName: `race ${id}`,
+        description: `race description ${id}`,
         issues,
         candidates
     };
 };
 
-export { generateRace, generateIssues, generateCandidate, generateNullCandidate };
+const generateElection = (type, party, races) => {
+    return { type, party, races };
+};
+
+export { generateElection, generateRace, generateIssues, generateCandidate, generateNullCandidate };
