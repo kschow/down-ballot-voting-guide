@@ -1,3 +1,8 @@
+import { shuffle } from 'lodash/collection';
+
+const getRandomIssueOrder = (issues) => {
+    return shuffle(issues.map((issue) => issue.issueId));
+};
 
 const getPositionsForIssue = (race, issueId) => {
     const { issues, candidates } = race;
@@ -31,4 +36,4 @@ const getPositionsForIssue = (race, issueId) => {
     };
 };
 
-export { getPositionsForIssue };
+export { getRandomIssueOrder, getPositionsForIssue };
