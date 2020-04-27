@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "jest --verbose=true --watchAll=true",
     "test-ci": "jest --verbose=false --watchAll=false",
-    "lint": "eslint 'components/**/**.{js,jsx}' 'pages/**/**.{js,jsx}'",
+    "lint": "eslint 'components/**/**.{js,jsx}' 'data/**/**.{js,jsx}' 'pages/**/**.{js,jsx}'",
     "tint": "yarn test-ci && yarn lint"
   },
   "dependencies": {
