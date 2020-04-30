@@ -10,6 +10,31 @@ describe('Guide scoring', () => {
     it('initializes scores to proper values for all issues/candidates', () => {
         const expectedInitialScore = [
             {
+                issueId: 2,
+                candidates: [
+                    {
+                        candidateId: 1,
+                        score: 0
+                    },
+                    {
+                        candidateId: 2,
+                        score: 0
+                    },
+                    {
+                        candidateId: 3,
+                        score: 0
+                    },
+                    {
+                        candidateId: 4,
+                        score: 0
+                    },
+                    {
+                        candidateId: 5,
+                        score: 0
+                    }
+                ]
+            },
+            {
                 issueId: 0,
                 candidates: [
                     {
@@ -58,31 +83,6 @@ describe('Guide scoring', () => {
                         score: 0
                     }
                 ]
-            },
-            {
-                issueId: 2,
-                candidates: [
-                    {
-                        candidateId: 1,
-                        score: 0
-                    },
-                    {
-                        candidateId: 2,
-                        score: 0
-                    },
-                    {
-                        candidateId: 3,
-                        score: 0
-                    },
-                    {
-                        candidateId: 4,
-                        score: 0
-                    },
-                    {
-                        candidateId: 5,
-                        score: 0
-                    }
-                ]
             }
         ];
 
@@ -102,7 +102,7 @@ describe('Guide scoring', () => {
         ];
 
         const race = generateRace(25, issues, candidates);
-        const issueOrder = [0, 1, 2];
+        const issueOrder = [2, 0, 1];
         const guide = new Guide(race, issueOrder, false);
 
         expect(guide.score).toStrictEqual(expectedInitialScore);
@@ -174,27 +174,6 @@ describe('Guide scoring', () => {
                 ]
             },
             {
-                issueId: 3,
-                candidates: [
-                    {
-                        candidateId: 1,
-                        score: 3
-                    },
-                    {
-                        candidateId: 2,
-                        score: 7
-                    },
-                    {
-                        candidateId: 3,
-                        score: 0
-                    },
-                    {
-                        candidateId: 4,
-                        score: 2
-                    }
-                ]
-            },
-            {
                 issueId: 4,
                 candidates: [
                     {
@@ -214,6 +193,27 @@ describe('Guide scoring', () => {
                         score: 0
                     }
                 ]
+            },
+            {
+                issueId: 3,
+                candidates: [
+                    {
+                        candidateId: 1,
+                        score: 3
+                    },
+                    {
+                        candidateId: 2,
+                        score: 7
+                    },
+                    {
+                        candidateId: 3,
+                        score: 0
+                    },
+                    {
+                        candidateId: 4,
+                        score: 2
+                    }
+                ]
             }
         ];
         const issues = generateIssues(5);
@@ -230,7 +230,7 @@ describe('Guide scoring', () => {
         ];
 
         const race = generateRace(35, issues, candidates);
-        const issueOrder = [0, 1, 2, 3, 4];
+        const issueOrder = [0, 1, 2, 4, 3];
         const guide = new Guide(race, issueOrder, false);
 
         const scoreUpdate = {
@@ -258,5 +258,135 @@ describe('Guide scoring', () => {
         guide.updateScore(scoreUpdate);
 
         expect(guide.score).toStrictEqual(expectedUpdatedScore);
+    });
+
+    it('tallies up score by candidate and sorts candidates by total score', () => {
+        const expectedResults = [
+            {
+                candidateId: 2,
+                candidateName: 'candidate 2',
+                total: 10,
+                issues: [
+                    {
+                        issueName: 'issue 0',
+                        score: 1
+                    },
+                    {
+                        issueName: 'issue 1',
+                        score: 2
+                    },
+                    {
+                        issueName: 'issue 2',
+                        score: 7
+                    }
+                ]
+            },
+            {
+                candidateId: 1,
+                candidateName: 'candidate 1',
+                total: 6,
+                issues: [
+                    {
+                        issueName: 'issue 0',
+                        score: 4
+                    },
+                    {
+                        issueName: 'issue 1',
+                        score: 1
+                    },
+                    {
+                        issueName: 'issue 2',
+                        score: 1
+                    }
+                ]
+            },
+            {
+                candidateId: 3,
+                candidateName: 'candidate 3',
+                total: 0,
+                issues: [
+                    {
+                        issueName: 'issue 0',
+                        score: 0
+                    },
+                    {
+                        issueName: 'issue 1',
+                        score: 0
+                    },
+                    {
+                        issueName: 'issue 2',
+                        score: 0
+                    }
+                ]
+            }
+        ];
+
+        const issues = generateIssues(3);
+        const candidate1 = generateCandidate(1, 'republican', issues);
+        const candidate2 = generateCandidate(2, 'republican', issues);
+        const candidate3 = generateNullCandidate(3, 'republican', issues);
+
+        const candidates = [candidate1, candidate2, candidate3];
+
+        const race = generateRace(20, issues, candidates);
+        const issueOrder = [0, 1, 2];
+        const guide = new Guide(race, issueOrder, false);
+
+        const update1 = {
+            issueId: 0,
+            candidates: [
+                {
+                    candidateId: 1,
+                    score: 4
+                },
+                {
+                    candidateId: 2,
+                    score: 1
+                },
+                {
+                    candidateId: 3,
+                    score: 0
+                }
+            ]
+        };
+        const update2 = {
+            issueId: 1,
+            candidates: [
+                {
+                    candidateId: 1,
+                    score: 1
+                },
+                {
+                    candidateId: 2,
+                    score: 2
+                },
+                {
+                    candidateId: 3,
+                    score: 0
+                }
+            ]
+        };
+        const update3 = {
+            issueId: 2,
+            candidates: [
+                {
+                    candidateId: 1,
+                    score: 1
+                },
+                {
+                    candidateId: 2,
+                    score: 7
+                },
+                {
+                    candidateId: 3,
+                    score: 0
+                }
+            ]
+        };
+        guide.updateScore(update1);
+        guide.updateScore(update2);
+        guide.updateScore(update3);
+
+        expect(guide.tallyResults()).toStrictEqual(expectedResults);
     });
 });
