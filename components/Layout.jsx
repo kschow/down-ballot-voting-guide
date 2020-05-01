@@ -1,7 +1,7 @@
+import Head from 'next/head';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import './Layout.module.scss';
-import Head from 'next/head';
 
 const BaseLayout = (props) => <div>
     <Head>

@@ -1,9 +1,4 @@
-import {
-    generateCandidate,
-    generateIssues,
-    generateNullCandidate,
-    generateRace
-} from '../__testdata__/testdata';
+import { generateCandidate, generateIssues, generateNullCandidate, generateRace } from '../__testdata__/testdata';
 import Guide from '../Guide';
 
 describe('Guide scoring', () => {

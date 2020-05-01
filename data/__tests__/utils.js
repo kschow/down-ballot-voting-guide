@@ -1,13 +1,6 @@
-import {
-    generateCandidate,
-    generateIssues,
-    generateNullCandidate,
-    generateRace
-} from '../__testdata__/testdata';
+import { generateCandidate, generateIssues, generateNullCandidate, generateRace } from '../__testdata__/testdata';
 
-import {
-    getPositionsForIssue
-} from '../utils';
+import { getPositionsForIssue } from '../utils';
 
 describe('getPositionsForIssue', () => {
     it('getPositionsForIssue throws an error if any issue isn\'t found', () => {

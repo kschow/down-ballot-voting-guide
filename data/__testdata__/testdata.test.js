@@ -1,10 +1,4 @@
-import {
-    generateCandidate,
-    generateElection,
-    generateIssues,
-    generateNullCandidate,
-    generateRace
-} from './testdata';
+import { generateCandidate, generateElection, generateIssues, generateNullCandidate, generateRace } from './testdata';
 
 it('generateIssues generates expected issues', () => {
     const expectedIssues = [

@@ -1,5 +1,5 @@
-import React from 'react';
 import * as PropTypes from 'prop-types';
+import React from 'react';
 import '../styles.scss';
 
 // This default export is required in a new `pages/_app.js` file.
