@@ -1,8 +1,10 @@
 import React from 'react';
 import BaseLayout from '../components/Layout';
+import Description from '../components/SingleSelect/Description';
 
 const SingleSelect = () => <BaseLayout title="Single Selection">
-    <div>Single Select Page</div>
+    <h2>Single Select</h2>
+    <Description />
 </BaseLayout>;
 
 export default SingleSelect;

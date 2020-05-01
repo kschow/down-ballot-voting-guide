@@ -1,0 +1,17 @@
+
+.answerCard {
+  composes: card from "../Global.module.scss";
+  cursor: pointer;
+
+  &:hover {
+    background-color: #eef;
+  }
+
+  &.selected {
+    background-color: #bfb;
+    background-image: url("../Icons/check_circle_outline-24px.svg");
+    background-repeat: no-repeat;
+    background-size: 2em;
+    background-position: top right;
+  }
+}
