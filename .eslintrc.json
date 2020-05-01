@@ -69,6 +69,9 @@
         "no-plusplus": "off",
         "no-negated-condition": "off",
         "space-before-function-paren": [2, { "anonymous": "never", "named": "never", "asyncArrow": "always" }],
-        "function-call-argument-newline": "off"
+        "function-call-argument-newline": "off",
+        "no-extra-parens": [2, "all", {
+            "ignoreJSX": "multi-line"
+        }]
     }
 }
