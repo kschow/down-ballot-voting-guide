@@ -55,7 +55,8 @@ const Description = () => {
             </div>
             <IssueCard
                 issueName={issue.issueName}
-                question={issue.question}/>
+                question={issue.question}
+            />
             <div>
                 Answers to this question will be placed like so:
             </div>

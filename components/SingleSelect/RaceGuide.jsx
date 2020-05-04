@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Guide from '../../data/Guide';
 import ElectedOfficialCard from '../Shared/ElectedOfficialCard';
 import IssueCard from '../Shared/IssueCard';
-import AnswerCard from './AnswerCard';
+import AnswerGroup from './AnswerGroup';
 
 const RaceGuide = ({ race, issueOrder, shufflePositions }) => {
     // eslint-disable-next-line no-unused-vars
@@ -29,18 +29,7 @@ const RaceGuide = ({ race, issueOrder, shufflePositions }) => {
                             issueName={issuePositions.issueName}
                             question={issuePositions.question}
                         />
-                        {
-                            issuePositions.positions.map((position) => {
-                                if (position.position) {
-                                    return <AnswerCard
-                                        key={position.candidateId}
-                                        issuePosition={position.position}
-                                        selected={false}
-                                    />;
-                                }
-                                return null;
-                            })
-                        }
+                        <AnswerGroup issuePositions={issuePositions.positions} />
                     </>
             }
         </div>

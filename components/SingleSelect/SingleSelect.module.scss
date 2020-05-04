@@ -16,3 +16,12 @@
     cursor: default;
   }
 }
+
+.answerGroup {
+  composes: card from "../Shared/Global.module.scss";
+  padding: 1.5em;
+
+  strong {
+    margin: .5em;
+  }
+}

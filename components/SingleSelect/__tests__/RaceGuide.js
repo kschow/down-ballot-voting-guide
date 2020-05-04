@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import React from 'react';
 import {
     generateCandidate,
@@ -34,4 +34,25 @@ it('displays the first set of answers', () => {
     expect(queryByText('c1-i1')).toBeFalsy();
     expect(queryByText('c3-i1')).toBeFalsy();
     expect(queryByText('c5-i1')).toBeFalsy();
+});
+
+it('selecting an answer changes the style to selected and only one can be selected at a time', () => {
+    const issueOrder = [1, 0, 2];
+
+    const component = <RaceGuide race={race} issueOrder={issueOrder} shufflePositions={false} />;
+    const { getByText } = render(component);
+
+    const candidateOneAnswer = getByText('c1-i1');
+    const candidateTwoAnswer = getByText('c3-i1');
+
+    expect(candidateOneAnswer).not.toHaveClass('selected');
+    expect(candidateTwoAnswer).not.toHaveClass('selected');
+
+    fireEvent.click(candidateOneAnswer);
+    expect(candidateOneAnswer).toHaveClass('selected');
+    expect(candidateTwoAnswer).not.toHaveClass('selected');
+
+    fireEvent.click(candidateTwoAnswer);
+    expect(candidateOneAnswer).not.toHaveClass('selected');
+    expect(candidateTwoAnswer).toHaveClass('selected');
 });
