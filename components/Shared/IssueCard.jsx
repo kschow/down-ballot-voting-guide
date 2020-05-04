@@ -1,8 +1,8 @@
 import * as PropTypes from 'prop-types';
 import React from 'react';
-import global from '../Global.module.scss';
+import global from './Global.module.scss';
 
-const QuestionCard = ({ issueName, question }) => (
+const IssueCard = ({ issueName, question }) => (
     <div className={global.card}>
         <div className={global.title}>
             <strong>{issueName}:</strong>
@@ -11,9 +11,9 @@ const QuestionCard = ({ issueName, question }) => (
     </div>
 );
 
-QuestionCard.propTypes = {
+IssueCard.propTypes = {
     issueName: PropTypes.string,
     question: PropTypes.string
 };
 
-export default QuestionCard;
+export default IssueCard;

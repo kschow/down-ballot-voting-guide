@@ -1,6 +1,6 @@
 
 .answerCard {
-  composes: card from "../Global.module.scss";
+  composes: card from "../Shared/Global.module.scss";
   cursor: pointer;
 
   &:hover {
