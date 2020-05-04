@@ -4,32 +4,37 @@ import RaceSelection from '../components/Shared/RaceSelection';
 import Description from '../components/SingleSelect/Description';
 
 const SingleSelect = () => {
+    const [pageTitle, setPageTitle] = useState('Single Selection');
     const [flowState, setFlowState] = useState('description');
     const [selectedRace, setSelectedRace] = useState(null);
 
     const selectRace = (race) => {
         setFlowState('guide');
         setSelectedRace(race);
+        setPageTitle(race.raceName);
     };
 
     return (
-        <BaseLayout title="Single Selection">
-            <h2>Single Select</h2>
+        <BaseLayout title={pageTitle}>
             {
                 flowState === 'description' &&
                     <>
+                        <h2>Single Select</h2>
                         <Description />
                         <div>
                             To continue, click&nbsp;
                             <button
                                 className="link-button"
-                                onClick={() => setFlowState('raceSelection')}
+                                onClick={() => {
+                                    setFlowState('raceSelection');
+                                    setPageTitle('Select a Race');
+                                }}
                             >here
                             </button>
                         </div>
                     </>
             }
-            { flowState === 'raceSelection' && <RaceSelection selectRace={selectRace}/> }
+            { flowState === 'raceSelection' && <RaceSelection selectRace={selectRace} /> }
             { flowState === 'guide' && selectedRace && <div>guide</div> }
         </BaseLayout>
     );
