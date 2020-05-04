@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import BaseLayout from '../components/Layout';
 import RaceSelection from '../components/Shared/RaceSelection';
 import Description from '../components/SingleSelect/Description';
+import RaceGuide from '../components/SingleSelect/RaceGuide';
 
 const SingleSelect = () => {
     const [pageTitle, setPageTitle] = useState('Single Selection');
@@ -35,7 +36,10 @@ const SingleSelect = () => {
                     </>
             }
             { flowState === 'raceSelection' && <RaceSelection selectRace={selectRace} /> }
-            { flowState === 'guide' && selectedRace && <div>guide</div> }
+            {
+                flowState === 'guide' && selectedRace &&
+                <RaceGuide race={selectedRace} />
+            }
         </BaseLayout>
     );
 };

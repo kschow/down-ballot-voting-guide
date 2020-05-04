@@ -29,7 +29,7 @@ class Guide {
     }
 
     getNextIssuePositions() {
-        if (this.currentIssue < this.issuePositions.size) {
+        if (this.currentIssue < this.issuePositions.length) {
             return this.issuePositions[this.currentIssue++];
         }
         return null;
