@@ -1,10 +1,12 @@
 import * as PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ElectedOfficialCard from '../Shared/ElectedOfficialCard';
 import IssueCard from '../Shared/IssueCard';
 import AnswerGroup from './AnswerGroup';
 
 const RaceGuide = ({ guide, updatePageTitle }) => {
+    const issueRef = useRef(null);
+    const [isFirstIssue, setIsFirstIssue] = useState(true);
     const [issuePositions, setIssuePositions] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
 
@@ -28,6 +30,7 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
         };
         guide.updateScore(update);
         setIssuePositions(guide.getNextIssuePositions());
+        setIsFirstIssue(false);
         setSelectedAnswer(null);
     };
 
@@ -37,6 +40,12 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
         }
     }, [issuePositions]);
 
+    useEffect(() => {
+        if (issueRef.current && !isFirstIssue) {
+            issueRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [issuePositions, issueRef]);
+
     return (
         <div>
             <ElectedOfficialCard
@@ -45,7 +54,7 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
             />
             {
                 issuePositions &&
-                    <>
+                    <div ref={issueRef}>
                         <IssueCard
                             issueName={issuePositions.issueName}
                             question={issuePositions.question}
@@ -57,7 +66,7 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
                             onLastIssue={guide.onLastIssue()}
                             issuePositions={issuePositions.positions}
                         />
-                    </>
+                    </div>
             }
         </div>
     );

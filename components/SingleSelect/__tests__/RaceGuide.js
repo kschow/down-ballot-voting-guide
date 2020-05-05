@@ -19,6 +19,8 @@ const candidates = [candidate1, candidate2, candidate3, candidate4];
 const race = generateRace(12, issues, candidates);
 // eslint-disable-next-line no-empty-function
 const dummyUpdatePageTitle = () => {};
+// eslint-disable-next-line no-empty-function
+window.HTMLElement.prototype.scrollIntoView = () => {};
 
 it('displays the first set of answers', () => {
     const issueOrder = [2, 0, 1];
