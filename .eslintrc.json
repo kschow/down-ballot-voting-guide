@@ -21,6 +21,7 @@
     },
     "plugins": [
         "react",
+        "react-hooks",
         "jest"
     ],
     "settings": {
@@ -47,6 +48,8 @@
         ]
     },
     "rules": {
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "padded-blocks": "off",
         "arrow-body-style": "off",
         "sort-imports": "off",

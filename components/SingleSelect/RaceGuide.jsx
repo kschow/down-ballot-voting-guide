@@ -12,7 +12,7 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
 
     useEffect(() => {
         setIssuePositions(guide.getNextIssuePositions());
-    }, []);
+    }, [guide]);
 
     const submitAnswer = () => {
         if (selectedAnswer === null) {
@@ -38,13 +38,13 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
         if (issuePositions) {
             updatePageTitle(issuePositions.issueName);
         }
-    }, [issuePositions]);
+    }, [updatePageTitle, issuePositions]);
 
     useEffect(() => {
         if (issueRef.current && !isFirstIssue) {
             issueRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    }, [issuePositions, issueRef]);
+    }, [isFirstIssue, issuePositions, issueRef]);
 
     return (
         <div>
