@@ -7,6 +7,7 @@ const AnswerGroup = ({
     selectedAnswer,
     setSelectedAnswer,
     submitAnswer,
+    onLastIssue,
     issuePositions
 }) => (
     <div className={singleSelect.answerGroup}>
@@ -30,7 +31,7 @@ const AnswerGroup = ({
                 disabled={selectedAnswer === null}
                 onClick={() => submitAnswer()}
             >
-                    Continue &raquo;
+                { onLastIssue ? 'Finish »' : 'Continue »' }
             </button>
         </div>
     </div>
@@ -40,6 +41,7 @@ AnswerGroup.propTypes = {
     selectedAnswer: PropTypes.number,
     setSelectedAnswer: PropTypes.func,
     submitAnswer: PropTypes.func,
+    onLastIssue: PropTypes.bool,
     issuePositions: PropTypes.arrayOf(PropTypes.object)
 };
 

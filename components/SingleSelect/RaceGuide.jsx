@@ -48,6 +48,7 @@ const RaceGuide = ({ guide }) => {
                             selectedAnswer={selectedAnswer}
                             setSelectedAnswer={setSelectedAnswer}
                             submitAnswer={submitAnswer}
+                            onLastIssue={guide.onLastIssue()}
                             issuePositions={issuePositions.positions}
                         />
                     </>

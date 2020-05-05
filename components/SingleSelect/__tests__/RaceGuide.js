@@ -25,17 +25,17 @@ it('displays the first set of answers', () => {
     const component = <RaceGuide guide={guide} />;
     const { queryByText } = render(component);
 
-    expect(queryByText('c1-i2')).toBeTruthy();
-    expect(queryByText('c3-i2')).toBeTruthy();
-    expect(queryByText('c5-i2')).toBeTruthy();
+    expect(queryByText('c1-i2')).toBeInTheDocument();
+    expect(queryByText('c3-i2')).toBeInTheDocument();
+    expect(queryByText('c5-i2')).toBeInTheDocument();
 
-    expect(queryByText('c1-i0')).toBeFalsy();
-    expect(queryByText('c3-i0')).toBeFalsy();
-    expect(queryByText('c5-i0')).toBeFalsy();
+    expect(queryByText('c1-i0')).not.toBeInTheDocument();
+    expect(queryByText('c3-i0')).not.toBeInTheDocument();
+    expect(queryByText('c5-i0')).not.toBeInTheDocument();
 
-    expect(queryByText('c1-i1')).toBeFalsy();
-    expect(queryByText('c3-i1')).toBeFalsy();
-    expect(queryByText('c5-i1')).toBeFalsy();
+    expect(queryByText('c1-i1')).not.toBeInTheDocument();
+    expect(queryByText('c3-i1')).not.toBeInTheDocument();
+    expect(queryByText('c5-i1')).not.toBeInTheDocument();
 });
 
 it('selecting an answer changes the style to selected and only one can be selected at a time', () => {
@@ -94,4 +94,22 @@ it('clicking the continue button after selecting an answer moves you onto the ne
     expect(queryByText('c5-i2')).not.toBeInTheDocument();
 
     expect(continueButtonLink).toBeDisabled();
+});
+
+it('when you get to the last issue, the button says, "Finish" instead of "Continue"', () => {
+    const issueOrder = [1, 0, 2];
+    const guide = new Guide(race, issueOrder, false);
+
+    const component = <RaceGuide guide={guide} />;
+    const { getByText, queryByText } = render(component);
+
+    const continueButtonLink = getByText('Continue »');
+    fireEvent.click(getByText('c1-i1'));
+    fireEvent.click(continueButtonLink);
+    fireEvent.click(getByText('c1-i0'));
+    fireEvent.click(continueButtonLink);
+
+    expect(queryByText('c1-i2')).toBeInTheDocument();
+    expect(queryByText('Continue »')).not.toBeInTheDocument();
+    expect(queryByText('Finish »')).toBeInTheDocument();
 });

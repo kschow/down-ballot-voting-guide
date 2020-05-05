@@ -35,6 +35,10 @@ class Guide {
         return null;
     }
 
+    onLastIssue() {
+        return this.currentIssue === this.issuePositions.length;
+    }
+
     updateScore(scoreUpdate) {
         const updateIndex = this.score.findIndex((issueScore) => issueScore.issueId === scoreUpdate.issueId);
         if (updateIndex === -1) {
