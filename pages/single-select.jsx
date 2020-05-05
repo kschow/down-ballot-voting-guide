@@ -18,6 +18,10 @@ const SingleSelect = () => {
         setGuide(new Guide(race));
     };
 
+    const updatePageTitle = (issueName) => {
+        setPageTitle(`${guide.race.raceName} - ${issueName}`);
+    };
+
     return (
         <BaseLayout title={pageTitle}>
             {
@@ -41,7 +45,10 @@ const SingleSelect = () => {
             { flowState === 'raceSelection' && <RaceSelection selectRace={selectRace} /> }
             {
                 flowState === 'guide' && selectedRace &&
-                <RaceGuide guide={guide} />
+                <RaceGuide
+                    guide={guide}
+                    updatePageTitle={updatePageTitle}
+                />
             }
         </BaseLayout>
     );

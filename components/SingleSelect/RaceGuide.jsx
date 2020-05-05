@@ -4,7 +4,7 @@ import ElectedOfficialCard from '../Shared/ElectedOfficialCard';
 import IssueCard from '../Shared/IssueCard';
 import AnswerGroup from './AnswerGroup';
 
-const RaceGuide = ({ guide }) => {
+const RaceGuide = ({ guide, updatePageTitle }) => {
     const [issuePositions, setIssuePositions] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
 
@@ -30,6 +30,10 @@ const RaceGuide = ({ guide }) => {
         setIssuePositions(guide.getNextIssuePositions());
         setSelectedAnswer(null);
     };
+
+    if (issuePositions) {
+        updatePageTitle(issuePositions.issueName);
+    }
 
     return (
         <div>
@@ -58,7 +62,8 @@ const RaceGuide = ({ guide }) => {
 };
 
 RaceGuide.propTypes = {
-    guide: PropTypes.object
+    guide: PropTypes.object,
+    updatePageTitle: PropTypes.func
 };
 
 export default RaceGuide;

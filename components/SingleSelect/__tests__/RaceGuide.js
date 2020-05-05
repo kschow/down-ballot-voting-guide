@@ -17,12 +17,14 @@ const candidate4 = generateNullCandidate(7, 'democrat', issues);
 const candidates = [candidate1, candidate2, candidate3, candidate4];
 
 const race = generateRace(12, issues, candidates);
+// eslint-disable-next-line no-empty-function
+const dummyUpdatePageTitle = () => {};
 
 it('displays the first set of answers', () => {
     const issueOrder = [2, 0, 1];
     const guide = new Guide(race, issueOrder, false);
 
-    const component = <RaceGuide guide={guide} />;
+    const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { queryByText } = render(component);
 
     expect(queryByText('c1-i2')).toBeInTheDocument();
@@ -42,7 +44,7 @@ it('selecting an answer changes the style to selected and only one can be select
     const issueOrder = [1, 0, 2];
     const guide = new Guide(race, issueOrder, false);
 
-    const component = <RaceGuide guide={guide} />;
+    const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText } = render(component);
 
     const candidateOneAnswer = getByText('c1-i1');
@@ -64,7 +66,7 @@ it('continuing to the next issue is disabled until an answer is selected', () =>
     const issueOrder = [2, 0, 1];
     const guide = new Guide(race, issueOrder, false);
 
-    const component = <RaceGuide guide={guide} />;
+    const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText } = render(component);
 
     const continueButtonLink = getByText('Continue »');
@@ -78,7 +80,7 @@ it('clicking the continue button after selecting an answer moves you onto the ne
     const issueOrder = [2, 0, 1];
     const guide = new Guide(race, issueOrder, false);
 
-    const component = <RaceGuide guide={guide} />;
+    const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText, queryByText } = render(component);
 
     const continueButtonLink = getByText('Continue »');
@@ -100,7 +102,7 @@ it('when you get to the last issue, the button says, "Finish" instead of "Contin
     const issueOrder = [1, 0, 2];
     const guide = new Guide(race, issueOrder, false);
 
-    const component = <RaceGuide guide={guide} />;
+    const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText, queryByText } = render(component);
 
     const continueButtonLink = getByText('Continue »');
