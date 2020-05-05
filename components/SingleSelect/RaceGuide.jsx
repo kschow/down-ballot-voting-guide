@@ -31,9 +31,11 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
         setSelectedAnswer(null);
     };
 
-    if (issuePositions) {
-        updatePageTitle(issuePositions.issueName);
-    }
+    useEffect(() => {
+        if (issuePositions) {
+            updatePageTitle(issuePositions.issueName);
+        }
+    }, [issuePositions]);
 
     return (
         <div>
