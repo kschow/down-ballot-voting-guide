@@ -1,26 +1,41 @@
 import * as PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import Guide from '../../data/Guide';
 import ElectedOfficialCard from '../Shared/ElectedOfficialCard';
 import IssueCard from '../Shared/IssueCard';
 import AnswerGroup from './AnswerGroup';
 
-const RaceGuide = ({ race, issueOrder, shufflePositions }) => {
-    // eslint-disable-next-line no-unused-vars
-    const [guide, setGuide] = useState(null);
+const RaceGuide = ({ guide }) => {
     const [issuePositions, setIssuePositions] = useState(null);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
 
     useEffect(() => {
-        const newGuide = new Guide(race, issueOrder, shufflePositions);
-        setGuide(newGuide);
-        setIssuePositions(newGuide.getNextIssuePositions());
+        setIssuePositions(guide.getNextIssuePositions());
     }, []);
+
+    const submitAnswer = () => {
+        if (selectedAnswer === null) {
+            throw new Error('Cannot submit an answer without a selected answer');
+        }
+        const candidateUpdates = issuePositions.positions.map((position) => {
+            return {
+                candidateId: position.candidateId,
+                score: selectedAnswer === position.candidateId ? 1 : 0
+            };
+        });
+        const update = {
+            issueId: issuePositions.issueId,
+            candidates: candidateUpdates
+        };
+        guide.updateScore(update);
+        setIssuePositions(guide.getNextIssuePositions());
+        setSelectedAnswer(null);
+    };
 
     return (
         <div>
             <ElectedOfficialCard
-                name={race.raceName}
-                description={race.description}
+                name={guide.race.raceName}
+                description={guide.race.description}
             />
             {
                 issuePositions &&
@@ -29,7 +44,12 @@ const RaceGuide = ({ race, issueOrder, shufflePositions }) => {
                             issueName={issuePositions.issueName}
                             question={issuePositions.question}
                         />
-                        <AnswerGroup issuePositions={issuePositions.positions} />
+                        <AnswerGroup
+                            selectedAnswer={selectedAnswer}
+                            setSelectedAnswer={setSelectedAnswer}
+                            submitAnswer={submitAnswer}
+                            issuePositions={issuePositions.positions}
+                        />
                     </>
             }
         </div>
@@ -37,9 +57,7 @@ const RaceGuide = ({ race, issueOrder, shufflePositions }) => {
 };
 
 RaceGuide.propTypes = {
-    race: PropTypes.object,
-    issueOrder: PropTypes.arrayOf(PropTypes.number),
-    shufflePositions: PropTypes.bool
+    guide: PropTypes.object
 };
 
 export default RaceGuide;

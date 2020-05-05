@@ -3,16 +3,19 @@ import BaseLayout from '../components/Layout';
 import RaceSelection from '../components/Shared/RaceSelection';
 import Description from '../components/SingleSelect/Description';
 import RaceGuide from '../components/SingleSelect/RaceGuide';
+import Guide from '../data/Guide';
 
 const SingleSelect = () => {
     const [pageTitle, setPageTitle] = useState('Single Selection');
     const [flowState, setFlowState] = useState('description');
     const [selectedRace, setSelectedRace] = useState(null);
+    const [guide, setGuide] = useState(null);
 
     const selectRace = (race) => {
         setFlowState('guide');
         setSelectedRace(race);
         setPageTitle(race.raceName);
+        setGuide(new Guide(race));
     };
 
     return (
@@ -38,7 +41,7 @@ const SingleSelect = () => {
             { flowState === 'raceSelection' && <RaceSelection selectRace={selectRace} /> }
             {
                 flowState === 'guide' && selectedRace &&
-                <RaceGuide race={selectedRace} />
+                <RaceGuide guide={guide} />
             }
         </BaseLayout>
     );

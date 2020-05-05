@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import {
     generateCandidate,
@@ -6,6 +6,7 @@ import {
     generateNullCandidate,
     generateRace
 } from '../../../data/__testdata__/testdata';
+import Guide from '../../../data/Guide';
 import RaceGuide from '../RaceGuide';
 
 const issues = generateIssues(3);
@@ -19,8 +20,9 @@ const race = generateRace(12, issues, candidates);
 
 it('displays the first set of answers', () => {
     const issueOrder = [2, 0, 1];
+    const guide = new Guide(race, issueOrder, false);
 
-    const component = <RaceGuide race={race} issueOrder={issueOrder} shufflePositions={false} />;
+    const component = <RaceGuide guide={guide} />;
     const { queryByText } = render(component);
 
     expect(queryByText('c1-i2')).toBeTruthy();
@@ -38,8 +40,9 @@ it('displays the first set of answers', () => {
 
 it('selecting an answer changes the style to selected and only one can be selected at a time', () => {
     const issueOrder = [1, 0, 2];
+    const guide = new Guide(race, issueOrder, false);
 
-    const component = <RaceGuide race={race} issueOrder={issueOrder} shufflePositions={false} />;
+    const component = <RaceGuide guide={guide} />;
     const { getByText } = render(component);
 
     const candidateOneAnswer = getByText('c1-i1');
@@ -55,4 +58,40 @@ it('selecting an answer changes the style to selected and only one can be select
     fireEvent.click(candidateTwoAnswer);
     expect(candidateOneAnswer).not.toHaveClass('selected');
     expect(candidateTwoAnswer).toHaveClass('selected');
+});
+
+it('continuing to the next issue is disabled until an answer is selected', () => {
+    const issueOrder = [2, 0, 1];
+    const guide = new Guide(race, issueOrder, false);
+
+    const component = <RaceGuide guide={guide} />;
+    const { getByText } = render(component);
+
+    const continueButtonLink = getByText('Continue »');
+    expect(continueButtonLink).toBeDisabled();
+
+    fireEvent.click(getByText('c3-i2'));
+    expect(continueButtonLink).not.toBeDisabled();
+});
+
+it('clicking the continue button after selecting an answer moves you onto the next set of answers', () => {
+    const issueOrder = [2, 0, 1];
+    const guide = new Guide(race, issueOrder, false);
+
+    const component = <RaceGuide guide={guide} />;
+    const { getByText, queryByText } = render(component);
+
+    const continueButtonLink = getByText('Continue »');
+    fireEvent.click(getByText('c3-i2'));
+    fireEvent.click(continueButtonLink);
+
+    expect(queryByText('c1-i0')).toBeInTheDocument();
+    expect(queryByText('c3-i0')).toBeInTheDocument();
+    expect(queryByText('c5-i0')).toBeInTheDocument();
+
+    expect(queryByText('c1-i2')).not.toBeInTheDocument();
+    expect(queryByText('c3-i2')).not.toBeInTheDocument();
+    expect(queryByText('c5-i2')).not.toBeInTheDocument();
+
+    expect(continueButtonLink).toBeDisabled();
 });
