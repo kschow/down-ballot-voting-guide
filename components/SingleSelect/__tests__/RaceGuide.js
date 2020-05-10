@@ -24,7 +24,7 @@ window.HTMLElement.prototype.scrollIntoView = () => {};
 
 it('displays the first set of answers', () => {
     const issueOrder = [2, 0, 1];
-    const guide = new Guide(race, issueOrder, false);
+    const guide = new Guide(race, issueOrder);
 
     const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { queryByText } = render(component);
@@ -44,7 +44,7 @@ it('displays the first set of answers', () => {
 
 it('selecting an answer changes the style to selected and only one can be selected at a time', () => {
     const issueOrder = [1, 0, 2];
-    const guide = new Guide(race, issueOrder, false);
+    const guide = new Guide(race, issueOrder);
 
     const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText } = render(component);
@@ -66,7 +66,7 @@ it('selecting an answer changes the style to selected and only one can be select
 
 it('continuing to the next issue is disabled until an answer is selected', () => {
     const issueOrder = [2, 0, 1];
-    const guide = new Guide(race, issueOrder, false);
+    const guide = new Guide(race, issueOrder);
 
     const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText } = render(component);
@@ -80,7 +80,7 @@ it('continuing to the next issue is disabled until an answer is selected', () =>
 
 it('clicking the continue button after selecting an answer moves you onto the next set of answers', () => {
     const issueOrder = [2, 0, 1];
-    const guide = new Guide(race, issueOrder, false);
+    const guide = new Guide(race, issueOrder);
 
     const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText, queryByText } = render(component);
@@ -102,7 +102,7 @@ it('clicking the continue button after selecting an answer moves you onto the ne
 
 it('when you get to the last issue, the button says, "Finish" instead of "Continue"', () => {
     const issueOrder = [1, 0, 2];
-    const guide = new Guide(race, issueOrder, false);
+    const guide = new Guide(race, issueOrder);
 
     const component = <RaceGuide guide={guide} updatePageTitle={dummyUpdatePageTitle} />;
     const { getByText, queryByText } = render(component);

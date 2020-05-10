@@ -2,15 +2,13 @@ import { shuffle } from 'lodash/collection';
 import { getPositionsForIssue, getRandomIssueOrder } from './utils';
 
 class Guide {
-    constructor(race, issueOrder = null, shufflePositions = true) {
+    constructor(race, issueOrder = null) {
         this.race = race;
 
         const order = issueOrder || getRandomIssueOrder(race.issues);
         this.issuePositions = order.map((issueId) => {
             const positionsForIssue = getPositionsForIssue(race, issueId);
-            if (shufflePositions) {
-                positionsForIssue.positions = shuffle(positionsForIssue.positions);
-            }
+            positionsForIssue.positions = shuffle(positionsForIssue.positions);
             return positionsForIssue;
         });
 

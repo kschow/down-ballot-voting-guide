@@ -1,3 +1,4 @@
+import * as PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import BaseLayout from '../components/Layout';
 import RaceSelection from '../components/Shared/RaceSelection';
@@ -5,7 +6,7 @@ import Description from '../components/SingleSelect/Description';
 import RaceGuide from '../components/SingleSelect/RaceGuide';
 import Guide from '../data/Guide';
 
-const SingleSelect = () => {
+const SingleSelect = ({ races, issueOrder }) => {
     const [pageTitle, setPageTitle] = useState('Single Selection');
     const [flowState, setFlowState] = useState('description');
     const [selectedRace, setSelectedRace] = useState(null);
@@ -15,7 +16,7 @@ const SingleSelect = () => {
         setFlowState('guide');
         setSelectedRace(race);
         setPageTitle(race.raceName);
-        setGuide(new Guide(race));
+        setGuide(new Guide(race, issueOrder));
     };
 
     const updatePageTitle = (issueName) => {
@@ -42,16 +43,27 @@ const SingleSelect = () => {
                         </div>
                     </>
             }
-            { flowState === 'raceSelection' && <RaceSelection selectRace={selectRace} /> }
+            {
+                flowState === 'raceSelection' &&
+                    <RaceSelection
+                        selectRace={selectRace}
+                        races={races}
+                    />
+            }
             {
                 flowState === 'guide' && selectedRace &&
-                <RaceGuide
-                    guide={guide}
-                    updatePageTitle={updatePageTitle}
-                />
+                    <RaceGuide
+                        guide={guide}
+                        updatePageTitle={updatePageTitle}
+                    />
             }
         </BaseLayout>
     );
+};
+
+SingleSelect.propTypes = {
+    races: PropTypes.arrayOf(PropTypes.object),
+    issueOrder: PropTypes.arrayOf(PropTypes.number)
 };
 
 export default SingleSelect;
