@@ -9,7 +9,9 @@
     "test": "jest --verbose=true --watchAll=true",
     "test-ci": "jest --verbose=false --watchAll=false",
     "lint": "eslint 'components/**/**.{js,jsx}' 'data/**/**.{js,jsx}' 'pages/**/**.{js,jsx}'",
-    "tint": "yarn test-ci && yarn lint"
+    "tint": "yarn test-ci && yarn lint",
+    "pre-commit": "yarn tint",
+    "pre-push": "yarn tint && rm -r .next && yarn build"
   },
   "dependencies": {
     "lodash": "^4.17.15",
