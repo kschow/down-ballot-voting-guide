@@ -1,7 +1,7 @@
 import { fireEvent, render } from '@testing-library/react';
 import React from 'react';
-import { generateCandidate, generateIssues, generateRace } from '../../data/__testdata__/testdata';
-import SingleSelect from '../single-select';
+import { generateCandidate, generateIssues, generateRace } from '../data/__testdata__/testdata';
+import SingleSelect from '../pages/single-select';
 
 // eslint-disable-next-line no-empty-function
 window.HTMLElement.prototype.scrollIntoView = () => {};
