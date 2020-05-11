@@ -17,7 +17,7 @@ const AnswerGroup: FunctionComponent<AnswerGroupProps> = ({
     submitAnswer,
     onLastIssue,
     issuePositions
-}: AnswerGroupProps) => (
+}) => (
     <div className={singleSelect.answerGroup}>
         <strong>Please select one answer below:</strong>
         {

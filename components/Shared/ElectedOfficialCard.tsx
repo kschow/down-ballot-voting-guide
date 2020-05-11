@@ -6,14 +6,13 @@ type ElectedOfficialCardProps = {
     description: string;
 }
 
-const ElectedOfficialCard: FunctionComponent<ElectedOfficialCardProps> =
-    ({ name, description }: ElectedOfficialCardProps) => (
-        <div className={global.card}>
-            <div className={global.title}>
-                <strong>{name}</strong>
-            </div>
-            {description}
+const ElectedOfficialCard: FunctionComponent<ElectedOfficialCardProps> = ({ name, description }) => (
+    <div className={global.card}>
+        <div className={global.title}>
+            <strong>{name}</strong>
         </div>
-    );
+        {description}
+    </div>
+);
 
 export default ElectedOfficialCard;

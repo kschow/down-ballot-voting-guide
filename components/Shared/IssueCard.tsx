@@ -6,7 +6,7 @@ type IssueCardProps = {
     question: string;
 }
 
-const IssueCard: FunctionComponent<IssueCardProps> = ({ issueName, question }: IssueCardProps) => (
+const IssueCard: FunctionComponent<IssueCardProps> = ({ issueName, question }) => (
     <div className={global.card}>
         <div className={global.title}>
             <strong>{issueName}:</strong>

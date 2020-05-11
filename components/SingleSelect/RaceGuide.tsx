@@ -10,7 +10,7 @@ type RaceGuideProps = {
     updatePageTitle(string): void;
 }
 
-const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle }: RaceGuideProps) => {
+const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle }) => {
     const issueRef = useRef(null);
     const [isFirstIssue, setIsFirstIssue] = useState(true);
     const [issuePositions, setIssuePositions] = useState(null as IssuePositions);

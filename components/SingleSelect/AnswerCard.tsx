@@ -7,7 +7,7 @@ type AnswerCardProps = {
     onClick?(): void;
 }
 
-const AnswerCard: FunctionComponent<AnswerCardProps> = ({ issuePosition, onClick, selected }: AnswerCardProps) => (
+const AnswerCard: FunctionComponent<AnswerCardProps> = ({ issuePosition, onClick, selected }) => (
     <div
         // eslint-disable-next-line multiline-ternary
         className={`${singleSelect.answerCard} ${selected ? singleSelect.selected : ''}`}

@@ -1,6 +1,6 @@
 import { Candidate, Election, Issue, Race } from '../Data';
 
-const generateCandidate = (id, party, issues): Candidate => {
+const generateCandidate = (id: number, party: string, issues: Issue[]): Candidate => {
     const positions = issues.map((issue) => {
         return {
             'issueId': issue.issueId,

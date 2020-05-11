@@ -9,7 +9,7 @@ type RaceButtonProps = {
     selectRace(race: Race): void;
 }
 
-const RaceButton: FunctionComponent<RaceButtonProps> = ({ linkText, race, selectRace }: RaceButtonProps) => (
+const RaceButton: FunctionComponent<RaceButtonProps> = ({ linkText, race, selectRace }) => (
     <div>
         <button
             className="link-button"
@@ -25,7 +25,7 @@ type RaceSelectionProps = {
     races?: Race[];
 }
 
-const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, races }: RaceSelectionProps) => {
+const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, races }) => {
     // eslint-disable-next-line prefer-destructuring
     const democratUSsenatorRace = LWV_DEM_SEN.races[0] as Race;
     // eslint-disable-next-line prefer-destructuring
