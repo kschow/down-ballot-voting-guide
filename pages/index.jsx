@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React from 'react';
-import BaseLayout from '../components/Layout';
+import BaseLayout from '../components/Shared/Layout';
 
 const Home = () => <BaseLayout title="Create Next App">
     <Link href="/single-select">

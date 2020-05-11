@@ -1,6 +1,6 @@
 import * as PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import BaseLayout from '../components/Layout';
+import BaseLayout from '../components/Shared/Layout';
 import RaceSelection from '../components/Shared/RaceSelection';
 import Description from '../components/SingleSelect/Description';
 import RaceGuide from '../components/SingleSelect/RaceGuide';

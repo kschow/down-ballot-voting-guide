@@ -1,9 +1,14 @@
 import Head from 'next/head';
 import * as PropTypes from 'prop-types';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import './Layout.module.scss';
 
-const BaseLayout = (props) => (
+type BaseLayoutProps = {
+    title: string;
+    children: React.Component;
+}
+
+const BaseLayout: FunctionComponent<BaseLayoutProps> = (props: BaseLayoutProps) => (
     <div>
         <Head>
             <title>{props.title}</title>

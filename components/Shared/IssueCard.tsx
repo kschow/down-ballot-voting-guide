@@ -1,8 +1,12 @@
-import * as PropTypes from 'prop-types';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import global from './Global.module.scss';
 
-const IssueCard = ({ issueName, question }) => (
+type IssueCardProps = {
+    issueName: string;
+    question: string;
+}
+
+const IssueCard: FunctionComponent<IssueCardProps> = ({ issueName, question }: IssueCardProps) => (
     <div className={global.card}>
         <div className={global.title}>
             <strong>{issueName}:</strong>
@@ -10,10 +14,5 @@ const IssueCard = ({ issueName, question }) => (
         {question}
     </div>
 );
-
-IssueCard.propTypes = {
-    issueName: PropTypes.string,
-    question: PropTypes.string
-};
 
 export default IssueCard;

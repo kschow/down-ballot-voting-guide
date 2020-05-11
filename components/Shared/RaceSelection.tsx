@@ -1,30 +1,35 @@
-import * as PropTypes from 'prop-types';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import LWV_DEM_SEN from '../../data/dem/lwv-dem-sen';
 import LWV_GOP_SEN from '../../data/gop/lwv-gop-sen';
+import { Race } from '../../data/Data';
 
-const RaceButton = ({ linkText, race, selectRace }) => (
+type RaceButtonProps = {
+    linkText: string;
+    race: Race;
+    selectRace(race: Race): void;
+}
+
+const RaceButton: FunctionComponent<RaceButtonProps> = ({ linkText, race, selectRace }: RaceButtonProps) => (
     <div>
         <button
             className="link-button"
-            onClick={() => selectRace(race)}
+            onClick={(): void => selectRace(race)}
         >
             {linkText}
         </button>
     </div>
 );
 
-RaceButton.propTypes = {
-    linkText: PropTypes.string,
-    race: PropTypes.object,
-    selectRace: PropTypes.func
-};
+type RaceSelectionProps = {
+    selectRace(race: Race): void;
+    races?: Race[];
+}
 
-const RaceSelection = ({ selectRace, races }) => {
+const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, races }: RaceSelectionProps) => {
     // eslint-disable-next-line prefer-destructuring
-    const democratUSsenatorRace = LWV_DEM_SEN.races[0];
+    const democratUSsenatorRace = LWV_DEM_SEN.races[0] as Race;
     // eslint-disable-next-line prefer-destructuring
-    const gopUSsenatorRace = LWV_GOP_SEN.races[0];
+    const gopUSsenatorRace = LWV_GOP_SEN.races[0] as Race;
 
     return (
         <>
@@ -58,11 +63,6 @@ const RaceSelection = ({ selectRace, races }) => {
             }
         </>
     );
-};
-
-RaceSelection.propTypes = {
-    selectRace: PropTypes.func,
-    races: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default RaceSelection;
