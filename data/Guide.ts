@@ -1,8 +1,14 @@
 import { shuffle } from 'lodash/collection';
 import { getPositionsForIssue, getRandomIssueOrder } from './utils';
+import { IssuePositions, IssueScore, Race, Result } from './Data';
 
 class Guide {
-    constructor(race, issueOrder = null) {
+    race: Race;
+    issuePositions: IssuePositions[];
+    currentIssue: number;
+    score: IssueScore[];
+
+    constructor(race: Race, issueOrder: number[] = null) {
         this.race = race;
 
         const order = issueOrder || getRandomIssueOrder(race.issues);
@@ -15,7 +21,7 @@ class Guide {
         this.currentIssue = 0;
 
         this.score = order.map((issueId) => {
-            const issueScores = { issueId };
+            const issueScores: IssueScore = { issueId, candidates: [] };
             issueScores.candidates = race.candidates.map((candidate) => {
                 return {
                     candidateId: candidate.candidateId,
@@ -26,18 +32,18 @@ class Guide {
         });
     }
 
-    getNextIssuePositions() {
+    getNextIssuePositions(): IssuePositions {
         if (this.currentIssue < this.issuePositions.length) {
             return this.issuePositions[this.currentIssue++];
         }
         return null;
     }
 
-    onLastIssue() {
+    onLastIssue(): boolean {
         return this.currentIssue === this.issuePositions.length;
     }
 
-    updateScore(scoreUpdate) {
+    updateScore(scoreUpdate: IssueScore): void {
         const updateIndex = this.score.findIndex((issueScore) => issueScore.issueId === scoreUpdate.issueId);
         if (updateIndex === -1) {
             throw new Error(`Issue: ${scoreUpdate.issueId} could not be found to score`);
@@ -45,7 +51,7 @@ class Guide {
         this.score[updateIndex] = scoreUpdate;
     }
 
-    tallyResults() {
+    tallyResults(): Result[] {
         const results = this.race.candidates.map((candidate) => {
             const candidateIssueResults = this.race.issues.map((issue) => {
                 const issueScoreIndex = this.score.findIndex((issueScore) => issueScore.issueId === issue.issueId);

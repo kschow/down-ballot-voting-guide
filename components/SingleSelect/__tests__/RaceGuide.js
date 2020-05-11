@@ -17,9 +17,9 @@ const candidate4 = generateNullCandidate(7, 'democrat', issues);
 const candidates = [candidate1, candidate2, candidate3, candidate4];
 
 const race = generateRace(12, issues, candidates);
-// eslint-disable-next-line no-empty-function
+// eslint-disable-next-line no-empty-function,@typescript-eslint/no-empty-function
 const dummyUpdatePageTitle = () => {};
-// eslint-disable-next-line no-empty-function
+// eslint-disable-next-line no-empty-function,@typescript-eslint/no-empty-function
 window.HTMLElement.prototype.scrollIntoView = () => {};
 
 it('displays the first set of answers', () => {

@@ -1,10 +1,11 @@
 import { shuffle } from 'lodash/collection';
+import { Issue, IssuePositions, Race } from './Data';
 
-const getRandomIssueOrder = (issues) => {
+const getRandomIssueOrder = (issues: Issue[]): number[] => {
     return shuffle(issues.map((issue) => issue.issueId));
 };
 
-const getPositionsForIssue = (race, issueId) => {
+const getPositionsForIssue = (race: Race, issueId: number): IssuePositions => {
     const { issues, candidates } = race;
 
     const issue = issues.find((iss) => iss.issueId === issueId);
