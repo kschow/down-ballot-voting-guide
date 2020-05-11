@@ -1,4 +1,6 @@
-const generateCandidate = (id, party, issues) => {
+import { Candidate, Election, Issue, Race } from '../Data';
+
+const generateCandidate = (id, party, issues): Candidate => {
     const positions = issues.map((issue) => {
         return {
             'issueId': issue.issueId,
@@ -19,7 +21,7 @@ const generateCandidate = (id, party, issues) => {
     };
 };
 
-const generateNullCandidate = (id, party, issues) => {
+const generateNullCandidate = (id: number, party: string, issues: Issue[]): Candidate => {
     const positions = issues.map((issue) => {
         return {
             'issueId': issue.issueId,
@@ -40,7 +42,7 @@ const generateNullCandidate = (id, party, issues) => {
     };
 };
 
-const generateIssues = (count) => {
+const generateIssues = (count: number): Issue[] => {
     const issues = [];
     // eslint-disable-next-line id-length
     for (let i = 0; i < count; i++) {
@@ -54,7 +56,7 @@ const generateIssues = (count) => {
     return issues;
 };
 
-const generateRace = (id, issues, candidates) => {
+const generateRace = (id: number, issues: Issue[], candidates: Candidate[]): Race => {
     return {
         raceId: id,
         raceName: `race ${id}`,
@@ -64,7 +66,7 @@ const generateRace = (id, issues, candidates) => {
     };
 };
 
-const generateElection = (type, party, races) => {
+const generateElection = (type: string, party: string, races: Race[]): Election => {
     return { type, party, races };
 };
 

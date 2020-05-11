@@ -98,7 +98,7 @@ describe('Guide scoring', () => {
 
         const race = generateRace(25, issues, candidates);
         const issueOrder = [2, 0, 1];
-        const guide = new Guide(race, issueOrder, false);
+        const guide = new Guide(race, issueOrder);
 
         expect(guide.score).toStrictEqual(expectedInitialScore);
     });
@@ -226,7 +226,7 @@ describe('Guide scoring', () => {
 
         const race = generateRace(35, issues, candidates);
         const issueOrder = [0, 1, 2, 4, 3];
-        const guide = new Guide(race, issueOrder, false);
+        const guide = new Guide(race, issueOrder);
 
         const scoreUpdate = {
             issueId: 3,
@@ -325,7 +325,7 @@ describe('Guide scoring', () => {
 
         const race = generateRace(20, issues, candidates);
         const issueOrder = [0, 1, 2];
-        const guide = new Guide(race, issueOrder, false);
+        const guide = new Guide(race, issueOrder);
 
         const update1 = {
             issueId: 0,

@@ -14,6 +14,11 @@ export type Candidate = {
     candidateName: string;
     party: string;
     positions: CandidatePosition[];
+    education: string;
+    campaignWebsite: string;
+    facebook: string;
+    twitter: string;
+    video: string;
 }
 
 export type Race = {
@@ -22,6 +27,12 @@ export type Race = {
     description: string;
     issues: Issue[];
     candidates: Candidate[];
+}
+
+export type Election = {
+    type: string;
+    party: string;
+    races: Race[];
 }
 
 export type IssuePosition = {
