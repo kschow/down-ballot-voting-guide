@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import ElectedOfficialCard from '../Shared/ElectedOfficialCard';
 import IssueCard from '../Shared/IssueCard';
 import AnswerCard from './AnswerCard';
@@ -37,7 +37,7 @@ const answerTwo = {
     selected: true
 };
 
-const Description = () => {
+const Description: FunctionComponent<void> = () => {
     return (
         <>
             <div>

@@ -1,15 +1,23 @@
-import * as PropTypes from 'prop-types';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import AnswerCard from './AnswerCard';
 import singleSelect from './SingleSelect.module.scss';
+import { IssuePosition } from '../../data/Data';
 
-const AnswerGroup = ({
+type AnswerGroupProps = {
+    selectedAnswer: number;
+    setSelectedAnswer(candidateId: number): void;
+    submitAnswer(): void;
+    onLastIssue: boolean;
+    issuePositions: IssuePosition[];
+}
+
+const AnswerGroup: FunctionComponent<AnswerGroupProps> = ({
     selectedAnswer,
     setSelectedAnswer,
     submitAnswer,
     onLastIssue,
     issuePositions
-}) => (
+}: AnswerGroupProps) => (
     <div className={singleSelect.answerGroup}>
         <strong>Please select one answer below:</strong>
         {
@@ -18,7 +26,7 @@ const AnswerGroup = ({
                     return <AnswerCard
                         key={position.candidateId}
                         issuePosition={position.position}
-                        onClick={() => setSelectedAnswer(position.candidateId)}
+                        onClick={(): void => setSelectedAnswer(position.candidateId)}
                         selected={position.candidateId === selectedAnswer}
                     />;
                 }
@@ -29,20 +37,12 @@ const AnswerGroup = ({
             <button
                 className="link-button"
                 disabled={selectedAnswer === null}
-                onClick={() => submitAnswer()}
+                onClick={(): void => submitAnswer()}
             >
                 { onLastIssue ? 'Finish »' : 'Continue »' }
             </button>
         </div>
     </div>
 );
-
-AnswerGroup.propTypes = {
-    selectedAnswer: PropTypes.number,
-    setSelectedAnswer: PropTypes.func,
-    submitAnswer: PropTypes.func,
-    onLastIssue: PropTypes.bool,
-    issuePositions: PropTypes.arrayOf(PropTypes.object)
-};
 
 export default AnswerGroup;

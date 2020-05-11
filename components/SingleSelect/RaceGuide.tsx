@@ -1,20 +1,26 @@
-import * as PropTypes from 'prop-types';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
 import ElectedOfficialCard from '../Shared/ElectedOfficialCard';
 import IssueCard from '../Shared/IssueCard';
 import AnswerGroup from './AnswerGroup';
+import Guide from '../../data/Guide';
+import { IssuePositions } from '../../data/Data';
 
-const RaceGuide = ({ guide, updatePageTitle }) => {
+type RaceGuideProps = {
+    guide: Guide;
+    updatePageTitle(string): void;
+}
+
+const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle }: RaceGuideProps) => {
     const issueRef = useRef(null);
     const [isFirstIssue, setIsFirstIssue] = useState(true);
-    const [issuePositions, setIssuePositions] = useState(null);
-    const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [issuePositions, setIssuePositions] = useState(null as IssuePositions);
+    const [selectedAnswer, setSelectedAnswer] = useState(null as number);
 
     useEffect(() => {
         setIssuePositions(guide.getNextIssuePositions());
     }, [guide]);
 
-    const submitAnswer = () => {
+    const submitAnswer = (): void => {
         if (selectedAnswer === null) {
             throw new Error('Cannot submit an answer without a selected answer');
         }
@@ -70,11 +76,6 @@ const RaceGuide = ({ guide, updatePageTitle }) => {
             }
         </div>
     );
-};
-
-RaceGuide.propTypes = {
-    guide: PropTypes.object,
-    updatePageTitle: PropTypes.func
 };
 
 export default RaceGuide;

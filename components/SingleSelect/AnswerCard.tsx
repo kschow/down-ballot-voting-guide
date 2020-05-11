@@ -1,8 +1,13 @@
-import * as PropTypes from 'prop-types';
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import singleSelect from './SingleSelect.module.scss';
 
-const AnswerCard = ({ issuePosition, onClick, selected }) => (
+type AnswerCardProps = {
+    issuePosition: string;
+    selected: boolean;
+    onClick?(): void;
+}
+
+const AnswerCard: FunctionComponent<AnswerCardProps> = ({ issuePosition, onClick, selected }: AnswerCardProps) => (
     <div
         // eslint-disable-next-line multiline-ternary
         className={`${singleSelect.answerCard} ${selected ? singleSelect.selected : ''}`}
@@ -11,11 +16,5 @@ const AnswerCard = ({ issuePosition, onClick, selected }) => (
         {issuePosition}
     </div>
 );
-
-AnswerCard.propTypes = {
-    issuePosition: PropTypes.string,
-    onClick: PropTypes.func,
-    selected: PropTypes.bool
-};
 
 export default AnswerCard;
