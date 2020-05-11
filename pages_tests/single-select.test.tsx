@@ -3,8 +3,8 @@ import React from 'react';
 import { generateCandidate, generateIssues, generateRace } from '../data/__testdata__/testdata';
 import SingleSelect from '../pages/single-select';
 
-// eslint-disable-next-line no-empty-function
-window.HTMLElement.prototype.scrollIntoView = () => {};
+// eslint-disable-next-line no-empty-function,@typescript-eslint/no-empty-function
+window.HTMLElement.prototype.scrollIntoView = (): void => {};
 
 const issues = generateIssues(2);
 const candidate1 = generateCandidate(5, 'democrat', issues);

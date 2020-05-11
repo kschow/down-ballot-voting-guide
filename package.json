@@ -8,7 +8,7 @@
     "start": "next start",
     "test": "jest --verbose=true --watchAll=true",
     "test-ci": "jest --verbose=false --watchAll=false",
-    "lint": "eslint 'components/**/**.{js,jsx,ts,tsx}' 'data/**/**.{js,jsx,ts,tsx}' 'pages/**/**.{js,jsx,ts,tsx}'",
+    "lint": "eslint 'components/**/**.{ts,tsx}' 'data/**/**.{ts,tsx}' 'pages/**/**.{ts,tsx}'",
     "tint": "yarn test-ci && yarn lint",
     "pre-commit": "yarn tint",
     "pre-push": "yarn tint && rm -r .next && yarn build"
@@ -52,7 +52,7 @@
       "\\.scss$": "identity-obj-proxy"
     },
     "setupFilesAfterEnv": [
-      "./jest.setup.js"
+      "./jest.setup.ts"
     ]
   }
 }
