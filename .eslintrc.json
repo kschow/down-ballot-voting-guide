@@ -79,6 +79,7 @@
             "ignoreJSX": "multi-line"
         }],
         "multiline-ternary": [2, "always-multiline"],
-        "lines-between-class-members": "off"
+        "lines-between-class-members": "off",
+        "react/prop-types": "off"
     }
 }

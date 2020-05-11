@@ -1,26 +1,19 @@
 import Head from 'next/head';
-import * as PropTypes from 'prop-types';
 import React, { FunctionComponent } from 'react';
 import './Layout.module.scss';
 
 type BaseLayoutProps = {
     title: string;
-    children: React.Component;
 }
 
-const BaseLayout: FunctionComponent<BaseLayoutProps> = (props: BaseLayoutProps) => (
+const BaseLayout: FunctionComponent<BaseLayoutProps> = ({ title, children }) => (
     <div>
         <Head>
-            <title>{props.title}</title>
+            <title>{title}</title>
             <link rel="icon" href="/favicon.ico" />
         </Head>
-        {props.children}
+        {children}
     </div>
 );
-
-BaseLayout.propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.any
-};
 
 export default BaseLayout;
