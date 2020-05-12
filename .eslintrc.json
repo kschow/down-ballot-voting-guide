@@ -76,7 +76,8 @@
         "space-before-function-paren": [2, { "anonymous": "never", "named": "never", "asyncArrow": "always" }],
         "function-call-argument-newline": "off",
         "no-extra-parens": [2, "all", {
-            "ignoreJSX": "multi-line"
+            "ignoreJSX": "multi-line",
+            "nestedBinaryExpressions": false
         }],
         "multiline-ternary": [2, "always-multiline"],
         "lines-between-class-members": "off",

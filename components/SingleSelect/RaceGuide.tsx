@@ -8,9 +8,10 @@ import { IssuePositions } from '../../data/Data';
 type RaceGuideProps = {
     guide: Guide;
     updatePageTitle(string): void;
+    finishRace(): void;
 }
 
-const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle }) => {
+const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle, finishRace }) => {
     const issueRef = useRef(null);
     const [isFirstIssue, setIsFirstIssue] = useState(true);
     const [issuePositions, setIssuePositions] = useState(null as IssuePositions);
@@ -35,6 +36,10 @@ const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle }
             candidates: candidateUpdates
         };
         guide.updateScore(update);
+
+        if (guide.onLastIssue()) {
+            finishRace();
+        }
         setIssuePositions(guide.getNextIssuePositions());
         setIsFirstIssue(false);
         setSelectedAnswer(null);

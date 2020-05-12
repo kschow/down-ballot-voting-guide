@@ -41,4 +41,6 @@ it('follows the flow from beginning to end', () => {
     expect(queryByText('c8-i1')).toBeInTheDocument();
     fireEvent.click(getByText('c5-i1'));
     fireEvent.click(getByText('Finish »'));
+
+    expect(queryByText('Results')).toBeInTheDocument();
 });
