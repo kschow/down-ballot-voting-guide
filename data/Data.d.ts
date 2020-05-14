@@ -57,8 +57,9 @@ export type IssueScore = {
     candidates: CandidateScore[];
 }
 
-export type CandidateResult = {
+export type CandidateIssueResult = {
     issueName: string;
+    position: string;
     score: number;
 }
 
@@ -66,5 +67,5 @@ export type Result = {
     candidateId: number;
     candidateName: string;
     total: number;
-    issues: CandidateResult[];
+    issues: CandidateIssueResult[];
 }

@@ -1,4 +1,10 @@
-import { generateCandidate, generateIssues, generateNullCandidate, generateRace } from '../__testdata__/testdata';
+import {
+    generateCandidate,
+    generateIssues,
+    generateNullCandidate,
+    generateRace,
+    generateScore
+} from '../__testdata__/testdata';
 import Guide from '../Guide';
 
 describe('Guide scoring', () => {
@@ -264,14 +270,17 @@ describe('Guide scoring', () => {
                 issues: [
                     {
                         issueName: 'issue 0',
+                        position: 'c2-i0',
                         score: 1
                     },
                     {
                         issueName: 'issue 1',
+                        position: 'c2-i1',
                         score: 2
                     },
                     {
                         issueName: 'issue 2',
+                        position: 'c2-i2',
                         score: 7
                     }
                 ]
@@ -283,14 +292,17 @@ describe('Guide scoring', () => {
                 issues: [
                     {
                         issueName: 'issue 0',
+                        position: 'c1-i0',
                         score: 4
                     },
                     {
                         issueName: 'issue 1',
+                        position: 'c1-i1',
                         score: 1
                     },
                     {
                         issueName: 'issue 2',
+                        position: 'c1-i2',
                         score: 1
                     }
                 ]
@@ -302,14 +314,17 @@ describe('Guide scoring', () => {
                 issues: [
                     {
                         issueName: 'issue 0',
+                        position: null,
                         score: 0
                     },
                     {
                         issueName: 'issue 1',
+                        position: null,
                         score: 0
                     },
                     {
                         issueName: 'issue 2',
+                        position: null,
                         score: 0
                     }
                 ]
@@ -327,57 +342,9 @@ describe('Guide scoring', () => {
         const issueOrder = [0, 1, 2];
         const guide = new Guide(race, issueOrder);
 
-        const update1 = {
-            issueId: 0,
-            candidates: [
-                {
-                    candidateId: 1,
-                    score: 4
-                },
-                {
-                    candidateId: 2,
-                    score: 1
-                },
-                {
-                    candidateId: 3,
-                    score: 0
-                }
-            ]
-        };
-        const update2 = {
-            issueId: 1,
-            candidates: [
-                {
-                    candidateId: 1,
-                    score: 1
-                },
-                {
-                    candidateId: 2,
-                    score: 2
-                },
-                {
-                    candidateId: 3,
-                    score: 0
-                }
-            ]
-        };
-        const update3 = {
-            issueId: 2,
-            candidates: [
-                {
-                    candidateId: 1,
-                    score: 1
-                },
-                {
-                    candidateId: 2,
-                    score: 7
-                },
-                {
-                    candidateId: 3,
-                    score: 0
-                }
-            ]
-        };
+        const update1 = generateScore(0, candidates, [4, 1, 0]);
+        const update2 = generateScore(1, candidates, [1, 2, 0]);
+        const update3 = generateScore(2, candidates, [1, 7, 0]);
         guide.updateScore(update1);
         guide.updateScore(update2);
         guide.updateScore(update3);

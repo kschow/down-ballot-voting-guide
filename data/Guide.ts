@@ -53,18 +53,23 @@ class Guide {
 
     tallyResults(): Result[] {
         const results = this.race.candidates.map((candidate) => {
+
             const candidateIssueResults = this.race.issues.map((issue) => {
-                const issueScoreIndex = this.score.findIndex((issueScore) => issueScore.issueId === issue.issueId);
-                const candidateScoreIndex =
-                    this.score[issueScoreIndex].candidates
-                        .findIndex((candidateScore) => candidateScore.candidateId === candidate.candidateId);
+                const issueScore = this.score.find((iScore) => iScore.issueId === issue.issueId);
+                const candidateScore =
+                    issueScore.candidates.find((cScore) => cScore.candidateId === candidate.candidateId);
+
+                const position = candidate.positions.find((pos) => pos.issueId === issue.issueId);
+
                 return {
                     issueName: issue.issueName,
-                    score: this.score[issueScoreIndex].candidates[candidateScoreIndex].score
+                    position: position.position,
+                    score: candidateScore.score
                 };
             });
 
-            const totalScore = candidateIssueResults.reduce((accumulator, current) => accumulator + current.score, 0);
+            const totalScore = candidateIssueResults
+                .reduce((accumulator, current) => accumulator + current.score, 0);
 
             return {
                 candidateId: candidate.candidateId,

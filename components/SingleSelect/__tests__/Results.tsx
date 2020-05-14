@@ -1,203 +1,73 @@
 import Results from '../Results';
-import { Result } from '../../../data/Data';
 import React from 'react';
 import { render } from '@testing-library/react';
+import { generateCandidate, generateIssues, generateRace, generateScore } from '../../../data/__testdata__/testdata';
+import Guide from '../../../data/Guide';
 
-it('Top scoring result is displayed saying it\'s the highest rated choice if it\'s a clear winner', () => {
-    const results = [
-        {
-            candidateId: 3,
-            candidateName: 'candidate 3',
-            total: 3,
-            issues: [
-                {
-                    issueName: 'Immigration',
-                    score: 1
-                },
-                {
-                    issueName: 'Gun Violence',
-                    score: 1
-                },
-                {
-                    issueName: 'Health Care',
-                    score: 1
-                },
-                {
-                    issueName: 'Background',
-                    score: 0
-                },
-                {
-                    issueName: 'Other Issues',
-                    score: 0
-                }
-            ]
-        },
-        {
-            candidateId: 1,
-            candidateName: 'candidate 1',
-            total: 1,
-            issues: [
-                {
-                    issueName: 'Immigration',
-                    score: 0
-                },
-                {
-                    issueName: 'Gun Violence',
-                    score: 0
-                },
-                {
-                    issueName: 'Health Care',
-                    score: 0
-                },
-                {
-                    issueName: 'Background',
-                    score: 1
-                },
-                {
-                    issueName: 'Other Issues',
-                    score: 0
-                }
-            ]
-        },
-        {
-            candidateId: 2,
-            candidateName: 'candidate 2',
-            total: 1,
-            issues: [
-                {
-                    issueName: 'Immigration',
-                    score: 0
-                },
-                {
-                    issueName: 'Gun Violence',
-                    score: 0
-                },
-                {
-                    issueName: 'Health Care',
-                    score: 0
-                },
-                {
-                    issueName: 'Background',
-                    score: 0
-                },
-                {
-                    issueName: 'Other Issues',
-                    score: 1
-                }
-            ]
-        }
-    ] as Result[];
+/* eslint init-declarations: 0 */
 
-    const component = <Results results={results} />;
-    const { queryByText } = render(component);
+describe('single clear result', () => {
+    let results;
 
-    expect(queryByText('Based on your selections, ' +
-        'the candidate you chose is: candidate 3')).toBeInTheDocument();
+    beforeEach(() => {
+        const issues = generateIssues(5);
+        const candidateOne = generateCandidate(1, 'democrat', issues);
+        const candidateTwo = generateCandidate(2, 'democrat', issues);
+        const candidateThree = generateCandidate(3, 'democrat', issues);
+
+        const candidates = [candidateOne, candidateTwo, candidateThree];
+        const race = generateRace(4, issues, candidates);
+
+        const guide = new Guide(race);
+        guide.updateScore(generateScore(0, candidates, [0, 0, 1]));
+        guide.updateScore(generateScore(1, candidates, [0, 0, 1]));
+        guide.updateScore(generateScore(2, candidates, [0, 0, 1]));
+        guide.updateScore(generateScore(3, candidates, [1, 0, 0]));
+        guide.updateScore(generateScore(4, candidates, [0, 1, 0]));
+
+        results = guide.tallyResults();
+    });
+
+    it('Top scoring result is displayed saying it\'s the highest rated choice if it\'s a clear winner', () => {
+        const component = <Results results={results} />;
+        const { queryByText } = render(component);
+
+        expect(queryByText('Based on your selections, ' +
+            'the candidate you chose is: candidate 3')).toBeInTheDocument();
+    });
 });
 
-it('Top choices are displayed given there is no clear winner', () => {
-    const results = [
-        {
-            candidateId: 3,
-            candidateName: 'candidate 3',
-            total: 3,
-            issues: [
-                {
-                    issueName: 'Immigration',
-                    score: 1
-                },
-                {
-                    issueName: 'Gun Violence',
-                    score: 1
-                },
-                {
-                    issueName: 'Health Care',
-                    score: 1
-                },
-                {
-                    issueName: 'Background',
-                    score: 0
-                },
-                {
-                    issueName: 'Other Issues',
-                    score: 0
-                },
-                {
-                    issueName: 'Income Inequality',
-                    score: 0
-                }
-            ]
-        },
-        {
-            candidateId: 1,
-            candidateName: 'candidate 1',
-            total: 2,
-            issues: [
-                {
-                    issueName: 'Immigration',
-                    score: 0
-                },
-                {
-                    issueName: 'Gun Violence',
-                    score: 0
-                },
-                {
-                    issueName: 'Health Care',
-                    score: 0
-                },
-                {
-                    issueName: 'Background',
-                    score: 1
-                },
-                {
-                    issueName: 'Other Issues',
-                    score: 1
-                },
-                {
-                    issueName: 'Income Inequality',
-                    score: 0
-                }
-            ]
-        },
-        {
-            candidateId: 2,
-            candidateName: 'candidate 2',
-            total: 1,
-            issues: [
-                {
-                    issueName: 'Immigration',
-                    score: 0
-                },
-                {
-                    issueName: 'Gun Violence',
-                    score: 0
-                },
-                {
-                    issueName: 'Health Care',
-                    score: 0
-                },
-                {
-                    issueName: 'Background',
-                    score: 0
-                },
-                {
-                    issueName: 'Other Issues',
-                    score: 0
-                },
-                {
-                    issueName: 'Income Inequality',
-                    score: 1
-                }
-            ]
-        }
-    ] as Result[];
+describe('unclear top result', () => {
+    let results;
 
-    const component = <Results results={results} />;
-    const { queryByText } = render(component);
+    beforeEach(() => {
+        const issues = generateIssues(5);
+        const candidateEight = generateCandidate(8, 'democrat', issues);
+        const candidateNine = generateCandidate(9, 'democrat', issues);
+        const candidateTen = generateCandidate(10, 'democrat', issues);
 
-    expect(queryByText('Based on your selections, it was difficult to decide a clear candidate.')).toBeInTheDocument();
-    expect(queryByText('The candidates you selected answers for were: ' +
-        'candidate 3, candidate 1, and candidate 2')).toBeInTheDocument();
-    expect(queryByText('Please select one of them as a final choice ' +
-        'after reviewing their answers.')).toBeInTheDocument();
+        const candidates = [candidateEight, candidateNine, candidateTen];
+        const race = generateRace(6, issues, candidates);
+
+        const guide = new Guide(race);
+        guide.updateScore(generateScore(0, candidates, [1, 0, 0]));
+        guide.updateScore(generateScore(1, candidates, [1, 0, 0]));
+        guide.updateScore(generateScore(2, candidates, [0, 0, 1]));
+        guide.updateScore(generateScore(3, candidates, [0, 0, 1]));
+        guide.updateScore(generateScore(4, candidates, [0, 0, 1]));
+
+        results = guide.tallyResults();
+    });
+
+    it('Top choices are displayed given there is no clear winner', () => {
+        const component = <Results results={results} />;
+        const { queryByText } = render(component);
+
+        expect(queryByText('Based on your selections, ' +
+            'it was difficult to decide a clear candidate.')).toBeInTheDocument();
+        expect(queryByText('The candidates you selected answers for were: ' +
+            'candidate 10 and candidate 8')).toBeInTheDocument();
+        expect(queryByText('Please select one of them as a final choice ' +
+            'after reviewing their answers.')).toBeInTheDocument();
+    });
 });
