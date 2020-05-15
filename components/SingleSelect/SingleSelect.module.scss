@@ -1,5 +1,4 @@
-
-.answerCard {
+%singleSelectCard {
   composes: card from "../Shared/Global.module.scss";
   cursor: pointer;
 
@@ -17,6 +16,10 @@
   }
 }
 
+.answerCard {
+  @extend %singleSelectCard;
+}
+
 .answerGroup {
   composes: card from "../Shared/Global.module.scss";
   padding: 1.5em;
@@ -29,4 +32,19 @@
 .continueContainer {
   text-align: right;
   margin: .5em;
+}
+
+.candidateScoreCard {
+  @extend %singleSelectCard;
+
+  .candidateName {
+    font-size: 1.25em;
+    text-align: center;
+  }
+}
+
+.results {
+  .backToRaces {
+    text-align: center;
+  }
 }

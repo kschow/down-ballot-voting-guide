@@ -1,5 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Result } from '../../data/Data';
+import CandidateScoreCard from './CandidateScoreCard';
+import singleSelect from './SingleSelect.module.scss';
 
 type ResultsProps = {
     results: Result[];
@@ -32,10 +34,21 @@ const displayMultipleWinners = (winners: Result[]): string => {
 };
 
 const Results: FunctionComponent<ResultsProps> = ({ results }) => {
-    const winners = determineWinners(results);
+    const [selectedCandidate, setSelectedCandidate] = useState(null);
+    const [winners, setWinners] = useState([]);
+
+    useEffect(() => {
+        setWinners(determineWinners(results));
+    }, [results]);
+
+    useEffect(() => {
+        if (winners.length === 1) {
+            setSelectedCandidate(winners[0].candidateId);
+        }
+    }, [winners]);
 
     return (
-        <>
+        <div className={singleSelect.results}>
             <h2>Results</h2>
             {
                 winners.length === 1 &&
@@ -57,7 +70,25 @@ const Results: FunctionComponent<ResultsProps> = ({ results }) => {
                         </h4>
                     </>
             }
-        </>
+            {
+                winners.map((candidate) => {
+                    return <CandidateScoreCard
+                        key={candidate.candidateId}
+                        candidate={candidate}
+                        isSelected={candidate.candidateId === selectedCandidate}
+                        selectCandidate={(): void => setSelectedCandidate(candidate.candidateId)}
+                    />;
+                })
+            }
+            <div className={singleSelect.backToRaces}>
+                <button
+                    className={'link-button'}
+                    disabled={selectedCandidate === null}
+                >
+                    Back to Races
+                </button>
+            </div>
+        </div>
     );
 };
 
