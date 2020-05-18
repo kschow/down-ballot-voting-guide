@@ -1,7 +1,13 @@
 import Results from '../Results';
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react';
-import { generateCandidate, generateIssues, generateRace, generateScore } from '../../../data/__testdata__/testdata';
+import {
+    generateCandidate,
+    generateIssues,
+    generateNullCandidate,
+    generateRace,
+    generateScore
+} from '../../../data/__testdata__/testdata';
 import Guide from '../../../data/Guide';
 
 /* eslint init-declarations: 0 */
@@ -81,7 +87,7 @@ describe('unclear top result', () => {
         expect(queryByText('The candidates you selected answers for were: ' +
             'candidate 10 and candidate 8')).toBeInTheDocument();
         expect(queryByText('Please select one of them as a final choice ' +
-            'after reviewing their answers.')).toBeInTheDocument();
+            'after reviewing their answers by clicking on their name.')).toBeInTheDocument();
     });
 
     it('Back to Races link is unavailable until a choice is selected', () => {
@@ -94,5 +100,53 @@ describe('unclear top result', () => {
         expect(backToRacesButton).toBeDisabled();
         fireEvent.click(candidateTen);
         expect(backToRacesButton).not.toBeDisabled();
+    });
+});
+
+describe('candidate scorecard interactions', () => {
+    let results;
+    beforeEach(() => {
+        const issues = generateIssues(3);
+        const candidateFour = generateCandidate(4, 'democrat', issues);
+        const candidateFive = generateCandidate(5, 'democrat', issues);
+        const candidateSix = generateCandidate(6, 'democrat', issues);
+        const candidateSeven = generateNullCandidate(7, 'democrat', issues);
+
+        const candidates = [candidateFour, candidateFive, candidateSix, candidateSeven];
+        const race = generateRace(13, issues, candidates);
+
+        const guide = new Guide(race);
+        guide.updateScore(generateScore(0, candidates, [1, 0, 0, 0]));
+        guide.updateScore(generateScore(1, candidates, [0, 1, 0, 0]));
+        guide.updateScore(generateScore(2, candidates, [0, 0, 1, 0]));
+
+        results = guide.tallyResults();
+    });
+
+    it('displays name of candidate and shows expandable headers for issues, ' +
+        'clicking on a header shows the position for the clicked issue', () => {
+        const component = <Results results={results} />;
+        const { getByText, getAllByText, queryByText } = render(component);
+
+        expect(getByText('candidate 4')).toBeInTheDocument();
+        expect(getByText('candidate 5')).toBeInTheDocument();
+        expect(getByText('candidate 6')).toBeInTheDocument();
+
+        const issueZeroes = getAllByText('issue 0');
+        expect(issueZeroes).toHaveLength(3);
+        expect(getAllByText('issue 1')).toHaveLength(3);
+        expect(getAllByText('issue 2')).toHaveLength(3);
+
+        expect(queryByText('c4-i0')).not.toBeInTheDocument();
+        expect(queryByText('c5-i0')).not.toBeInTheDocument();
+        expect(queryByText('c6-i0')).not.toBeInTheDocument();
+
+        fireEvent.click(issueZeroes[0]);
+        fireEvent.click(issueZeroes[1]);
+        fireEvent.click(issueZeroes[2]);
+
+        expect(queryByText('c4-i0')).toBeInTheDocument();
+        expect(queryByText('c5-i0')).toBeInTheDocument();
+        expect(queryByText('c6-i0')).toBeInTheDocument();
     });
 });

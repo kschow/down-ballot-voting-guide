@@ -66,7 +66,8 @@ const Results: FunctionComponent<ResultsProps> = ({ results }) => {
                             The candidates you selected answers for were: {displayMultipleWinners(winners)}
                         </h4>
                         <h4>
-                            Please select one of them as a final choice after reviewing their answers.
+                            Please select one of them as a final choice after reviewing their answers
+                            by clicking on their name.
                         </h4>
                     </>
             }
