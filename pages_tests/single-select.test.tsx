@@ -43,4 +43,9 @@ it('follows the flow from beginning to end', () => {
     fireEvent.click(getByText('Finish »'));
 
     expect(queryByText('Results')).toBeInTheDocument();
+    expect(queryByText('candidate 5')).toBeInTheDocument();
+    fireEvent.click(getByText('Back to Races'));
+
+    expect(queryByText('race 256')).toBeInTheDocument();
+    expect(queryByText('race 100')).toBeInTheDocument();
 });

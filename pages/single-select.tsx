@@ -29,11 +29,17 @@ const SingleSelect: FunctionComponent<SingleSelectProps> = ({ races, issueOrder 
 
     const finishRace = (): void => {
         setFlowState('results');
+        setPageTitle(`${guide.race.raceName} - Results`);
         setRaceResults(guide.tallyResults());
     };
 
     const updatePageTitle = (issueName): void => {
         setPageTitle(`${guide.race.raceName} - ${issueName}`);
+    };
+
+    const goToRaces = (): void => {
+        setFlowState('raceSelection');
+        setPageTitle('Select a Race');
     };
 
     return (
@@ -47,10 +53,7 @@ const SingleSelect: FunctionComponent<SingleSelectProps> = ({ races, issueOrder 
                             To continue, click&nbsp;
                             <button
                                 className="link-button"
-                                onClick={(): void => {
-                                    setFlowState('raceSelection');
-                                    setPageTitle('Select a Race');
-                                }}
+                                onClick={goToRaces}
                             >here
                             </button>
                         </div>
@@ -73,7 +76,7 @@ const SingleSelect: FunctionComponent<SingleSelectProps> = ({ races, issueOrder 
             }
             {
                 flowState === 'results' && raceResults &&
-                    <Results results={raceResults}/>
+                    <Results results={raceResults} backToRaces={goToRaces} />
             }
         </BaseLayout>
     );

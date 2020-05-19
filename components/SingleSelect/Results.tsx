@@ -5,6 +5,7 @@ import singleSelect from './SingleSelect.module.scss';
 
 type ResultsProps = {
     results: Result[];
+    backToRaces(): void;
 };
 
 const determineWinners = (results: Result[]): Result[] => {
@@ -33,7 +34,7 @@ const displayMultipleWinners = (winners: Result[]): string => {
     return displayedWinners;
 };
 
-const Results: FunctionComponent<ResultsProps> = ({ results }) => {
+const Results: FunctionComponent<ResultsProps> = ({ results, backToRaces }) => {
     const [selectedCandidate, setSelectedCandidate] = useState(null);
     const [winners, setWinners] = useState([]);
 
@@ -85,6 +86,7 @@ const Results: FunctionComponent<ResultsProps> = ({ results }) => {
                 <button
                     className={'link-button'}
                     disabled={selectedCandidate === null}
+                    onClick={backToRaces}
                 >
                     Back to Races
                 </button>
