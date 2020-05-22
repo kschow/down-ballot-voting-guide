@@ -2,21 +2,20 @@ import React, { FunctionComponent } from 'react';
 import LWV_DEM_SEN from '../../data/dem/lwv-dem-sen';
 import LWV_GOP_SEN from '../../data/gop/lwv-gop-sen';
 import { Race } from '../../data/Data';
+import global from './Global.module.scss';
 
-type RaceButtonProps = {
-    linkText: string;
+type RaceCardProps = {
+    raceDisplay: string;
     race: Race;
     selectRace(race: Race): void;
 }
 
-const RaceButton: FunctionComponent<RaceButtonProps> = ({ linkText, race, selectRace }) => (
-    <div>
-        <button
-            className="link-button"
-            onClick={(): void => selectRace(race)}
-        >
-            {linkText}
-        </button>
+const RaceCard: FunctionComponent<RaceCardProps> = ({ raceDisplay, race, selectRace }) => (
+    <div
+        className={`${global.card} ${global.race}`}
+        onClick={(): void => selectRace(race)}
+    >
+        {raceDisplay}
     </div>
 );
 
@@ -40,23 +39,23 @@ const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, race
                 races ?
                     races.map((race) => {
                         return (
-                            <RaceButton
+                            <RaceCard
                                 key={race.raceId}
                                 race={race}
-                                linkText={race.raceName}
+                                raceDisplay={race.raceName}
                                 selectRace={selectRace}
                             />
                         );
                     }) :
                     <>
-                        <RaceButton
+                        <RaceCard
                             race={democratUSsenatorRace}
-                            linkText="Democratic Primary: US Senator"
+                            raceDisplay="Democratic Primary: US Senator"
                             selectRace={selectRace}
                         />
-                        <RaceButton
+                        <RaceCard
                             race={gopUSsenatorRace}
-                            linkText="GOP Primary: US Senator"
+                            raceDisplay="GOP Primary: US Senator"
                             selectRace={selectRace}
                         />
                     </>

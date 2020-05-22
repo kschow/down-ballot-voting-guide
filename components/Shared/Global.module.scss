@@ -7,4 +7,17 @@
   .title {
     margin-bottom: .5em;
   }
+
+  &.race {
+    cursor: pointer;
+
+    background-image: url("../Icons/keyboard_arrow_right-24px.svg");
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    background-size: 2em;
+
+    &:hover {
+      background-color: #bfb;
+    }
+  }
 }

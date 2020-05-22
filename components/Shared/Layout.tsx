@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import React, { FunctionComponent } from 'react';
-import './Layout.module.scss';
 
 type BaseLayoutProps = {
     title: string;

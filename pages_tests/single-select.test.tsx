@@ -27,8 +27,8 @@ it('follows the flow from beginning to end', () => {
     fireEvent.click(getByText('here'));
 
     // Expect race selection page to exist with shown races
-    expect(queryByText('race 256')).toBeInTheDocument();
-    expect(queryByText('race 100')).toBeInTheDocument();
+    expect(queryByText(/race 256/u)).toBeInTheDocument();
+    expect(queryByText(/race 100/u)).toBeInTheDocument();
     fireEvent.click(getByText('race 100'));
 
     // Run through the guide for selected race
@@ -46,6 +46,6 @@ it('follows the flow from beginning to end', () => {
     expect(queryByText('candidate 5')).toBeInTheDocument();
     fireEvent.click(getByText('Back to Races'));
 
-    expect(queryByText('race 256')).toBeInTheDocument();
-    expect(queryByText('race 100')).toBeInTheDocument();
+    expect(queryByText(/race 256/u)).toBeInTheDocument();
+    expect(queryByText(/race 100/u)).toBeInTheDocument();
 });
