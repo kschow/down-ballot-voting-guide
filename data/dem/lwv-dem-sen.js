@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 const LWV_DEM_SEN = {
-    'type': 'primary',
-    'party': 'democrat',
+    'name': '2020 Texas Democratic Primary',
     'races': [
         {
             'raceId': 1,

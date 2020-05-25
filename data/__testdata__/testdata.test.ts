@@ -162,8 +162,7 @@ it('generateRace generates the expected race', () => {
 
 it('generateElection generates the expected election', () => {
     const expectedElection = {
-        'type': 'primary',
-        'party': 'republican',
+        'name': '2020 GOP Primary',
         'races': [
             {
                 'raceId': 1,
@@ -319,12 +318,7 @@ it('generateElection generates the expected election', () => {
     const race2 = generateRace(2, race1and2Issues, [candidate1]);
     const race3 = generateRace(3, race3Issues, [candidate3, candidate4]);
 
-    const generatedElection =
-        generateElection('primary', 'republican', [
-            race1,
-            race2,
-            race3
-        ]);
+    const generatedElection = generateElection('2020 GOP Primary', [race1, race2, race3]);
 
     expect(generatedElection).toStrictEqual(expectedElection);
 });

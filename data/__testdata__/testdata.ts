@@ -66,8 +66,8 @@ const generateRace = (id: number, issues: Issue[], candidates: Candidate[]): Rac
     };
 };
 
-const generateElection = (type: string, party: string, races: Race[]): Election => {
-    return { type, party, races };
+const generateElection = (name: string, races: Race[]): Election => {
+    return { name, races };
 };
 
 const generateScore = (issueId: number, candidates: Candidate[], scores: number[]): IssueScore => {

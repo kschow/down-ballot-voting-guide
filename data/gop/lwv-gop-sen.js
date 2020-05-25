@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 const LWV_GOP_SEN = {
-    'type': 'primary',
-    'party': 'republican',
+    'name': '2020 Texas GOP Primary',
     'races': [
         {
             'raceId': 1,

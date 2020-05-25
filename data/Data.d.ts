@@ -30,8 +30,7 @@ export type Race = {
 }
 
 export type Election = {
-    type: string;
-    party: string;
+    name: string;
     races: Race[];
 }
 
