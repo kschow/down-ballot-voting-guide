@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import {
     generateCandidate,
@@ -33,19 +33,19 @@ it('displays the first set of answers', () => {
             updatePageTitle={dummyUpdatePageTitle}
             finishRace={dummyFinishRace}
         />;
-    const { queryByText } = render(component);
+    render(component);
 
-    expect(queryByText('c1-i2')).toBeInTheDocument();
-    expect(queryByText('c3-i2')).toBeInTheDocument();
-    expect(queryByText('c5-i2')).toBeInTheDocument();
+    expect(screen.getByText('c1-i2')).toBeInTheDocument();
+    expect(screen.getByText('c3-i2')).toBeInTheDocument();
+    expect(screen.getByText('c5-i2')).toBeInTheDocument();
 
-    expect(queryByText('c1-i0')).not.toBeInTheDocument();
-    expect(queryByText('c3-i0')).not.toBeInTheDocument();
-    expect(queryByText('c5-i0')).not.toBeInTheDocument();
+    expect(screen.queryByText('c1-i0')).not.toBeInTheDocument();
+    expect(screen.queryByText('c3-i0')).not.toBeInTheDocument();
+    expect(screen.queryByText('c5-i0')).not.toBeInTheDocument();
 
-    expect(queryByText('c1-i1')).not.toBeInTheDocument();
-    expect(queryByText('c3-i1')).not.toBeInTheDocument();
-    expect(queryByText('c5-i1')).not.toBeInTheDocument();
+    expect(screen.queryByText('c1-i1')).not.toBeInTheDocument();
+    expect(screen.queryByText('c3-i1')).not.toBeInTheDocument();
+    expect(screen.queryByText('c5-i1')).not.toBeInTheDocument();
 });
 
 it('selecting an answer changes the style to selected and only one can be selected at a time', () => {
@@ -58,10 +58,10 @@ it('selecting an answer changes the style to selected and only one can be select
             updatePageTitle={dummyUpdatePageTitle}
             finishRace={dummyFinishRace}
         />;
-    const { getByText } = render(component);
+    render(component);
 
-    const candidateOneAnswer = getByText('c1-i1');
-    const candidateTwoAnswer = getByText('c3-i1');
+    const candidateOneAnswer = screen.getByText('c1-i1');
+    const candidateTwoAnswer = screen.getByText('c3-i1');
 
     expect(candidateOneAnswer).not.toHaveClass('selected');
     expect(candidateTwoAnswer).not.toHaveClass('selected');
@@ -85,12 +85,12 @@ it('continuing to the next issue is disabled until an answer is selected', () =>
             updatePageTitle={dummyUpdatePageTitle}
             finishRace={dummyFinishRace}
         />;
-    const { getByText } = render(component);
+    render(component);
 
-    const continueButtonLink = getByText('Continue »');
+    const continueButtonLink = screen.getByRole('button', { name: /Continue/u });
     expect(continueButtonLink).toBeDisabled();
 
-    fireEvent.click(getByText('c3-i2'));
+    fireEvent.click(screen.getByText('c3-i2'));
     expect(continueButtonLink).not.toBeDisabled();
 });
 
@@ -104,19 +104,19 @@ it('clicking the continue button after selecting an answer moves you onto the ne
             updatePageTitle={dummyUpdatePageTitle}
             finishRace={dummyFinishRace}
         />;
-    const { getByText, queryByText } = render(component);
+    render(component);
 
-    const continueButtonLink = getByText('Continue »');
-    fireEvent.click(getByText('c3-i2'));
+    const continueButtonLink = screen.getByRole('button', { name: /Continue/u });
+    fireEvent.click(screen.getByText('c3-i2'));
     fireEvent.click(continueButtonLink);
 
-    expect(queryByText('c1-i0')).toBeInTheDocument();
-    expect(queryByText('c3-i0')).toBeInTheDocument();
-    expect(queryByText('c5-i0')).toBeInTheDocument();
+    expect(screen.getByText('c1-i0')).toBeInTheDocument();
+    expect(screen.getByText('c3-i0')).toBeInTheDocument();
+    expect(screen.getByText('c5-i0')).toBeInTheDocument();
 
-    expect(queryByText('c1-i2')).not.toBeInTheDocument();
-    expect(queryByText('c3-i2')).not.toBeInTheDocument();
-    expect(queryByText('c5-i2')).not.toBeInTheDocument();
+    expect(screen.queryByText('c1-i2')).not.toBeInTheDocument();
+    expect(screen.queryByText('c3-i2')).not.toBeInTheDocument();
+    expect(screen.queryByText('c5-i2')).not.toBeInTheDocument();
 
     expect(continueButtonLink).toBeDisabled();
 });
@@ -131,15 +131,15 @@ it('when you get to the last issue, the button says, "Finish" instead of "Contin
             updatePageTitle={dummyUpdatePageTitle}
             finishRace={dummyFinishRace}
         />;
-    const { getByText, queryByText } = render(component);
+    render(component);
 
-    const continueButtonLink = getByText('Continue »');
-    fireEvent.click(getByText('c1-i1'));
+    const continueButtonLink = screen.getByRole('button', { name: /Continue/u });
+    fireEvent.click(screen.getByText('c1-i1'));
     fireEvent.click(continueButtonLink);
-    fireEvent.click(getByText('c1-i0'));
+    fireEvent.click(screen.getByText('c1-i0'));
     fireEvent.click(continueButtonLink);
 
-    expect(queryByText('c1-i2')).toBeInTheDocument();
-    expect(queryByText('Continue »')).not.toBeInTheDocument();
-    expect(queryByText('Finish »')).toBeInTheDocument();
+    expect(screen.getByText('c1-i2')).toBeInTheDocument();
+    expect(screen.queryByText(/Continue/u)).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Finish/u })).toBeInTheDocument();
 });

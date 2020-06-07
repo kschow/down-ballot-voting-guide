@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import { generateCandidate, generateIssues, generateRace } from '../data/__testdata__/testdata';
 import SingleSelect from '../pages/single-select';
@@ -20,32 +20,32 @@ it('follows the flow from beginning to end', () => {
     const issueOrder = [0, 1];
     const component = <SingleSelect races={races} issueOrder={issueOrder}/>;
 
-    const { getByText, queryByText } = render(component);
+    render(component);
 
     // Expect description page to exist
-    expect(queryByText('Single Select')).toBeInTheDocument();
-    fireEvent.click(getByText('here'));
+    expect(screen.getByText('Single Select')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /here/u }));
 
     // Expect race selection page to exist with shown races
-    expect(queryByText(/race 256/u)).toBeInTheDocument();
-    expect(queryByText(/race 100/u)).toBeInTheDocument();
-    fireEvent.click(getByText('race 100'));
+    expect(screen.getByText(/race 256/u)).toBeInTheDocument();
+    expect(screen.getByText(/race 100/u)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/race 100/u));
 
     // Run through the guide for selected race
-    expect(queryByText('c5-i0')).toBeInTheDocument();
-    expect(queryByText('c8-i0')).toBeInTheDocument();
-    fireEvent.click(getByText('c5-i0'));
-    fireEvent.click(getByText('Continue »'));
+    expect(screen.getByText('c5-i0')).toBeInTheDocument();
+    expect(screen.getByText('c8-i0')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('c5-i0'));
+    fireEvent.click(screen.getByRole('button', { name: /Continue/u }));
 
-    expect(queryByText('c5-i1')).toBeInTheDocument();
-    expect(queryByText('c8-i1')).toBeInTheDocument();
-    fireEvent.click(getByText('c5-i1'));
-    fireEvent.click(getByText('Finish »'));
+    expect(screen.getByText('c5-i1')).toBeInTheDocument();
+    expect(screen.getByText('c8-i1')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('c5-i1'));
+    fireEvent.click(screen.getByRole('button', { name: /Finish/u }));
 
-    expect(queryByText('Results')).toBeInTheDocument();
-    expect(queryByText('candidate 5')).toBeInTheDocument();
-    fireEvent.click(getByText('Back to Races'));
+    expect(screen.getByText('Results')).toBeInTheDocument();
+    expect(screen.getByText('candidate 5')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /Back to Races/u }));
 
-    expect(queryByText(/race 256/u)).toBeInTheDocument();
-    expect(queryByText(/race 100/u)).toBeInTheDocument();
+    expect(screen.getByText(/race 256/u)).toBeInTheDocument();
+    expect(screen.getByText(/race 100/u)).toBeInTheDocument();
 });
