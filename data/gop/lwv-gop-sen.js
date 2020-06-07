@@ -196,8 +196,9 @@ const LWV_GOP_SEN = {
                 }
             ]
         }, {
-            'race-id': 2,
-            'race-name': 'Railroad Commissioner',
+            'raceId': 2,
+            'raceName': 'Railroad Commissioner',
+            'description': '',
             'issues': [
                 {
                     'issueId': 1,
@@ -248,7 +249,8 @@ const LWV_GOP_SEN = {
                     'facebook': null,
                     'twitter': null,
                     'video': null
-                }, {
+                },
+                {
                     'candidateId': 7,
                     'candidateName': 'James ‘Jim’ Wright',
                     'party': 'republican',

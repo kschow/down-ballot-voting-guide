@@ -26,9 +26,9 @@ type RaceSelectionProps = {
 
 const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, races }) => {
     // eslint-disable-next-line prefer-destructuring
-    const democratUSsenatorRace = LWV_DEM_SEN.races[0] as Race;
+    const democratUSsenatorRace = LWV_DEM_SEN.races[0];
     // eslint-disable-next-line prefer-destructuring
-    const gopUSsenatorRace = LWV_GOP_SEN.races[0] as Race;
+    const gopUSsenatorRace = LWV_GOP_SEN.races[0];
 
     return (
         <>
