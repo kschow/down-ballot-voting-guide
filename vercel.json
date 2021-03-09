@@ -1,7 +1,5 @@
 {
-  "name": "zeit-now-deployment",
   "version": 2,
-  "scope": "kschow",
   "public": false,
   "github": {
     "enabled": false
