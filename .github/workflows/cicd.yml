@@ -27,11 +27,11 @@ jobs:
     # Build
     - name: build & deploy
       run: yarn build
-    - uses: amondnet/vercel-action@v19
+    - uses: amondnet/vercel-action@v20
       id: now-deployment-production
       if: github.event_name == 'push'
       with:
-        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-token: ${{ secrets.ZEIT_TOKEN }}
         vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
         vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
         working-directory: ./
