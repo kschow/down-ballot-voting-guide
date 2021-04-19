@@ -2,9 +2,9 @@ import {
     generateCandidate,
     generateIssues,
     generateNullCandidate,
-    generateRace,
-    generateScore
+    generateRace
 } from '../__testdata__/testdata';
+import { generateScore } from '../__testdata__/testscoring';
 import Guide from '../Guide';
 
 describe('Guide scoring', () => {

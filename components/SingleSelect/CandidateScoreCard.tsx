@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from 'react';
-import { CandidateIssueResult, Result } from '../../data/Data';
+import { CandidateIssueResult, Result } from '../../data/Scoring';
 import singleSelect from './SingleSelect.module.scss';
 import DownArrow from '../Icons/DownArrow';
 import UpArrow from '../Icons/UpArrow';

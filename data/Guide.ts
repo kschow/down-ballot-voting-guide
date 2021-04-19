@@ -1,6 +1,7 @@
 import { shuffle } from 'lodash/collection';
 import { getPositionsForIssue, getRandomIssueOrder } from './utils';
-import { IssuePositions, IssueScore, Race, Result } from './Data';
+import { IssuePositions, Race } from './Data';
+import { IssueScore, Result } from './Scoring';
 
 class Guide {
     race: Race;

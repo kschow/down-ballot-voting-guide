@@ -5,11 +5,11 @@ import {
     generateCandidate,
     generateIssues,
     generateNullCandidate,
-    generateRace,
-    generateScore
+    generateRace
 } from '../../../data/__testdata__/testdata';
+import { generateScore } from '../../../data/__testdata__/testscoring';
 import Guide from '../../../data/Guide';
-import { Result } from '../../../data/Data';
+import { Result } from '../../../data/Scoring';
 
 /* eslint init-declarations: 0 */
 // eslint-disable-next-line @typescript-eslint/no-empty-function

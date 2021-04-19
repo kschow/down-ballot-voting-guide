@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { Result } from '../../data/Data';
+import { Result } from '../../data/Scoring';
 import CandidateScoreCard from './CandidateScoreCard';
 import singleSelect from './SingleSelect.module.scss';
 
