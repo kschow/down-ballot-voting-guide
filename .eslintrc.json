@@ -55,7 +55,7 @@
         "padded-blocks": "off",
         "arrow-body-style": "off",
         "sort-imports": "off",
-        "quote-props": "off",
+        "quote-props": [2, "consistent-as-needed"],
         "one-var": [2, "never"],
         "dot-location": [2, "property"],
         "quotes": [2, "single", {"allowTemplateLiterals":  true}],

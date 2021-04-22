@@ -31,8 +31,8 @@ it('generateIssues generates expected issues', () => {
 
 it('generateCandidate generates the expected candidate', () => {
     const expectedCandidate = {
-        'candidateId': 10,
-        'candidateName': 'candidate 10',
+        candidateId: 10,
+        candidateName: 'candidate 10',
         party: 'republican',
         positions: [
             {
@@ -44,11 +44,11 @@ it('generateCandidate generates the expected candidate', () => {
                 position: 'c10-i1'
             }
         ],
-        'education': 'Some School',
-        'campaignWebsite': 'http://google.com',
-        'facebook': 'https://facebook.com',
-        'twitter': 'http://twitter.com',
-        'video': 'https://youtube.com'
+        education: 'Some School',
+        campaignWebsite: 'http://google.com',
+        facebook: 'https://facebook.com',
+        twitter: 'http://twitter.com',
+        video: 'https://youtube.com'
     };
 
     const issues = generateIssues(2);
@@ -59,8 +59,8 @@ it('generateCandidate generates the expected candidate', () => {
 
 it('generateNullCandidate generates the expected null candidate', () => {
     const expectedCandidate = {
-        'candidateId': 8,
-        'candidateName': 'candidate 8',
+        candidateId: 8,
+        candidateName: 'candidate 8',
         party: 'democrat',
         positions: [
             {
@@ -76,11 +76,11 @@ it('generateNullCandidate generates the expected null candidate', () => {
                 position: null
             }
         ],
-        'education': null,
-        'campaignWebsite': null,
-        'facebook': null,
-        'twitter': null,
-        'video': null
+        education: null,
+        campaignWebsite: null,
+        facebook: null,
+        twitter: null,
+        video: null
     };
 
     const issues = generateIssues(3);
@@ -108,8 +108,8 @@ it('generateRace generates the expected race', () => {
         ],
         candidates: [
             {
-                'candidateId': 1,
-                'candidateName': 'candidate 1',
+                candidateId: 1,
+                candidateName: 'candidate 1',
                 party: 'democrat',
                 positions: [
                     {
@@ -121,15 +121,15 @@ it('generateRace generates the expected race', () => {
                         position: 'c1-i1'
                     }
                 ],
-                'education': 'Some School',
-                'campaignWebsite': 'http://google.com',
-                'facebook': 'https://facebook.com',
-                'twitter': 'http://twitter.com',
-                'video': 'https://youtube.com'
+                education: 'Some School',
+                campaignWebsite: 'http://google.com',
+                facebook: 'https://facebook.com',
+                twitter: 'http://twitter.com',
+                video: 'https://youtube.com'
             },
             {
-                'candidateId': 2,
-                'candidateName': 'candidate 2',
+                candidateId: 2,
+                candidateName: 'candidate 2',
                 party: 'democrat',
                 positions: [
                     {
@@ -141,11 +141,11 @@ it('generateRace generates the expected race', () => {
                         position: null
                     }
                 ],
-                'education': null,
-                'campaignWebsite': null,
-                'facebook': null,
-                'twitter': null,
-                'video': null
+                education: null,
+                campaignWebsite: null,
+                facebook: null,
+                twitter: null,
+                video: null
             }
         ]
     };
@@ -161,28 +161,28 @@ it('generateRace generates the expected race', () => {
 
 it('generateElection generates the expected election', () => {
     const expectedElection = {
-        'name': '2020 GOP Primary',
-        'races': [
+        name: '2020 GOP Primary',
+        races: [
             {
-                'raceId': 1,
-                'raceName': 'race 1',
-                'description': 'race description 1',
-                'issues': [
+                raceId: 1,
+                raceName: 'race 1',
+                description: 'race description 1',
+                issues: [
                     {
-                        'issueId': 0,
-                        'issueName': 'issue 0',
-                        'question': 'issue question 0'
+                        issueId: 0,
+                        issueName: 'issue 0',
+                        question: 'issue question 0'
                     },
                     {
-                        'issueId': 1,
-                        'issueName': 'issue 1',
-                        'question': 'issue question 1'
+                        issueId: 1,
+                        issueName: 'issue 1',
+                        question: 'issue question 1'
                     }
                 ],
-                'candidates': [
+                candidates: [
                     {
-                        'candidateId': 2,
-                        'candidateName': 'candidate 2',
+                        candidateId: 2,
+                        candidateName: 'candidate 2',
                         party: 'republican',
                         positions: [
                             {
@@ -194,34 +194,34 @@ it('generateElection generates the expected election', () => {
                                 position: null
                             }
                         ],
-                        'education': null,
-                        'campaignWebsite': null,
-                        'facebook': null,
-                        'twitter': null,
-                        'video': null
+                        education: null,
+                        campaignWebsite: null,
+                        facebook: null,
+                        twitter: null,
+                        video: null
                     }
                 ]
             },
             {
-                'raceId': 2,
-                'raceName': 'race 2',
-                'description': 'race description 2',
-                'issues': [
+                raceId: 2,
+                raceName: 'race 2',
+                description: 'race description 2',
+                issues: [
                     {
-                        'issueId': 0,
-                        'issueName': 'issue 0',
-                        'question': 'issue question 0'
+                        issueId: 0,
+                        issueName: 'issue 0',
+                        question: 'issue question 0'
                     },
                     {
-                        'issueId': 1,
-                        'issueName': 'issue 1',
-                        'question': 'issue question 1'
+                        issueId: 1,
+                        issueName: 'issue 1',
+                        question: 'issue question 1'
                     }
                 ],
-                'candidates': [
+                candidates: [
                     {
-                        'candidateId': 1,
-                        'candidateName': 'candidate 1',
+                        candidateId: 1,
+                        candidateName: 'candidate 1',
                         party: 'republican',
                         positions: [
                             {
@@ -233,34 +233,34 @@ it('generateElection generates the expected election', () => {
                                 position: null
                             }
                         ],
-                        'education': null,
-                        'campaignWebsite': null,
-                        'facebook': null,
-                        'twitter': null,
-                        'video': null
+                        education: null,
+                        campaignWebsite: null,
+                        facebook: null,
+                        twitter: null,
+                        video: null
                     }
                 ]
             },
             {
-                'raceId': 3,
-                'raceName': 'race 3',
-                'description': 'race description 3',
-                'issues': [
+                raceId: 3,
+                raceName: 'race 3',
+                description: 'race description 3',
+                issues: [
                     {
-                        'issueId': 0,
-                        'issueName': 'issue 0',
-                        'question': 'issue question 0'
+                        issueId: 0,
+                        issueName: 'issue 0',
+                        question: 'issue question 0'
                     },
                     {
-                        'issueId': 2,
-                        'issueName': 'issue 2',
-                        'question': 'issue question 2'
+                        issueId: 2,
+                        issueName: 'issue 2',
+                        question: 'issue question 2'
                     }
                 ],
-                'candidates': [
+                candidates: [
                     {
-                        'candidateId': 3,
-                        'candidateName': 'candidate 3',
+                        candidateId: 3,
+                        candidateName: 'candidate 3',
                         party: 'republican',
                         positions: [
                             {
@@ -272,15 +272,15 @@ it('generateElection generates the expected election', () => {
                                 position: null
                             }
                         ],
-                        'education': null,
-                        'campaignWebsite': null,
-                        'facebook': null,
-                        'twitter': null,
-                        'video': null
+                        education: null,
+                        campaignWebsite: null,
+                        facebook: null,
+                        twitter: null,
+                        video: null
                     },
                     {
-                        'candidateId': 4,
-                        'candidateName': 'candidate 4',
+                        candidateId: 4,
+                        candidateName: 'candidate 4',
                         party: 'republican',
                         positions: [
                             {
@@ -292,11 +292,11 @@ it('generateElection generates the expected election', () => {
                                 position: null
                             }
                         ],
-                        'education': null,
-                        'campaignWebsite': null,
-                        'facebook': null,
-                        'twitter': null,
-                        'video': null
+                        education: null,
+                        campaignWebsite: null,
+                        facebook: null,
+                        twitter: null,
+                        video: null
                     }
                 ]
             }
