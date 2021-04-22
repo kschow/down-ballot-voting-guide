@@ -37,7 +37,7 @@ const answerTwo = {
     selected: true
 };
 
-const Description: FunctionComponent<{}> = () => {
+const Description: FunctionComponent = () => {
     return (
         <>
             <div>
