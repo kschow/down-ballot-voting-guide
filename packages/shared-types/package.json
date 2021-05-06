@@ -1,0 +1,28 @@
+{
+  "name": "@dbvg/shared-types",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "src/__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "source": "lib/index.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "test": "jest --verbose=true --watchAll=true",
+    "test-ci": "jest --verbose=false --watchAll=false",
+    "lint": "eslint 'src/**/**.ts'",
+    "tint": "yarn test-ci && yarn lint"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.14.0",
+    "@babel/preset-typescript": "^7.13.0",
+    "eslint": "^7.25.0",
+    "jest": "^26.6.3",
+    "typescript": "^4.2.4"
+  }
+}
