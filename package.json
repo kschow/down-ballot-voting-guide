@@ -14,7 +14,8 @@
     "lint": "lerna run lint",
     "tint": "lerna run tint",
     "pre-commit": "yarn tint",
-    "pre-push": "yarn tint && yarn clean && yarn build"
+    "pre-push": "yarn tint && yarn clean && yarn build",
+    "dev": "lerna run dev"
   },
   "workspaces": [
     "packages/*"
