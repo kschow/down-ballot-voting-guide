@@ -39,7 +39,7 @@ jobs:
         vercel-args: '--prod '
     - name: deploy data builder
       uses: amondnet/vercel-action@v20
-      id: now-deployment-production
+      id: now-deployment-production-data-builder
       if: github.event_name == 'push'
       with:
         vercel-token: ${{ secrets.VERCEL_TOKEN }}
