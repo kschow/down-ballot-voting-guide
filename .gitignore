@@ -36,4 +36,6 @@ packages/**/build
 /.idea/
 
 # misc
+.vercel*
+
 .vercel
