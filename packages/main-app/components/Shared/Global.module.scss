@@ -1,11 +1,11 @@
 .card {
   border: 2px solid #222;
   border-radius: 5px;
-  margin: .5em;
-  padding: 1.5em;
+  margin: .5rem;
+  padding: 1rem;
 
   .title {
-    margin-bottom: .5em;
+    margin-bottom: .5rem;
   }
 
   &.race {
@@ -14,7 +14,7 @@
     background-image: url("../Icons/keyboard_arrow_right-24px.svg");
     background-repeat: no-repeat;
     background-position: 95% center;
-    background-size: 2em;
+    background-size: 2rem;
 
     &:hover {
       background-color: #bfb;
