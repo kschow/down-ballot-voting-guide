@@ -1,30 +1,17 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { CandidateIssueResult, Result } from '../../data/Scoring';
 import singleSelect from './SingleSelect.module.scss';
-import DownArrow from '../Icons/DownArrow';
-import UpArrow from '../Icons/UpArrow';
+import global from '../Shared/Global.module.scss';
 
 const CandidatePosition: FunctionComponent<CandidateIssueResult> = ({ issueName, position, score }) => {
-    const [displayPosition, setDisplayPosition] = useState(false);
-
-    const toggleDisplayPosition = (): void => {
-        setDisplayPosition(!displayPosition);
-    };
-
     return (
-        <div
-            className={`${singleSelect.issue} ${score && singleSelect.selected}`}
-            onClick={(): void => toggleDisplayPosition()}
-        >
-            <div className={singleSelect.issueName}>
-                <div>{issueName}</div>
-                {
-                    displayPosition ? <UpArrow /> : <DownArrow />
-                }
-            </div>
-            <div>
-                { displayPosition && position }
-            </div>
+        <div className={`${singleSelect.issue} ${score && singleSelect.selected}`}>
+            <details>
+                <summary className={singleSelect.issueName}>
+                    {issueName} {score > 0 && <span className={global.srOnly}>(selected)</span>}
+                </summary>
+                <span>{ position }</span>
+            </details>
         </div>
     );
 };
@@ -41,12 +28,12 @@ const CandidateScoreCard: FunctionComponent<CandidateScoreCardProps> = ({ candid
             className={`${singleSelect.candidateScoreCard} ${isSelected && singleSelect.selected}`}
             data-testid={candidate.candidateId}
         >
-            <div
-                className={singleSelect.candidateName}
-                onClick={selectCandidate}
-            >
-                {candidate.candidateName}
-            </div>
+            <button onClick={selectCandidate}>
+                <h2 className={singleSelect.candidateName}>
+                    {candidate.candidateName}
+                    {isSelected && <span className={global.srOnly}>(selected)</span>}
+                </h2>
+            </button>
             {
                 candidate.issues.map((issue) => {
                     return (

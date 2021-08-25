@@ -43,6 +43,15 @@
     }
   }
 
+  button {
+      display: block;
+      background-color: inherit;
+      margin: auto;
+      border: none;
+      font: inherit;
+      padding: 0;
+  }
+
   .candidateName {
     font-size: 1.5rem;
     text-align: center;
@@ -76,6 +85,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    details {
+      cursor: default;
+      background-repeat: no-repeat;
+      background-position: right -.25rem;
+      background-size: 2rem;
+      background-image: url("../Icons/keyboard_arrow_down-24px.svg");
+      &[open] {
+        background-image: url("../Icons/keyboard_arrow_up-24px.svg");
+      }
+
+      summary {
+        cursor: pointer;
+      }
     }
   }
 }

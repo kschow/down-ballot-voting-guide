@@ -50,26 +50,26 @@ const Results: FunctionComponent<ResultsProps> = ({ results, backToRaces }) => {
 
     return (
         <div className={singleSelect.results}>
-            <h2>Results</h2>
+            <h1>Results</h1>
             {
                 winners.length === 1 &&
-                    <h3>
-                        Based on your selections, the candidate you chose is: {winners[0].candidateName}
-                    </h3>
+                    <p>
+                        <b>Based on your selections, the candidate you chose is: {winners[0].candidateName}</b>
+                    </p>
             }
             {
                 winners.length > 1 &&
                     <>
-                        <h3>
-                            Based on your selections, it was difficult to decide a clear candidate.
-                        </h3>
-                        <h4>
-                            The candidates you selected answers for were: {displayMultipleWinners(winners)}
-                        </h4>
-                        <h4>
-                            Please select one of them as a final choice after reviewing their answers
-                            by clicking on their name.
-                        </h4>
+                        <p>
+                            <b>Based on your selections, it was difficult to decide a clear candidate.</b>
+                        </p>
+                        <p>
+                            <b>The candidates you selected answers for were: {displayMultipleWinners(winners)}</b>
+                        </p>
+                        <p>
+                            <b>Please select one of them as a final choice after reviewing
+                            their answers by clicking on their name.</b>
+                        </p>
                     </>
             }
             {

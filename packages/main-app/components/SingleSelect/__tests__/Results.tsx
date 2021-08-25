@@ -137,16 +137,16 @@ describe('candidate scorecard interactions', () => {
         expect(screen.getAllByText('issue 1')).toHaveLength(3);
         expect(screen.getAllByText('issue 2')).toHaveLength(3);
 
-        expect(screen.queryByText('c4-i0')).not.toBeInTheDocument();
-        expect(screen.queryByText('c5-i0')).not.toBeInTheDocument();
-        expect(screen.queryByText('c6-i0')).not.toBeInTheDocument();
+        expect(screen.getByText('c4-i0')).not.toBeVisible();
+        expect(screen.getByText('c5-i0')).not.toBeVisible();
+        expect(screen.getByText('c6-i0')).not.toBeVisible();
 
-        fireEvent.click(issueZeroes[0]);
-        fireEvent.click(issueZeroes[1]);
-        fireEvent.click(issueZeroes[2]);
+        issueZeroes.forEach((element) => {
+            fireEvent.click(element);
+        });
 
-        expect(screen.getByText('c4-i0')).toBeInTheDocument();
-        expect(screen.getByText('c5-i0')).toBeInTheDocument();
-        expect(screen.getByText('c6-i0')).toBeInTheDocument();
+        expect(screen.getByText('c4-i0')).toBeVisible();
+        expect(screen.getByText('c5-i0')).toBeVisible();
+        expect(screen.getByText('c6-i0')).toBeVisible();
     });
 });
