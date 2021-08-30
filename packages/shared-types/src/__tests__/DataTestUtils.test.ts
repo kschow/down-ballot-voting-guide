@@ -1,4 +1,5 @@
 import {
+    generateBallot,
     generateCandidate,
     generateElection,
     generateIssues,
@@ -159,8 +160,9 @@ it('generateRace generates the expected race', () => {
     expect(generatedRace).toStrictEqual(expectedRace);
 });
 
-it('generateElection generates the expected election', () => {
-    const expectedElection = {
+it('generateBallots generates the expected ballot', () => {
+    const expectedBallot = {
+        id: 1,
         name: '2020 GOP Primary',
         races: [
             {
@@ -317,7 +319,118 @@ it('generateElection generates the expected election', () => {
     const race2 = generateRace(2, race1and2Issues, [candidate1]);
     const race3 = generateRace(3, race3Issues, [candidate3, candidate4]);
 
-    const generatedElection = generateElection('2020 GOP Primary', [race1, race2, race3]);
+    const generatedElection = generateBallot(1, '2020 GOP Primary', [race1, race2, race3]);
 
+    expect(generatedElection).toStrictEqual(expectedBallot);
+});
+
+it('generateElection generates the correct election off ballots', () => {
+    const expectedElection = {
+        name: '2022 Primary Election',
+        ballots: [
+            {
+                id: 1,
+                name: '2022 GOP Primary',
+                races: [
+                    {
+                        raceId: 1,
+                        raceName: 'race 1',
+                        description: 'race description 1',
+                        issues: [
+                            {
+                                issueId: 0,
+                                issueName: 'issue 0',
+                                question: 'issue question 0'
+                            },
+                            {
+                                issueId: 1,
+                                issueName: 'issue 1',
+                                question: 'issue question 1'
+                            }
+                        ],
+                        candidates: [
+                            {
+                                candidateId: 1,
+                                candidateName: 'candidate 1',
+                                party: 'republican',
+                                positions: [
+                                    {
+                                        issueId: 0,
+                                        position: null
+                                    },
+                                    {
+                                        issueId: 1,
+                                        position: null
+                                    }
+                                ],
+                                education: null,
+                                campaignWebsite: null,
+                                facebook: null,
+                                twitter: null,
+                                video: null
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                name: '2022 Dem Primary',
+                races: [
+                    {
+                        raceId: 2,
+                        raceName: 'race 2',
+                        description: 'race description 2',
+                        issues: [
+                            {
+                                issueId: 0,
+                                issueName: 'issue 0',
+                                question: 'issue question 0'
+                            },
+                            {
+                                issueId: 1,
+                                issueName: 'issue 1',
+                                question: 'issue question 1'
+                            }
+                        ],
+                        candidates: [
+                            {
+                                candidateId: 2,
+                                candidateName: 'candidate 2',
+                                party: 'democrat',
+                                positions: [
+                                    {
+                                        issueId: 0,
+                                        position: null
+                                    },
+                                    {
+                                        issueId: 1,
+                                        position: null
+                                    }
+                                ],
+                                education: null,
+                                campaignWebsite: null,
+                                facebook: null,
+                                twitter: null,
+                                video: null
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
+
+    const issues = generateIssues(2);
+    const gopCandidate = generateNullCandidate(1, 'republican', issues);
+    const demCandidate = generateNullCandidate(2, 'democrat', issues);
+
+    const gopRace = generateRace(1, issues, [gopCandidate]);
+    const demRace = generateRace(2, issues, [demCandidate]);
+
+    const gopBallot = generateBallot(1, '2022 GOP Primary', [gopRace]);
+    const demBallot = generateBallot(2, '2022 Dem Primary', [demRace]);
+
+    const generatedElection = generateElection('2022 Primary Election', [gopBallot, demBallot]);
     expect(generatedElection).toStrictEqual(expectedElection);
 });

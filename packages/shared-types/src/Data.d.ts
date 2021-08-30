@@ -1,12 +1,26 @@
+export type Election = {
+    name: string;
+    ballots: Ballot[];
+}
+
+export type Ballot = {
+    id: number;
+    name: string;
+    races: Race[];
+}
+
+export type Race = {
+    raceId: number;
+    raceName: string;
+    description: string;
+    issues: Issue[];
+    candidates: Candidate[];
+}
+
 export type Issue = {
     issueId: number;
     issueName: string;
     question: string;
-}
-
-export type CandidatePosition = {
-    issueId: number;
-    position: string | null;
 }
 
 export type Candidate = {
@@ -21,17 +35,9 @@ export type Candidate = {
     video: string | null;
 }
 
-export type Race = {
-    raceId: number;
-    raceName: string;
-    description: string;
-    issues: Issue[];
-    candidates: Candidate[];
-}
-
-export type Election = {
-    name: string;
-    races: Race[];
+export type CandidatePosition = {
+    issueId: number;
+    position: string | null;
 }
 
 export type IssuePosition = {

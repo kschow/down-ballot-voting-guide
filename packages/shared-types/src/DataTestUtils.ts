@@ -1,4 +1,4 @@
-import { Candidate, Election, Issue, Race } from './Data';
+import { Ballot, Candidate, Election, Issue, Race } from './Data';
 
 const generateCandidate = (id: number, party: string, issues: Issue[]): Candidate => {
     const positions = issues.map((issue) => {
@@ -66,8 +66,12 @@ const generateRace = (id: number, issues: Issue[], candidates: Candidate[]): Rac
     };
 };
 
-const generateElection = (name: string, races: Race[]): Election => {
-    return { name, races };
+const generateElection = (name: string, ballots: Ballot[]): Election => {
+    return { name, ballots };
 };
 
-export { generateElection, generateRace, generateIssues, generateCandidate, generateNullCandidate };
+const generateBallot = (id: number, name: string, races: Race[]): Ballot => {
+    return { id, name, races };
+};
+
+export { generateElection, generateBallot, generateRace, generateIssues, generateCandidate, generateNullCandidate };
