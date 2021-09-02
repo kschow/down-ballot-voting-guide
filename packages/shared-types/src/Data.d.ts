@@ -1,11 +1,11 @@
 export type Election = {
-    name: string;
+    electionName: string;
     ballots: Ballot[];
 }
 
 export type Ballot = {
-    id: number;
-    name: string;
+    ballotId: number;
+    ballotName: string;
     races: Race[];
 }
 

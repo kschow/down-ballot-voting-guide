@@ -67,11 +67,11 @@ const generateRace = (id: number, issues: Issue[], candidates: Candidate[]): Rac
 };
 
 const generateElection = (name: string, ballots: Ballot[]): Election => {
-    return { name, ballots };
+    return { electionName: name, ballots };
 };
 
 const generateBallot = (id: number, name: string, races: Race[]): Ballot => {
-    return { id, name, races };
+    return { ballotId: id, ballotName: name, races };
 };
 
 export { generateElection, generateBallot, generateRace, generateIssues, generateCandidate, generateNullCandidate };

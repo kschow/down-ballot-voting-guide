@@ -162,8 +162,8 @@ it('generateRace generates the expected race', () => {
 
 it('generateBallots generates the expected ballot', () => {
     const expectedBallot = {
-        id: 1,
-        name: '2020 GOP Primary',
+        ballotId: 1,
+        ballotName: '2020 GOP Primary',
         races: [
             {
                 raceId: 1,
@@ -326,11 +326,11 @@ it('generateBallots generates the expected ballot', () => {
 
 it('generateElection generates the correct election off ballots', () => {
     const expectedElection = {
-        name: '2022 Primary Election',
+        electionName: '2022 Primary Election',
         ballots: [
             {
-                id: 1,
-                name: '2022 GOP Primary',
+                ballotId: 1,
+                ballotName: '2022 GOP Primary',
                 races: [
                     {
                         raceId: 1,
@@ -374,8 +374,8 @@ it('generateElection generates the correct election off ballots', () => {
                 ]
             },
             {
-                id: 2,
-                name: '2022 Dem Primary',
+                ballotId: 2,
+                ballotName: '2022 Dem Primary',
                 races: [
                     {
                         raceId: 2,
