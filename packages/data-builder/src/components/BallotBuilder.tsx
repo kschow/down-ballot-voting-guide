@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { Ballot, Race } from '@dbvg/shared-types/src';
+import styles from './Builders.module.css';
 
 type BallotCardProps = {
     ballot: Ballot;
@@ -29,7 +30,7 @@ const BallotBuilder:FC<BallotCardProps> = ({ ballot, updateBallot, getNewId }) =
     };
 
     return (
-        <div>
+        <div className={styles.builder}>
             <div>{`Ballot Name: ${ballot.ballotName}`}</div>
             <div>
                 <label htmlFor="ballotName">Ballot Name</label>
