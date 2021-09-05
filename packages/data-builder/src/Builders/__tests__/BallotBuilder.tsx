@@ -11,7 +11,7 @@ const renderElectionWithBallot = () => {
     fireEvent.click(addBallotButton);
 };
 
-it('updates ballot name properly', () => {
+it('Updates ballot name properly', () => {
     renderElectionWithBallot();
 
     const nameElement = screen.getByText('Ballot Name: Ballot #1');

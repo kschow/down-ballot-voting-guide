@@ -17,7 +17,7 @@ const getElectionFromLocalStorage = () => {
     return JSON.parse(localStorage.getItem('election'));
 };
 
-it('updates the election name properly', () => {
+it('Updates the election name properly', () => {
     renderElectionBuilder();
 
     const nameElement = screen.queryByText('Election Name:');
@@ -29,7 +29,7 @@ it('updates the election name properly', () => {
     expect(screen.queryByText('Election Name: new name')).toBeInTheDocument();
 });
 
-it('adds an empty ballot when Add Ballot is pressed', () => {
+it('Adds an empty ballot when Add Ballot is pressed', () => {
     renderElectionBuilder();
     const addBallotButton = screen.getByRole('button', { name: 'Add Ballot' });
     fireEvent.click(addBallotButton);
@@ -38,7 +38,7 @@ it('adds an empty ballot when Add Ballot is pressed', () => {
     expect(screen.queryByRole('button', { name: 'Add Race' })).toBeInTheDocument();
 });
 
-it('saves to localStorage on changes to election', () => {
+it('Saves to localStorage on changes to election', () => {
     renderElectionBuilder();
     const initialStorage = {
         electionName: '',
