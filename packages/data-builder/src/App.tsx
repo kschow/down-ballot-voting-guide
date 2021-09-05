@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import ElectionBuilder from './components/ElectionBuilder';
+import ElectionBuilder from './Builders/ElectionBuilder';
 import { IdProvider } from './IdContext';
 
 const App:FC = () => {
