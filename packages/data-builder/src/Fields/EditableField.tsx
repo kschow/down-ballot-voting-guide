@@ -1,6 +1,11 @@
 import React, { FC, useState } from 'react';
 import { useEditable } from './EditableContext';
 import styles from './Editable.module.scss';
+// using material icons
+import saveIcon from './icons/save.svg';
+import cancelIcon from './icons/cancel.svg';
+import editIcon from './icons/edit.svg';
+import disabledEdit from './icons/edit-disabled.svg';
 
 type EditableFieldProps = {
     name: string;
@@ -41,27 +46,43 @@ const EditableField:FC<EditableFieldProps> = (props) => {
     };
 
     return (
-        <div className={styles.Editable}>
+        <>
             { areEditing ?
-                <>
-                    <form onSubmit={saveField}>
-                        <label htmlFor={name}>{label}</label>
-                        <input id={name} onChange={updateFieldData} value={fieldData} />
-                        <button type="submit" onClick={saveField}>Save</button>
-                        <button type="reset" onClick={finishEdit}>Cancel</button>
-                    </form>
-                </> :
-                <>
+                <form className={styles.Editable} onSubmit={saveField}>
+                    <label htmlFor={name}>{label}</label>
+                    <input type="text" id={name} onChange={updateFieldData} value={fieldData} />
+                    <div>
+                        <input
+                            type="image"
+                            name="submit"
+                            src={saveIcon}
+                            onClick={saveField}
+                            alt="Save"
+                            title="Save"
+                        />
+                        <input
+                            type="image"
+                            name="cancel"
+                            src={cancelIcon}
+                            onClick={finishEdit}
+                            alt="Cancel"
+                            title="Cancel"
+                        />
+                    </div>
+                </form> :
+                <div className={styles.Editable}>
                     <span>{`${label} ${data}`}</span>
-                    <button
-                        disabled={!isEditable && !areEditing}
+                    <input
+                        type="image"
+                        disabled={!isEditable}
                         onClick={enableEditing}
-                    >
-                        {`Edit (${name})`}
-                    </button>
-                </>
+                        src={isEditable ? editIcon : disabledEdit}
+                        alt={`Edit (${name})`}
+                        title="Edit"
+                    />
+                </div>
             }
-        </div>
+        </>
     );
 };
 

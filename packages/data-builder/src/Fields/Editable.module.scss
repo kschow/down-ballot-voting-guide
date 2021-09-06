@@ -1,11 +1,19 @@
 .Editable {
     font-size: 1.25rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: flex-start;
 
-    label, input {
-        margin-right:.5rem;
+    input[type="text"] {
+        font-size: 1rem;
+        margin:0 .5rem;
+    }
+
+    span {
+        margin-right: .25rem;
     }
 
     button {
-        margin: 0 .25rem;
+        font-size: 1.25rem;
     }
 }
