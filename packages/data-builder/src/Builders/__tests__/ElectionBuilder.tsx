@@ -2,11 +2,16 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import ElectionBuilder from '../ElectionBuilder';
 import { IdProvider } from '../../IdContext';
+import { EditableProvider } from '../../Fields/EditableContext';
 
 const renderElectionBuilder = () => {
-    render(<IdProvider>
-        <ElectionBuilder />
-    </IdProvider>);
+    render(
+        <IdProvider>
+            <EditableProvider>
+                <ElectionBuilder />
+            </EditableProvider>
+        </IdProvider>
+    );
 };
 
 beforeEach(() => {
@@ -20,13 +25,18 @@ const getElectionFromLocalStorage = () => {
 it('Updates the election name properly', () => {
     renderElectionBuilder();
 
-    const nameElement = screen.queryByText('Election Name:');
+    const nameElement = screen.queryByText(/Election Name:/u);
     expect(nameElement).toBeInTheDocument();
 
-    const updateName = screen.getByLabelText('Election Name');
+    const editButton = screen.getByRole('button', { name: 'Edit (Election Name)' });
+    fireEvent.click(editButton);
+
+    const updateName = screen.getByLabelText(/Election Name/u);
     fireEvent.change(updateName, { target: { value: 'new name' } });
 
-    expect(screen.queryByText('Election Name: new name')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+    expect(screen.getByText('Election Name: new name')).toBeInTheDocument();
 });
 
 it('Adds an empty ballot when Add Ballot is pressed', () => {
@@ -51,8 +61,10 @@ it('Saves to localStorage on changes to election', () => {
         electionName: newName,
         ballots: []
     };
-    const updateName = screen.getByLabelText('Election Name');
+    fireEvent.click(screen.getByRole('button', { name: 'Edit (Election Name)' }));
+    const updateName = screen.getByLabelText(/Election Name/u);
     fireEvent.change(updateName, { target: { value: newName } });
+    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
     expect(getElectionFromLocalStorage()).toStrictEqual(updateNameStorage);
 
     const addBallotStorage = {

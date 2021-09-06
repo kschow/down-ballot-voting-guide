@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Ballot, Race } from '@dbvg/shared-types/src';
 import styles from './Builders.module.css';
+import EditableField from '../Fields/EditableField';
 
 type BallotCardProps = {
     ballot: Ballot;
@@ -9,8 +10,8 @@ type BallotCardProps = {
 }
 
 const BallotBuilder:FC<BallotCardProps> = ({ ballot, updateBallot, getNewId }) => {
-    const updateName = (event:React.FormEvent<HTMLInputElement>) => {
-        updateBallot({ ...ballot, ballotName: event.currentTarget.value });
+    const updateName = (ballotName: string) => {
+        updateBallot({ ...ballot, ballotName });
     };
 
     const addRace = () => {
@@ -31,13 +32,14 @@ const BallotBuilder:FC<BallotCardProps> = ({ ballot, updateBallot, getNewId }) =
 
     return (
         <div className={styles.builder}>
-            <div>{`Ballot Name: ${ballot.ballotName}`}</div>
-            <div>
-                <label htmlFor="ballotName">Ballot Name</label>
-                <input id="ballotName" onChange={updateName} />
-            </div>
-
+            <EditableField
+                name={`Ballot #${ballot.ballotId} Name`}
+                label="Ballot Name:"
+                data={ballot.ballotName}
+                updateField={updateName}
+            />
             <button onClick={addRace}>Add Race</button>
+
             {
                 ballot.races.map((race, index) => {
                     return <div key={index}>{`Name: ${race.raceName}`}</div>;

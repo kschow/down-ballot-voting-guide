@@ -33,9 +33,11 @@ const TestSubject = () => {
 };
 
 const renderTestSubject = () => {
-    render(<EditableProvider>
-        <TestSubject />
-    </EditableProvider>);
+    render(
+        <EditableProvider>
+            <TestSubject />
+        </EditableProvider>
+    );
 };
 
 it('Displays all labels and fields to start', () => {
@@ -91,13 +93,32 @@ it('Cancelling an update returns to all fields editable with no changes', () => 
     const cancel = screen.getByRole('button', { name: 'Cancel' });
     fireEvent.click(cancel);
 
-    expect(screen.queryByText('First: first')).toBeInTheDocument();
-    expect(screen.queryByText(/will not be found/u)).not.toBeInTheDocument();
+    expect(screen.getByText('First: first')).toBeInTheDocument();
+    expect(screen.queryByText(/will not be saved/u)).not.toBeInTheDocument();
     const editableButtons = screen.getAllByRole('button', { name: /Edit/u });
     expect(editableButtons).toHaveLength(3);
     editableButtons.forEach((button) => {
         expect(button).toBeEnabled();
     });
+});
+
+it('Cancelling and then editing resets the input to the current field data, ' +
+    'not what was previously edited', () => {
+    renderTestSubject();
+
+    const editThird = screen.getByRole('button', { name: 'Edit (Third)' });
+    fireEvent.click(editThird);
+
+    const thirdData = screen.getByLabelText(/Third/u);
+    expect(thirdData).toHaveValue('third');
+    fireEvent.change(thirdData, { target: { value: 'changed data' } });
+    expect(thirdData).toHaveValue('changed data');
+    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
+
+    const editThirdAfterCancel = screen.getByRole('button', { name: 'Edit (Third)' });
+    fireEvent.click(editThirdAfterCancel);
+    const thirdDataAfterCancel = screen.getByLabelText(/Third/u);
+    expect(thirdDataAfterCancel).toHaveValue('third');
 });
 
 it('Saving an edit persists value and returns all fields to editable', () => {

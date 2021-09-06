@@ -3,6 +3,7 @@ import { Election, Ballot } from '@dbvg/shared-types/src';
 import BallotBuilder from './BallotBuilder';
 import { useIdGenerator } from '../IdContext';
 import styles from './Builders.module.css';
+import EditableField from '../Fields/EditableField';
 
 const ElectionBuilder:FC = () => {
     const { getNewId } = useIdGenerator();
@@ -15,10 +16,10 @@ const ElectionBuilder:FC = () => {
         localStorage.setItem('election', JSON.stringify(election));
     }, [election]);
 
-    const updateName = (event:React.FormEvent<HTMLInputElement>) => {
+    const updateName = (electionName: string) => {
         setElection({
             ...election,
-            electionName: event.currentTarget.value
+            electionName
         });
     };
 
@@ -50,11 +51,12 @@ const ElectionBuilder:FC = () => {
     return (
         <div id="election" className={styles.main}>
             <div className={styles.builder}>
-                <div>{`Election Name: ${election.electionName}`}</div>
-                <div>
-                    <label htmlFor="electionName">Election Name</label>
-                    <input id="electionName" name="electionName" onChange={updateName} />
-                </div>
+                <EditableField
+                    name="Election Name"
+                    label="Election Name:"
+                    data={election.electionName}
+                    updateField={updateName}
+                />
                 <div>
                     <button onClick={addBallot}>Add Ballot</button>
                 </div>

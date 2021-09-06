@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useEditable } from './EditableContext';
+import styles from './Editable.module.scss';
 
 type EditableFieldProps = {
     name: string;
@@ -16,6 +17,7 @@ const EditableField:FC<EditableFieldProps> = (props) => {
 
     const enableEditing = () => {
         if (isEditable) {
+            setFieldData(data);
             setAreEditing(true);
             toggleEditable();
         }
@@ -32,19 +34,22 @@ const EditableField:FC<EditableFieldProps> = (props) => {
         }
     };
 
-    const saveField = () => {
+    const saveField = (event: React.SyntheticEvent) => {
+        event.preventDefault();
         updateField(fieldData);
         finishEdit();
     };
 
     return (
-        <div>
+        <div className={styles.Editable}>
             { areEditing ?
                 <>
-                    <label htmlFor={name}>{label}</label>
-                    <input id={name} onChange={updateFieldData} value={fieldData} />
-                    <button onClick={saveField}>Save</button>
-                    <button onClick={finishEdit}>Cancel</button>
+                    <form onSubmit={saveField}>
+                        <label htmlFor={name}>{label}</label>
+                        <input id={name} onChange={updateFieldData} value={fieldData} />
+                        <button type="submit" onClick={saveField}>Save</button>
+                        <button type="reset" onClick={finishEdit}>Cancel</button>
+                    </form>
                 </> :
                 <>
                     <span>{`${label} ${data}`}</span>
