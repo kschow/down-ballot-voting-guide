@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Election, Ballot } from '@dbvg/shared-types/src';
 import BallotBuilder from './BallotBuilder';
 import { useIdGenerator } from '../IdContext';
-import styles from './Builders.module.css';
+import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 
 const ElectionBuilder:FC = () => {
@@ -49,8 +49,8 @@ const ElectionBuilder:FC = () => {
     };
 
     return (
-        <div id="election" className={styles.main}>
-            <div className={styles.builder}>
+        <div className={styles.main}>
+            <div className={styles.election}>
                 <EditableField
                     name="Election Name"
                     label="Election Name:"

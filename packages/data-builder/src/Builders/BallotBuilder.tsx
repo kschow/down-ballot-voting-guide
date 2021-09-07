@@ -1,8 +1,9 @@
 import React, { FC } from 'react';
 import { Ballot, Race } from '@dbvg/shared-types/src';
-import styles from './Builders.module.css';
+import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import { useIdGenerator } from '../IdContext';
+import RaceBuilder from './RaceBuilder';
 
 type BallotBuilderProps = {
     ballot: Ballot;
@@ -17,18 +18,28 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
     };
 
     const addRace = () => {
+        const newId = getNewId();
         updateBallot({
             ...ballot,
             races: [
                 ...ballot.races,
                 {
-                    raceId: getNewId(),
-                    raceName: null,
+                    raceId: newId,
+                    raceName: `Race #${newId}`,
                     description: null,
                     issues: [],
                     candidates: []
                 } as Race
             ]
+        });
+    };
+
+    const updateRace = (race: Race) => {
+        const updatedRaceIndex = ballot.races.findIndex((find) => find.raceId === race.raceId);
+        ballot.races.splice(updatedRaceIndex, 1, race);
+        updateBallot({
+            ...ballot,
+            races: ballot.races
         });
     };
 
@@ -44,7 +55,11 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
 
             {
                 ballot.races.map((race, index) => {
-                    return <div key={index}>{`Name: ${race.raceName}`}</div>;
+                    return <RaceBuilder
+                        key={index}
+                        race={race}
+                        updateRace={updateRace}
+                    />;
                 })
             }
         </div>

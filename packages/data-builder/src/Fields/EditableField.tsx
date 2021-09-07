@@ -22,7 +22,7 @@ const EditableField:FC<EditableFieldProps> = (props) => {
 
     const enableEditing = () => {
         if (isEditable) {
-            setFieldData(data);
+            setFieldData(data ? data : '');
             setAreEditing(true);
             toggleEditable();
         }
