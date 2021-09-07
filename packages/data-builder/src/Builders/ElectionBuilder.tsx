@@ -67,7 +67,6 @@ const ElectionBuilder:FC = () => {
                                 key={index}
                                 ballot={ballot}
                                 updateBallot={updateBallot}
-                                getNewId={getNewId}
                             />;
                         })
                     }

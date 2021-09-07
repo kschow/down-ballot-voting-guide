@@ -2,14 +2,16 @@ import React, { FC } from 'react';
 import { Ballot, Race } from '@dbvg/shared-types/src';
 import styles from './Builders.module.css';
 import EditableField from '../Fields/EditableField';
+import { useIdGenerator } from '../IdContext';
 
-type BallotCardProps = {
+type BallotBuilderProps = {
     ballot: Ballot;
     updateBallot: (ballot: Ballot) => void;
-    getNewId: () => number;
 }
 
-const BallotBuilder:FC<BallotCardProps> = ({ ballot, updateBallot, getNewId }) => {
+const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
+    const { getNewId } = useIdGenerator();
+
     const updateName = (ballotName: string) => {
         updateBallot({ ...ballot, ballotName });
     };
