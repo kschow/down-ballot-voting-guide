@@ -45,7 +45,7 @@ it('Adds an empty ballot when Add Ballot is pressed', () => {
     fireEvent.click(addBallotButton);
 
     expect(screen.queryByText('Ballot Name: Ballot #1')).toBeInTheDocument();
-    expect(screen.queryByRole('button', { name: 'Add Race' })).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Add Race to Ballot #1' })).toBeInTheDocument();
 });
 
 it('Saves to localStorage on changes to election', () => {
