@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Race } from '@dbvg/shared-types/src';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
-import partialUpdate from '../Utils/PartialUpdate';
+import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';
 
 type RaceBuilderProps = {
     race: Race,
@@ -10,14 +10,7 @@ type RaceBuilderProps = {
 };
 
 const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
-
-    const updateRaceAttribute = (attr: string, value: string) => {
-        updateRace({
-            ...race,
-            [attr]: value
-        });
-    };
-    const updateValueForAttribute = partialUpdate(updateRaceAttribute);
+    const updateValueForAttribute = curriedUpdateAttribute(updateRace)(race);
 
     return (
         <div className={styles.builder}>
