@@ -21,9 +21,9 @@ it('generateScore generates expected score', () => {
     };
 
     const issues = generateIssues(3);
-    const candidateOne = generateCandidate(1, 'democrat', issues);
-    const candidateThree = generateCandidate(3, 'republican', issues);
-    const candidateSix = generateCandidate(6, 'democrat', issues);
+    const candidateOne = generateCandidate(1, issues, 'democrat');
+    const candidateThree = generateCandidate(3, issues, 'republican');
+    const candidateSix = generateCandidate(6, issues, 'democrat');
 
     const generatedScore = generateScore(2, [candidateThree, candidateSix, candidateOne], [2, 1, 8]);
     expect(generatedScore).toStrictEqual(expectedScore);

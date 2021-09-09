@@ -88,11 +88,11 @@ describe('Guide scoring', () => {
         ];
 
         const issues = generateIssues(3);
-        const candidate1 = generateCandidate(1, 'democrat', issues);
-        const candidate2 = generateCandidate(2, 'democrat', issues);
-        const candidate3 = generateCandidate(3, 'democrat', issues);
-        const candidate4 = generateNullCandidate(4, 'democrat', issues);
-        const candidate5 = generateCandidate(5, 'democrat', issues);
+        const candidate1 = generateCandidate(1, issues, 'democrat');
+        const candidate2 = generateCandidate(2, issues, 'democrat');
+        const candidate3 = generateCandidate(3, issues, 'democrat');
+        const candidate4 = generateNullCandidate(4, issues, 'democrat');
+        const candidate5 = generateCandidate(5, issues, 'democrat');
 
         const candidates = [
             candidate1,
@@ -218,10 +218,10 @@ describe('Guide scoring', () => {
             }
         ];
         const issues = generateIssues(5);
-        const candidate1 = generateCandidate(1, 'democrat', issues);
-        const candidate2 = generateCandidate(2, 'democrat', issues);
-        const candidate3 = generateCandidate(3, 'democrat', issues);
-        const candidate4 = generateNullCandidate(4, 'democrat', issues);
+        const candidate1 = generateCandidate(1, issues, 'democrat');
+        const candidate2 = generateCandidate(2, issues, 'democrat');
+        const candidate3 = generateCandidate(3, issues, 'democrat');
+        const candidate4 = generateNullCandidate(4, issues, 'democrat');
 
         const candidates = [
             candidate1,
@@ -265,21 +265,21 @@ describe('Guide scoring', () => {
         const expectedResults = [
             {
                 candidateId: 2,
-                candidateName: 'candidate 2',
+                candidateName: 'Candidate #2',
                 total: 10,
                 issues: [
                     {
-                        issueName: 'issue 0',
+                        issueName: 'Issue #0',
                         position: 'c2-i0',
                         score: 1
                     },
                     {
-                        issueName: 'issue 1',
+                        issueName: 'Issue #1',
                         position: 'c2-i1',
                         score: 2
                     },
                     {
-                        issueName: 'issue 2',
+                        issueName: 'Issue #2',
                         position: 'c2-i2',
                         score: 7
                     }
@@ -287,21 +287,21 @@ describe('Guide scoring', () => {
             },
             {
                 candidateId: 1,
-                candidateName: 'candidate 1',
+                candidateName: 'Candidate #1',
                 total: 6,
                 issues: [
                     {
-                        issueName: 'issue 0',
+                        issueName: 'Issue #0',
                         position: 'c1-i0',
                         score: 4
                     },
                     {
-                        issueName: 'issue 1',
+                        issueName: 'Issue #1',
                         position: 'c1-i1',
                         score: 1
                     },
                     {
-                        issueName: 'issue 2',
+                        issueName: 'Issue #2',
                         position: 'c1-i2',
                         score: 1
                     }
@@ -309,21 +309,21 @@ describe('Guide scoring', () => {
             },
             {
                 candidateId: 3,
-                candidateName: 'candidate 3',
+                candidateName: 'Candidate #3',
                 total: 0,
                 issues: [
                     {
-                        issueName: 'issue 0',
+                        issueName: 'Issue #0',
                         position: null,
                         score: 0
                     },
                     {
-                        issueName: 'issue 1',
+                        issueName: 'Issue #1',
                         position: null,
                         score: 0
                     },
                     {
-                        issueName: 'issue 2',
+                        issueName: 'Issue #2',
                         position: null,
                         score: 0
                     }
@@ -332,9 +332,9 @@ describe('Guide scoring', () => {
         ];
 
         const issues = generateIssues(3);
-        const candidate1 = generateCandidate(1, 'republican', issues);
-        const candidate2 = generateCandidate(2, 'republican', issues);
-        const candidate3 = generateNullCandidate(3, 'republican', issues);
+        const candidate1 = generateCandidate(1, issues, 'republican');
+        const candidate2 = generateCandidate(2, issues, 'republican');
+        const candidate3 = generateNullCandidate(3, issues, 'republican');
 
         const candidates = [candidate1, candidate2, candidate3];
 

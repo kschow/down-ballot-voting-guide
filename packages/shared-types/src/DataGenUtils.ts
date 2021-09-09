@@ -1,6 +1,6 @@
 import { Ballot, Candidate, Election, Issue, Race } from './Data';
 
-const generateCandidate = (id: number, party: string, issues: Issue[]): Candidate => {
+const generateCandidate = (id: number, issues: Issue[], party: string): Candidate => {
     const positions = issues.map((issue) => {
         return {
             issueId: issue.issueId,
@@ -10,7 +10,7 @@ const generateCandidate = (id: number, party: string, issues: Issue[]): Candidat
 
     return {
         candidateId: id,
-        candidateName: `candidate ${id}`,
+        candidateName: `Candidate #${id}`,
         party,
         positions,
         education: 'Some School',
@@ -21,7 +21,7 @@ const generateCandidate = (id: number, party: string, issues: Issue[]): Candidat
     };
 };
 
-const generateNullCandidate = (id: number, party: string, issues: Issue[]): Candidate => {
+const generateNullCandidate = (id: number, issues: Issue[], party?: string): Candidate => {
     const positions = issues.map((issue) => {
         return {
             issueId: issue.issueId,
@@ -31,8 +31,8 @@ const generateNullCandidate = (id: number, party: string, issues: Issue[]): Cand
 
     return {
         candidateId: id,
-        candidateName: `candidate ${id}`,
-        party,
+        candidateName: `Candidate #${id}`,
+        party: party ? party : null,
         positions,
         education: null,
         campaignWebsite: null,
@@ -48,8 +48,8 @@ const generateIssues = (count: number): Issue[] => {
     for (let i = 0; i < count; i++) {
         issues.push({
             issueId: i,
-            issueName: `issue ${i}`,
-            question: `issue question ${i}`
+            issueName: `Issue #${i}`,
+            question: `Issue question #${i}`
         });
     }
 
@@ -59,8 +59,8 @@ const generateIssues = (count: number): Issue[] => {
 const generateRace = (id: number, issues: Issue[], candidates: Candidate[]): Race => {
     return {
         raceId: id,
-        raceName: `race ${id}`,
-        description: `race description ${id}`,
+        raceName: `Race #${id}`,
+        description: `Race description #${id}`,
         issues,
         candidates
     };
@@ -70,8 +70,12 @@ const generateElection = (name: string, ballots: Ballot[]): Election => {
     return { electionName: name, ballots };
 };
 
-const generateBallot = (id: number, name: string, races: Race[]): Ballot => {
-    return { ballotId: id, ballotName: name, races };
+const generateBallot = (id: number, races: Race[], name?: string): Ballot => {
+    return {
+        ballotId: id,
+        ballotName: name ? name : `Ballot #${id}`,
+        races
+    };
 };
 
 export { generateElection, generateBallot, generateRace, generateIssues, generateCandidate, generateNullCandidate };

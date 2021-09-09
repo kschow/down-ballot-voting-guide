@@ -7,8 +7,8 @@ import SingleSelect from '../pages/single-select';
 window.HTMLElement.prototype.scrollIntoView = (): void => {};
 
 const issues = generateIssues(2);
-const candidate1 = generateCandidate(5, 'democrat', issues);
-const candidate2 = generateCandidate(8, 'democrat', issues);
+const candidate1 = generateCandidate(5, issues, 'democrat');
+const candidate2 = generateCandidate(8, issues, 'democrat');
 const candidates = [candidate1, candidate2];
 
 const race1 = generateRace(256, issues, candidates);
@@ -27,9 +27,9 @@ it('follows the flow from beginning to end', () => {
     fireEvent.click(screen.getByRole('button', { name: /here/u }));
 
     // Expect race selection page to exist with shown races
-    expect(screen.getByText(/race 256/u)).toBeInTheDocument();
-    expect(screen.getByText(/race 100/u)).toBeInTheDocument();
-    fireEvent.click(screen.getByText(/race 100/u));
+    expect(screen.getByText(/Race #256/u)).toBeInTheDocument();
+    expect(screen.getByText(/Race #100/u)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/Race #100/u));
 
     // Run through the guide for selected race
     expect(screen.getByText('c5-i0')).toBeInTheDocument();
@@ -43,9 +43,9 @@ it('follows the flow from beginning to end', () => {
     fireEvent.click(screen.getByRole('button', { name: /Finish/u }));
 
     expect(screen.getByText('Results')).toBeInTheDocument();
-    expect(screen.getByText('candidate 5')).toBeInTheDocument();
+    expect(screen.getByText('Candidate #5')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /Back to Races/u }));
 
-    expect(screen.getByText(/race 256/u)).toBeInTheDocument();
-    expect(screen.getByText(/race 100/u)).toBeInTheDocument();
+    expect(screen.getByText(/Race #256/u)).toBeInTheDocument();
+    expect(screen.getByText(/Race #100/u)).toBeInTheDocument();
 });

@@ -9,7 +9,7 @@ import { getPositionsForIssue } from '../GuideUtils';
 describe('getPositionsForIssue', () => {
     it('getPositionsForIssue throws an error if any issue isn\'t found', () => {
         const issues = generateIssues(5);
-        const candidate1 = generateCandidate(1, 'democrat', issues);
+        const candidate1 = generateCandidate(1, issues, 'democrat');
 
         const candidates = [candidate1];
 
@@ -22,8 +22,8 @@ describe('getPositionsForIssue', () => {
     it('getPositionsForIssue gets all positions for an issue', () => {
         const expectedPositionsForIssue = {
             issueId: 1,
-            issueName: 'issue 1',
-            question: 'issue question 1',
+            issueName: 'Issue #1',
+            question: 'Issue question #1',
             positions: [
                 {
                     candidateId: 1,
@@ -41,9 +41,9 @@ describe('getPositionsForIssue', () => {
         };
 
         const issues = generateIssues(3);
-        const candidate1 = generateCandidate(1, 'democrat', issues);
-        const candidate2 = generateCandidate(2, 'democrat', issues);
-        const candidate3 = generateNullCandidate(3, 'democrat', issues);
+        const candidate1 = generateCandidate(1, issues, 'democrat');
+        const candidate2 = generateCandidate(2, issues, 'democrat');
+        const candidate3 = generateNullCandidate(3, issues, 'democrat');
 
         const candidates = [
             candidate1,

@@ -10,10 +10,10 @@ import Guide from '../../../data/Guide';
 import RaceGuide from '../RaceGuide';
 
 const issues = generateIssues(3);
-const candidate1 = generateCandidate(1, 'democrat', issues);
-const candidate2 = generateCandidate(3, 'democrat', issues);
-const candidate3 = generateCandidate(5, 'democrat', issues);
-const candidate4 = generateNullCandidate(7, 'democrat', issues);
+const candidate1 = generateCandidate(1, issues, 'democrat');
+const candidate2 = generateCandidate(3, issues, 'democrat');
+const candidate3 = generateCandidate(5, issues, 'democrat');
+const candidate4 = generateNullCandidate(7, issues, 'democrat');
 const candidates = [candidate1, candidate2, candidate3, candidate4];
 
 const race = generateRace(12, issues, candidates);

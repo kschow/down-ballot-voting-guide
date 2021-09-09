@@ -18,9 +18,9 @@ const dummyBackToRaces = (): void => {};
 describe('single clear result', () => {
     const generateResults = (): Result[] => {
         const issues = generateIssues(5);
-        const candidateOne = generateCandidate(1, 'democrat', issues);
-        const candidateTwo = generateCandidate(2, 'democrat', issues);
-        const candidateThree = generateCandidate(3, 'democrat', issues);
+        const candidateOne = generateCandidate(1, issues, 'democrat');
+        const candidateTwo = generateCandidate(2, issues, 'democrat');
+        const candidateThree = generateCandidate(3, issues, 'democrat');
 
         const candidates = [candidateOne, candidateTwo, candidateThree];
         const race = generateRace(4, issues, candidates);
@@ -40,15 +40,15 @@ describe('single clear result', () => {
         render(component);
 
         expect(screen.getByText('Based on your selections, ' +
-            'the candidate you chose is: candidate 3')).toBeInTheDocument();
+            'the candidate you chose is: Candidate #3')).toBeInTheDocument();
     });
 
     it('only top scorer is displayed as a selected result and link to go back to races is available', () => {
         const component = <Results results={generateResults()} backToRaces={dummyBackToRaces} />;
         render(component);
 
-        expect(screen.queryByText('candidate 1')).not.toBeInTheDocument();
-        expect(screen.queryByText('candidate 2')).not.toBeInTheDocument();
+        expect(screen.queryByText('Candidate #1')).not.toBeInTheDocument();
+        expect(screen.queryByText('Candidate #2')).not.toBeInTheDocument();
 
         const topResult = screen.getByTestId('3');
         expect(topResult).toHaveClass('selected');
@@ -62,9 +62,9 @@ describe('single clear result', () => {
 describe('unclear top result', () => {
     const generateResults = (): Result[] => {
         const issues = generateIssues(5);
-        const candidateEight = generateCandidate(8, 'democrat', issues);
-        const candidateNine = generateCandidate(9, 'democrat', issues);
-        const candidateTen = generateCandidate(10, 'democrat', issues);
+        const candidateEight = generateCandidate(8, issues, 'democrat');
+        const candidateNine = generateCandidate(9, issues, 'democrat');
+        const candidateTen = generateCandidate(10, issues, 'democrat');
 
         const candidates = [candidateEight, candidateNine, candidateTen];
         const race = generateRace(6, issues, candidates);
@@ -86,7 +86,7 @@ describe('unclear top result', () => {
         expect(screen.getByText('Based on your selections, ' +
             'it was difficult to decide a clear candidate.')).toBeInTheDocument();
         expect(screen.getByText('The candidates you selected answers for were: ' +
-            'candidate 10 and candidate 8')).toBeInTheDocument();
+            'Candidate #10 and Candidate #8')).toBeInTheDocument();
         expect(screen.getByText('Please select one of them as a final choice ' +
             'after reviewing their answers by clicking on their name.')).toBeInTheDocument();
     });
@@ -95,7 +95,7 @@ describe('unclear top result', () => {
         const component = <Results results={generateResults()} backToRaces={dummyBackToRaces} />;
         render(component);
 
-        const candidateTen = screen.getByText('candidate 10');
+        const candidateTen = screen.getByText('Candidate #10');
         const backToRacesButton = screen.getByRole('button', { name: /Back to Races/u });
 
         expect(backToRacesButton).toBeDisabled();
@@ -107,10 +107,10 @@ describe('unclear top result', () => {
 describe('candidate scorecard interactions', () => {
     const generateResults = (): Result[] => {
         const issues = generateIssues(3);
-        const candidateFour = generateCandidate(4, 'democrat', issues);
-        const candidateFive = generateCandidate(5, 'democrat', issues);
-        const candidateSix = generateCandidate(6, 'democrat', issues);
-        const candidateSeven = generateNullCandidate(7, 'democrat', issues);
+        const candidateFour = generateCandidate(4, issues, 'democrat');
+        const candidateFive = generateCandidate(5, issues, 'democrat');
+        const candidateSix = generateCandidate(6, issues, 'democrat');
+        const candidateSeven = generateNullCandidate(7, issues, 'democrat');
 
         const candidates = [candidateFour, candidateFive, candidateSix, candidateSeven];
         const race = generateRace(13, issues, candidates);
@@ -128,14 +128,14 @@ describe('candidate scorecard interactions', () => {
         const component = <Results results={generateResults()} backToRaces={dummyBackToRaces} />;
         render(component);
 
-        expect(screen.getByText('candidate 4')).toBeInTheDocument();
-        expect(screen.getByText('candidate 5')).toBeInTheDocument();
-        expect(screen.getByText('candidate 6')).toBeInTheDocument();
+        expect(screen.getByText('Candidate #4')).toBeInTheDocument();
+        expect(screen.getByText('Candidate #5')).toBeInTheDocument();
+        expect(screen.getByText('Candidate #6')).toBeInTheDocument();
 
-        const issueZeroes = screen.getAllByText('issue 0');
+        const issueZeroes = screen.getAllByText('Issue #0');
         expect(issueZeroes).toHaveLength(3);
-        expect(screen.getAllByText('issue 1')).toHaveLength(3);
-        expect(screen.getAllByText('issue 2')).toHaveLength(3);
+        expect(screen.getAllByText('Issue #1')).toHaveLength(3);
+        expect(screen.getAllByText('Issue #2')).toHaveLength(3);
 
         expect(screen.getByText('c4-i0')).not.toBeVisible();
         expect(screen.getByText('c5-i0')).not.toBeVisible();
