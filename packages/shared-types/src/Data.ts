@@ -26,7 +26,7 @@ export type Issue = {
 export type Candidate = {
     candidateId: number;
     candidateName: string;
-    party: string;
+    party: string | null;
     positions: CandidatePosition[];
     education: string | null;
     campaignWebsite: string | null;

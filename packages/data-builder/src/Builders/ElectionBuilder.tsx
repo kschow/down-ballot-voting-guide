@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Election, Ballot } from '@dbvg/shared-types/src';
+import { Election, Ballot } from '@dbvg/shared-types';
 import BallotBuilder from './BallotBuilder';
 import { useIdGenerator } from '../IdContext';
 import styles from './Builders.module.scss';

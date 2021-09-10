@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Ballot, Race } from '@dbvg/shared-types/src';
+import { Ballot, Race } from '@dbvg/shared-types';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import { useIdGenerator } from '../IdContext';

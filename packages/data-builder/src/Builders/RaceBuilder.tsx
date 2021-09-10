@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Race } from '@dbvg/shared-types/src';
+import { Race } from '@dbvg/shared-types';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';

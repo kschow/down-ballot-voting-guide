@@ -2,10 +2,7 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "allowJs": false,
-    "baseUrl": "./",
-    "paths": {
-      "@dbvg/shared-types": ["../shared-types"]
-    }
+    "baseUrl": "./"
   },
   "exclude": [
     "node_modules"
