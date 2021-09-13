@@ -45,8 +45,7 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
                 data={ballot.ballotName}
                 updateField={updateName}
             />
-            <button onClick={addRace}>{`Add Race to ${ballot.ballotName}`}</button>
-
+            <button onClick={addRace}>{`Add Race to Ballot #${ballot.ballotId}`}</button>
             {
                 ballot.races.map((race, index) => {
                     return <RaceBuilder

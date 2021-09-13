@@ -37,3 +37,10 @@ it('Updates description properly', () => {
 
     expect(screen.queryByText('Position Description: new description')).toBeInTheDocument();
 });
+
+it('Adds an issue to a race properly', () => {
+    renderElectionWithRace();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+    expect(screen.queryByText('Issue Name: Issue #3')).toBeInTheDocument();
+});

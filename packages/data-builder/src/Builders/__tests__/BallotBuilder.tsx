@@ -30,3 +30,9 @@ it('Updates ballot name properly', () => {
     expect(screen.getByText('Ballot Name: ballot name')).toBeInTheDocument();
 });
 
+it('Adds a race to the ballot properly', () => {
+    renderElectionWithBallot();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Add Race to Ballot #1' }));
+    expect(screen.queryByText('Race Name: Race #2')).toBeInTheDocument();
+});

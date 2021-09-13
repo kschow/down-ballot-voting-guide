@@ -53,9 +53,7 @@ const ElectionBuilder:FC = () => {
                     data={election.electionName}
                     updateField={updateName}
                 />
-                <div>
-                    <button onClick={addBallot}>Add Ballot</button>
-                </div>
+                <button onClick={addBallot}>Add Ballot</button>
                 <div id="ballots">
                     {
                         election.ballots.map((ballot, index) => {

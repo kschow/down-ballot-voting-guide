@@ -84,4 +84,12 @@ const generateBallot = (id: number, races?: Race[], name?: string): Ballot => {
     };
 };
 
-export { generateElection, generateBallot, generateRace, generateIssues, generateCandidate, generateNullCandidate };
+export {
+    generateElection,
+    generateBallot,
+    generateRace,
+    generateIssue,
+    generateIssues,
+    generateCandidate,
+    generateNullCandidate
+};
