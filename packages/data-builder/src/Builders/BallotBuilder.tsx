@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Ballot, Race } from '@dbvg/shared-types';
+import { Ballot, generateRace, Race } from '@dbvg/shared-types';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import { useIdGenerator } from '../IdContext';
@@ -18,18 +18,12 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
     };
 
     const addRace = () => {
-        const newId = getNewId();
+        const raceId = getNewId();
         updateBallot({
             ...ballot,
             races: [
                 ...ballot.races,
-                {
-                    raceId: newId,
-                    raceName: `Race #${newId}`,
-                    description: null,
-                    issues: [],
-                    candidates: []
-                } as Race
+                generateRace(raceId)
             ]
         });
     };

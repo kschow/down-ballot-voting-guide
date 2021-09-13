@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Election, Ballot } from '@dbvg/shared-types';
+import { Election, Ballot, generateBallot } from '@dbvg/shared-types';
 import BallotBuilder from './BallotBuilder';
 import { useIdGenerator } from '../IdContext';
 import styles from './Builders.module.scss';
@@ -27,11 +27,7 @@ const ElectionBuilder:FC = () => {
         const ballotId = getNewId();
         const newBallots = [
             ...election.ballots,
-            {
-                ballotId,
-                ballotName: `Ballot #${ballotId}`,
-                races: []
-            } as Ballot
+            generateBallot(ballotId)
         ];
         setElection({
             ...election,

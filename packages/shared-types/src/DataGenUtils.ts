@@ -42,39 +42,45 @@ const generateNullCandidate = (id: number, issues: Issue[], party?: string): Can
     };
 };
 
+const generateIssue = (id: number): Issue => {
+    return {
+        issueId: id,
+        issueName: `Issue #${id}`,
+        question: `Issue question #${id}`
+    };
+};
+
 const generateIssues = (count: number): Issue[] => {
     const issues = [];
-    // eslint-disable-next-line id-length
-    for (let i = 0; i < count; i++) {
-        issues.push({
-            issueId: i,
-            issueName: `Issue #${i}`,
-            question: `Issue question #${i}`
-        });
+    for (let id = 0; id < count; id++) {
+        issues.push(generateIssue(id));
     }
 
     return issues;
 };
 
-const generateRace = (id: number, issues: Issue[], candidates: Candidate[]): Race => {
+const generateRace = (id: number, issues?: Issue[], candidates?: Candidate[]): Race => {
     return {
         raceId: id,
         raceName: `Race #${id}`,
         description: `Race description #${id}`,
-        issues,
-        candidates
+        issues: issues ? issues : [],
+        candidates: candidates ? candidates : []
     };
 };
 
 const generateElection = (name: string, ballots: Ballot[]): Election => {
-    return { electionName: name, ballots };
+    return {
+        electionName: name,
+        ballots
+    };
 };
 
-const generateBallot = (id: number, races: Race[], name?: string): Ballot => {
+const generateBallot = (id: number, races?: Race[], name?: string): Ballot => {
     return {
         ballotId: id,
         ballotName: name ? name : `Ballot #${id}`,
-        races
+        races: races ? races : []
     };
 };
 
