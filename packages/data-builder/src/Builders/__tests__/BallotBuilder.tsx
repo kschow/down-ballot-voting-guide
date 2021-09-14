@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React from 'react';
 import ElectionBuilder from '../ElectionBuilder';
 import { IdProvider } from '../../IdContext';
 import { EditableProvider } from '../../Fields/EditableContext';
+import userEvent from '@testing-library/user-event';
 
 const renderElectionWithBallot = () => {
     render(
@@ -13,7 +14,7 @@ const renderElectionWithBallot = () => {
         </IdProvider>
     );
     const addBallotButton = screen.getByRole('button', { name: 'Add Ballot' });
-    fireEvent.click(addBallotButton);
+    userEvent.click(addBallotButton);
 };
 
 it('Updates ballot name properly', () => {
@@ -22,10 +23,11 @@ it('Updates ballot name properly', () => {
     const nameElement = screen.getByText('Ballot Name: Ballot #1');
     expect(nameElement).toBeInTheDocument();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Edit (Ballot #1 Name)' }));
+    userEvent.click(screen.getByRole('button', { name: 'Edit (Ballot #1 Name)' }));
     const updateName = screen.getByLabelText(/Ballot Name/u);
-    fireEvent.change(updateName, { target: { value: 'ballot name' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    userEvent.clear(updateName);
+    userEvent.type(updateName, 'ballot name');
+    userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
     expect(screen.getByText('Ballot Name: ballot name')).toBeInTheDocument();
 });
@@ -33,6 +35,6 @@ it('Updates ballot name properly', () => {
 it('Adds a race to the ballot properly', () => {
     renderElectionWithBallot();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add Race to Ballot #1' }));
+    userEvent.click(screen.getByRole('button', { name: 'Add Race to Ballot #1' }));
     expect(screen.queryByText('Race Name: Race #2')).toBeInTheDocument();
 });

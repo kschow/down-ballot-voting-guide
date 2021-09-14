@@ -1,8 +1,9 @@
 import React from 'react';
 import { IdProvider } from '../../IdContext';
 import { EditableProvider } from '../../Fields/EditableContext';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ElectionBuilder from '../ElectionBuilder';
+import userEvent from '@testing-library/user-event';
 
 const renderElectionWithRace = () => {
     render(
@@ -12,17 +13,18 @@ const renderElectionWithRace = () => {
             </EditableProvider>
         </IdProvider>
     );
-    fireEvent.click(screen.getByRole('button', { name: 'Add Ballot' }));
-    fireEvent.click(screen.getByRole('button', { name: /Add Race/u }));
+    userEvent.click(screen.getByRole('button', { name: 'Add Ballot' }));
+    userEvent.click(screen.getByRole('button', { name: /Add Race/u }));
 };
 
 it('Updates race name properly', () => {
     renderElectionWithRace();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Edit (Race #2 Name)' }));
+    userEvent.click(screen.getByRole('button', { name: 'Edit (Race #2 Name)' }));
     const raceNameData = screen.getByLabelText(/Race Name/u);
-    fireEvent.change(raceNameData, { target: { value: 'New Race' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    userEvent.clear(raceNameData);
+    userEvent.type(raceNameData, 'New Race');
+    userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
     expect(screen.queryByText('Race Name: New Race')).toBeInTheDocument();
 });
@@ -30,10 +32,11 @@ it('Updates race name properly', () => {
 it('Updates description properly', () => {
     renderElectionWithRace();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Edit (Race #2 Description)' }));
+    userEvent.click(screen.getByRole('button', { name: 'Edit (Race #2 Description)' }));
     const descriptionData = screen.getByLabelText(/Position Description/u);
-    fireEvent.change(descriptionData, { target: { value: 'new description' } });
-    fireEvent.click(screen.getByRole('button', { name: 'Save' }));
+    userEvent.clear(descriptionData);
+    userEvent.type(descriptionData, 'new description');
+    userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
     expect(screen.queryByText('Position Description: new description')).toBeInTheDocument();
 });
@@ -41,6 +44,6 @@ it('Updates description properly', () => {
 it('Adds an issue to a race properly', () => {
     renderElectionWithRace();
 
-    fireEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+    userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
     expect(screen.queryByText('Issue Name: Issue #3')).toBeInTheDocument();
 });
