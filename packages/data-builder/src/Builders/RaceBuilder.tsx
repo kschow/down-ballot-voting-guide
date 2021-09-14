@@ -51,6 +51,9 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
             />
             <div>
                 <button onClick={addIssue}>{`Add Issue to Race #${race.raceId}`}</button>
+            </div>
+            <div className={styles.internalList}>
+                <span>Issues:</span>
                 {
                     race.issues.map((issue) => {
                         return <IssueBuilder

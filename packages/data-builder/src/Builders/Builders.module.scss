@@ -1,8 +1,10 @@
+$borderRadius: 3px;
+
 .main {
   max-width: 65%;
   margin: 3rem auto auto;
   border: 2px solid black;
-  border-radius: 3px;
+  border-radius: $borderRadius;
 }
 
 .election {
@@ -11,7 +13,18 @@
 
 .builder {
   border: 1px solid black;
-  border-radius: 3px;
+  border-radius: $borderRadius;
   padding: 1rem;
   margin: .5rem 0;
+}
+
+.internalList {
+  border: 1px solid black;
+  border-radius: $borderRadius;
+  margin-top: .5rem;
+  padding: .5rem;
+
+  span {
+    font-size: 1.25rem;
+  }
 }
