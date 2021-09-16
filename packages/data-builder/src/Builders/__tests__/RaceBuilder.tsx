@@ -41,9 +41,43 @@ it('Updates description properly', () => {
     expect(screen.queryByText('Position Description: new description')).toBeInTheDocument();
 });
 
-it('Adds an issue to a race properly', () => {
-    renderElectionWithRace();
+describe('Adds an issue to a race properly', () => {
+    it('Adds a blank issue to a race properly', () => {
+        renderElectionWithRace();
 
-    userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
-    expect(screen.queryByText('Issue Name: Issue #3')).toBeInTheDocument();
+        userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+        expect(screen.queryByText('Issue Name: Issue #3')).toBeInTheDocument();
+    });
+
+    it('Adds a position to every candidate on the race', () => {
+        renderElectionWithRace();
+
+        userEvent.click(screen.getByRole('button', { name: 'Add Candidate to Race #2' }));
+        userEvent.click(screen.getByRole('button', { name: 'Add Candidate to Race #2' }));
+        expect(screen.queryAllByText(/Position:/u)).toHaveLength(0);
+
+        userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+        expect(screen.queryAllByText(/Position:/u)).toHaveLength(2);
+    });
+});
+
+describe('Adds a candidate to a race properly', () => {
+    it('Adds a candidate without any positions if there are no issues on the race', () => {
+        renderElectionWithRace();
+
+        userEvent.click(screen.getByRole('button', { name: 'Add Candidate to Race #2' }));
+        expect(screen.queryByText('Candidate Name: Candidate #3')).toBeInTheDocument();
+        expect(screen.queryByText(/Position:/u)).not.toBeInTheDocument();
+    });
+
+    it('Adds a candidate with positions for all issues on a race', () => {
+        renderElectionWithRace();
+
+        userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+        userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+        expect(screen.queryAllByText(/Position:/u)).toHaveLength(0);
+
+        userEvent.click(screen.getByRole('button', { name: 'Add Candidate to Race #2' }));
+        expect(screen.queryAllByText(/Position:/u)).toHaveLength(2);
+    });
 });
