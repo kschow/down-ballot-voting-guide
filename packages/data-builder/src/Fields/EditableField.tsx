@@ -32,7 +32,8 @@ const EditableField:FC<EditableFieldProps> = (props) => {
         setFieldData(event.currentTarget.value);
     };
 
-    const finishEdit = () => {
+    const finishEdit = (event: React.SyntheticEvent) => {
+        event.preventDefault();
         if (!isEditable) {
             toggleEditable();
             setAreEditing(false);
@@ -40,9 +41,8 @@ const EditableField:FC<EditableFieldProps> = (props) => {
     };
 
     const saveField = (event: React.SyntheticEvent) => {
-        event.preventDefault();
         updateField(fieldData);
-        finishEdit();
+        finishEdit(event);
     };
 
     return (
@@ -71,7 +71,7 @@ const EditableField:FC<EditableFieldProps> = (props) => {
                     </div>
                 </form> :
                 <div className={styles.Editable}>
-                    <span>{`${label} ${data}`}</span>
+                    <span>{`${label} ${data ? data : ''}`}</span>
                     <input
                         type="image"
                         disabled={!isEditable}
