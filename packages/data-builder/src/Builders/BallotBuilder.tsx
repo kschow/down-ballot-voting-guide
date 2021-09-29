@@ -4,6 +4,7 @@ import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import { useIdGenerator } from '../IdContext';
 import RaceBuilder from './RaceBuilder';
+import FieldTypes from '../Fields/FieldTypes';
 
 type BallotBuilderProps = {
     ballot: Ballot;
@@ -40,6 +41,7 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
     return (
         <div className={styles.builder}>
             <EditableField
+                type={FieldTypes.Input}
                 name={`Ballot #${ballot.ballotId} Name`}
                 label="Ballot Name:"
                 data={ballot.ballotName}

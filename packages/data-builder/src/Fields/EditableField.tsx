@@ -1,13 +1,15 @@
 import React, { FC, useState } from 'react';
 import { useEditable } from './EditableContext';
+import FieldTypes from './FieldTypes';
+import EditableInput from './EditableInput';
+import EditableTextArea from './EditableTextArea';
 import styles from './Editable.module.scss';
 // using material icons
-import saveIcon from './icons/save.svg';
-import cancelIcon from './icons/cancel.svg';
 import editIcon from './icons/edit.svg';
 import disabledEdit from './icons/edit-disabled.svg';
 
 type EditableFieldProps = {
+    type: FieldTypes;
     name: string;
     label: string;
     data: string;
@@ -15,21 +17,15 @@ type EditableFieldProps = {
 };
 
 const EditableField:FC<EditableFieldProps> = (props) => {
-    const { label, name, data, updateField } = props;
+    const { type, name, label, data, updateField } = props;
     const { isEditable, toggleEditable } = useEditable();
     const [areEditing, setAreEditing] = useState(false);
-    const [fieldData, setFieldData] = useState(data);
 
     const enableEditing = () => {
         if (isEditable) {
-            setFieldData(data ? data : '');
             setAreEditing(true);
             toggleEditable();
         }
-    };
-
-    const updateFieldData = (event: React.FormEvent<HTMLInputElement>) => {
-        setFieldData(event.currentTarget.value);
     };
 
     const finishEdit = (event: React.SyntheticEvent) => {
@@ -40,36 +36,36 @@ const EditableField:FC<EditableFieldProps> = (props) => {
         }
     };
 
-    const saveField = (event: React.SyntheticEvent) => {
+    const saveField = (fieldData: string, event: React.SyntheticEvent) => {
         updateField(fieldData);
         finishEdit(event);
+    };
+
+    const determineFormStructure = () => {
+        switch (type) {
+        case FieldTypes.Input:
+            return <EditableInput
+                name={name}
+                label={label}
+                saveField={saveField}
+                finishEdit={finishEdit}
+            />;
+        case FieldTypes.TextArea:
+            return <EditableTextArea
+                name={name}
+                label={label}
+                saveField={saveField}
+                finishEdit={finishEdit}
+            />;
+        default:
+            throw new Error('Unsupported field type');
+        }
     };
 
     return (
         <>
             { areEditing ?
-                <form className={styles.Editable} onSubmit={saveField}>
-                    <label htmlFor={name}>{label}</label>
-                    <input type="text" id={name} onChange={updateFieldData} value={fieldData} />
-                    <div>
-                        <input
-                            type="image"
-                            name="submit"
-                            src={saveIcon}
-                            onClick={saveField}
-                            alt="Save"
-                            title="Save"
-                        />
-                        <input
-                            type="image"
-                            name="cancel"
-                            src={cancelIcon}
-                            onClick={finishEdit}
-                            alt="Cancel"
-                            title="Cancel"
-                        />
-                    </div>
-                </form> :
+                determineFormStructure() :
                 <div className={styles.Editable}>
                     <span>{`${label} ${data ? data : ''}`}</span>
                     <input

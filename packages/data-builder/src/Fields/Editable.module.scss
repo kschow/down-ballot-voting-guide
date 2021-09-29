@@ -16,4 +16,12 @@
     button {
         font-size: 1.25rem;
     }
+
+    &.Vertical {
+        flex-direction: column;
+    }
+
+    textarea {
+        resize: none;
+    }
 }

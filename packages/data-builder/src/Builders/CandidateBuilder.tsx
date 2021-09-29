@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
+import FieldTypes from '../Fields/FieldTypes';
 
 type CandidatePositionBuilderProps = {
     candidateId: number;
@@ -25,6 +26,7 @@ const CandidatePositionBuilder: FC<CandidatePositionBuilderProps> = (props) => {
         <div className={styles.builder}>
             <div><span>Question: {question}</span></div>
             <EditableField
+                type={FieldTypes.TextArea}
                 name={`Position for Candidate #${candidateId} and Issue #${position.issueId}`}
                 label="Position:"
                 data={position.position}
@@ -55,6 +57,7 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
     return (
         <div className={styles.builder}>
             <EditableField
+                type={FieldTypes.Input}
                 name={`Candidate #${candidate.candidateId} Name`}
                 label="Candidate Name:"
                 data={candidate.candidateName}
@@ -63,30 +66,35 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
             <div className={styles.internalList}>
                 <span>Information:</span>
                 <EditableField
+                    type={FieldTypes.TextArea}
                     name={`Candidate #${candidate.candidateId} Education`}
                     label="Education:"
                     data={candidate.education}
                     updateField={updateValueForAttribute('education')}
                 />
                 <EditableField
+                    type={FieldTypes.Input}
                     name={`Candidate #${candidate.candidateId} Campaign Website`}
                     label="Campaign Website:"
                     data={candidate.campaignWebsite}
                     updateField={updateValueForAttribute('campaignWebsite')}
                 />
                 <EditableField
+                    type={FieldTypes.Input}
                     name={`Candidate #${candidate.candidateId} Facebook Page`}
                     label="Facebook Page:"
                     data={candidate.facebook}
                     updateField={updateValueForAttribute('facebook')}
                 />
                 <EditableField
+                    type={FieldTypes.Input}
                     name={`Candidate #${candidate.candidateId} Twitter Profile`}
                     label="Twitter Profile:"
                     data={candidate.twitter}
                     updateField={updateValueForAttribute('twitter')}
                 />
                 <EditableField
+                    type={FieldTypes.Input}
                     name={`Candidate #${candidate.candidateId} Video Link`}
                     label="Video Link:"
                     data={candidate.video}

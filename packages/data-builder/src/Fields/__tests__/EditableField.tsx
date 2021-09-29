@@ -1,7 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import React, { useState } from 'react';
 import EditableField from '../EditableField';
 import { EditableProvider } from '../EditableContext';
+import FieldTypes from '../FieldTypes';
+import userEvent from '@testing-library/user-event';
 
 const TestSubject = () => {
     const [first, setFirst] = useState('first');
@@ -11,22 +13,25 @@ const TestSubject = () => {
     return (
         <div>
             <EditableField
-                name={'First'}
-                label={'First: '}
+                name="First"
+                label="First: "
                 data={first}
                 updateField={setFirst}
+                type={FieldTypes.Input}
             />
             <EditableField
                 name={'Second'}
                 label={'Second: '}
                 data={second}
                 updateField={setSecond}
+                type={FieldTypes.Input}
             />
             <EditableField
                 name={'Third'}
                 label={'Third: '}
                 data={third}
                 updateField={setThird}
+                type={FieldTypes.TextArea}
             />
         </div>
     );
@@ -62,7 +67,7 @@ it('Only allows one field to be editable at a time', () => {
     renderTestSubject();
 
     let editableButtons = screen.getAllByRole('button', { name: /Edit/u });
-    fireEvent.click(editableButtons[0]);
+    userEvent.click(editableButtons[0]);
 
     editableButtons = screen.getAllByRole('button', { name: /Edit/u });
     expect(editableButtons).toHaveLength(2);
@@ -75,7 +80,7 @@ it('Clicking edit on a field displays edit capability for that field', () => {
     renderTestSubject();
 
     const editFirst = screen.getByRole('button', { name: 'Edit (First)' });
-    fireEvent.click(editFirst);
+    userEvent.click(editFirst);
 
     expect(screen.getByLabelText(/First:/u)).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Save' })).toBeInTheDocument();
@@ -86,12 +91,12 @@ it('Cancelling an update returns to all fields editable with no changes', () => 
     renderTestSubject();
 
     const editFirst = screen.getByRole('button', { name: 'Edit (First)' });
-    fireEvent.click(editFirst);
+    userEvent.click(editFirst);
 
     const firstData = screen.getByLabelText(/First/u);
-    fireEvent.change(firstData, { target: { value: 'will not be saved' } });
+    userEvent.type(firstData, 'will not be saved');
     const cancel = screen.getByRole('button', { name: 'Cancel' });
-    fireEvent.click(cancel);
+    userEvent.click(cancel);
 
     expect(screen.getByText('First: first')).toBeInTheDocument();
     expect(screen.queryByText(/will not be saved/u)).not.toBeInTheDocument();
@@ -102,35 +107,16 @@ it('Cancelling an update returns to all fields editable with no changes', () => 
     });
 });
 
-it('Cancelling and then editing resets the input to the current field data, ' +
-    'not what was previously edited', () => {
-    renderTestSubject();
-
-    const editThird = screen.getByRole('button', { name: 'Edit (Third)' });
-    fireEvent.click(editThird);
-
-    const thirdData = screen.getByLabelText(/Third/u);
-    expect(thirdData).toHaveValue('third');
-    fireEvent.change(thirdData, { target: { value: 'changed data' } });
-    expect(thirdData).toHaveValue('changed data');
-    fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
-
-    const editThirdAfterCancel = screen.getByRole('button', { name: 'Edit (Third)' });
-    fireEvent.click(editThirdAfterCancel);
-    const thirdDataAfterCancel = screen.getByLabelText(/Third/u);
-    expect(thirdDataAfterCancel).toHaveValue('third');
-});
-
 it('Saving an edit persists value and returns all fields to editable', () => {
     renderTestSubject();
 
     const editSecond = screen.getByRole('button', { name: 'Edit (Second)' });
-    fireEvent.click(editSecond);
+    userEvent.click(editSecond);
 
     const secondData = screen.getByLabelText(/Second/u);
-    fireEvent.change(secondData, { target: { value: 'will be saved' } });
+    userEvent.type(secondData, 'will be saved');
     const save = screen.getByRole('button', { name: 'Save' });
-    fireEvent.click(save);
+    userEvent.click(save);
 
     expect(screen.queryByText('Second: will be saved')).toBeInTheDocument();
     const editableButtons = screen.getAllByRole('button', { name: /Edit/u });

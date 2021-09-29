@@ -4,6 +4,7 @@ import BallotBuilder from './BallotBuilder';
 import { useIdGenerator } from '../IdContext';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
+import FieldTypes from '../Fields/FieldTypes';
 
 const ElectionBuilder:FC = () => {
     const { getNewId } = useIdGenerator();
@@ -48,6 +49,7 @@ const ElectionBuilder:FC = () => {
         <div className={styles.main}>
             <div className={styles.election}>
                 <EditableField
+                    type={FieldTypes.Input}
                     name="Election Name"
                     label="Election Name:"
                     data={election.electionName}

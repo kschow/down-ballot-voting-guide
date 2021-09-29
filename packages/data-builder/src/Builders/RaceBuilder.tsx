@@ -1,17 +1,12 @@
 import React, { FC } from 'react';
-import {
-    Candidate,
-    generateIssue,
-    generateNullCandidate,
-    Issue,
-    Race
-} from '@dbvg/shared-types';
+import { Candidate, generateIssue, generateNullCandidate, Issue, Race } from '@dbvg/shared-types';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';
 import { useIdGenerator } from '../IdContext';
 import IssueBuilder from './IssueBuilder';
 import CandidateBuilder from './CandidateBuilder';
+import FieldTypes from '../Fields/FieldTypes';
 
 type RaceBuilderProps = {
     race: Race;
@@ -75,12 +70,14 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
     return (
         <div className={styles.builder}>
             <EditableField
+                type={FieldTypes.Input}
                 name={`Race #${race.raceId} Name`}
                 label="Race Name:"
                 data={race.raceName}
                 updateField={updateValueForAttribute('raceName')}
             />
             <EditableField
+                type={FieldTypes.Input}
                 name={`Race #${race.raceId} Description`}
                 label="Position Description:"
                 data={race.description}
