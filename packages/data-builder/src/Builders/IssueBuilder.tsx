@@ -13,7 +13,7 @@ type IssueBuilderProps = {
 const IssueBuilder: FC<IssueBuilderProps> = ({ issue, updateIssue }) => {
     const updateValueForAttribute = curriedUpdateAttribute(updateIssue)(issue);
     return (
-        <div className={styles.builder}>
+        <div className={styles.Builder}>
             <EditableField
                 type={FieldTypes.Input}
                 name={`Issue #${issue.issueId} Name`}

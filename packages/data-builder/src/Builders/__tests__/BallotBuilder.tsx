@@ -38,3 +38,13 @@ it('Adds a race to the ballot properly', () => {
     userEvent.click(screen.getByRole('button', { name: 'Add Race to Ballot #1' }));
     expect(screen.queryByText('Race #2')).toBeInTheDocument();
 });
+
+it('Collapses races properly', () => {
+    renderElectionWithBallot();
+
+    userEvent.click(screen.getByRole('button', { name: 'Add Race to Ballot #1' }));
+    expect(screen.queryByText('Race #2')).toBeInTheDocument();
+    const collapseBallot = screen.getByRole('button', { name: 'Collapse Ballot #1' });
+    userEvent.click(collapseBallot);
+    expect(screen.queryByText('Race #2')).not.toBeInTheDocument();
+});

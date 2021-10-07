@@ -5,6 +5,7 @@ import { useIdGenerator } from '../IdContext';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';
+import useCollapsed from './UseCollapsed';
 
 const ElectionBuilder:FC = () => {
     const { getNewId } = useIdGenerator();
@@ -12,6 +13,8 @@ const ElectionBuilder:FC = () => {
         electionName: '',
         ballots: []
     } as Election);
+
+    const [collapsed, CollapseButton] = useCollapsed('election');
 
     useEffect(() => {
         localStorage.setItem('election', JSON.stringify(election));
@@ -46,27 +49,35 @@ const ElectionBuilder:FC = () => {
     };
 
     return (
-        <div className={styles.main}>
-            <div className={styles.election}>
-                <EditableField
-                    type={FieldTypes.Input}
-                    name="Election Name"
-                    label="Election Name:"
-                    data={election.electionName}
-                    updateField={updateName}
-                />
-                <button onClick={addBallot}>Add Ballot</button>
-                <div id="ballots">
-                    {
-                        election.ballots.map((ballot, index) => {
-                            return <BallotBuilder
-                                key={index}
-                                ballot={ballot}
-                                updateBallot={updateBallot}
-                            />;
-                        })
-                    }
+        <div className={styles.Main}>
+            <div className={`${styles.Builder} ${styles.Election}`}>
+                <div className={styles.Collapse}>
+                    <EditableField
+                        type={FieldTypes.Input}
+                        name="Election Name"
+                        label="Election Name:"
+                        data={election.electionName}
+                        updateField={updateName}
+                    />
+                    <CollapseButton />
                 </div>
+                {
+                    !collapsed &&
+                    <>
+                        <button onClick={addBallot}>Add Ballot</button>
+                        <div id="ballots">
+                            {
+                                election.ballots.map((ballot, index) => {
+                                    return <BallotBuilder
+                                        key={index}
+                                        ballot={ballot}
+                                        updateBallot={updateBallot}
+                                    />;
+                                })
+                            }
+                        </div>
+                    </>
+                }
             </div>
         </div>
     );

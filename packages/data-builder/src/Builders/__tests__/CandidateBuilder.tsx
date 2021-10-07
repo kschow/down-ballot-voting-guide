@@ -5,7 +5,7 @@ import ElectionBuilder from '../ElectionBuilder';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 
-const renderElectionWithIssueAndCandidate = () => {
+const renderElectionWithIssueAndCandidate = (extraIssues?: number) => {
     render(
         <IdProvider>
             <EditableProvider>
@@ -17,6 +17,9 @@ const renderElectionWithIssueAndCandidate = () => {
     userEvent.click(screen.getByRole('button', { name: /Add Race/u }));
     userEvent.click(screen.getByRole('button', { name: /Add Issue/u }));
     userEvent.click(screen.getByRole('button', { name: /Add Candidate/u }));
+    for (let times = 0; times < extraIssues; times++) {
+        userEvent.click(screen.getByRole('button', { name: /Add Issue/u }));
+    }
 };
 
 describe('Updates candidate fields properly', () => {
@@ -106,4 +109,30 @@ it('Updates candidate position properly', () => {
     userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
     expect(screen.queryByText('new position')).toBeInTheDocument();
+});
+
+describe('Collapses properly', () => {
+    it('Collapses the whole candidate properly', () => {
+        renderElectionWithIssueAndCandidate();
+
+        expect(screen.queryByText('Information:')).toBeInTheDocument();
+        expect(screen.queryByText('Positions:')).toBeInTheDocument();
+
+        const collapseButton = screen.getByRole('button', { name: 'Collapse Candidate #4' });
+        userEvent.click(collapseButton);
+
+        expect(screen.queryByText('Information:')).not.toBeInTheDocument();
+        expect(screen.queryByText('Positions:')).not.toBeInTheDocument();
+    });
+
+    it('Collapses positions properly', () => {
+        renderElectionWithIssueAndCandidate(2);
+
+        expect(screen.queryAllByText('Position:')).toHaveLength(3);
+
+        const collapseButton = screen.getByRole('button', { name: 'Collapse Candidate #4 Positions' });
+        userEvent.click(collapseButton);
+
+        expect(screen.queryAllByText('Position:')).toHaveLength(0);
+    });
 });

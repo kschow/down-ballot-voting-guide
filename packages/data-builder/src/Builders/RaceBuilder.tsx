@@ -7,14 +7,70 @@ import { useIdGenerator } from '../IdContext';
 import IssueBuilder from './IssueBuilder';
 import CandidateBuilder from './CandidateBuilder';
 import FieldTypes from '../Fields/FieldTypes';
+import useCollapsed from './UseCollapsed';
+
+type IssueListProps = {
+    race: Race;
+    updateIssue: (issue: Issue) => void;
+}
+
+type CandidateListProps = {
+    race: Race;
+    updateCandidate: (candidate: Candidate) => void;
+}
 
 type RaceBuilderProps = {
     race: Race;
     updateRace: (race: Race) => void;
 };
 
+const IssueList:FC<IssueListProps> = ({ race, updateIssue }) => {
+    const [collapsed, CollapseButton] = useCollapsed(`Race #${race.raceId} Issues`);
+    return (
+        <div className={styles.InternalList}>
+            <div className={styles.Collapse}>
+                <span>Issues:</span>
+                <CollapseButton />
+            </div>
+            {
+                !collapsed && race.issues.map((issue) => {
+                    return <IssueBuilder
+                        key={issue.issueId}
+                        issue={issue}
+                        updateIssue={updateIssue}
+                    />;
+                })
+            }
+        </div>
+    );
+};
+
+const CandidateList:FC<CandidateListProps> = ({ race, updateCandidate }) => {
+    const [collapsed, CollapseButton] = useCollapsed(`Race #${race.raceId} Candidates`);
+    return (
+        <div className={styles.InternalList}>
+            <div className={styles.Collapse}>
+                <span>Candidates:</span>
+                <CollapseButton />
+            </div>
+            {
+                !collapsed && race.candidates.map((candidate) => {
+                    return <CandidateBuilder
+                        key={candidate.candidateId}
+                        candidate={candidate}
+                        updateCandidate={updateCandidate}
+                        issues={race.issues}
+                    />;
+                })
+            }
+        </div>
+    );
+};
+
 const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
     const { getNewId } = useIdGenerator();
+    const raceIdentifier = `Race #${race.raceId}`;
+    const [collapsed, CollapseButton] = useCollapsed(raceIdentifier);
     const updateValueForAttribute = curriedUpdateAttribute(updateRace)(race);
 
     const addIssue = () => {
@@ -68,50 +124,34 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
     };
 
     return (
-        <div className={styles.builder}>
+        <div className={styles.Builder}>
+            <div className={styles.Collapse}>
+                <EditableField
+                    type={FieldTypes.Input}
+                    name={`${raceIdentifier} Name`}
+                    label="Race Name:"
+                    data={race.raceName}
+                    updateField={updateValueForAttribute('raceName')}
+                />
+                <CollapseButton />
+            </div>
             <EditableField
                 type={FieldTypes.Input}
-                name={`Race #${race.raceId} Name`}
-                label="Race Name:"
-                data={race.raceName}
-                updateField={updateValueForAttribute('raceName')}
-            />
-            <EditableField
-                type={FieldTypes.Input}
-                name={`Race #${race.raceId} Description`}
+                name={`${raceIdentifier} Description`}
                 label="Position Description:"
                 data={race.description}
                 updateField={updateValueForAttribute('description')}
             />
-            <div className={styles.multiButton}>
-                <button onClick={addIssue}>{`Add Issue to Race #${race.raceId}`}</button>
-                <button onClick={addCandidate}>{`Add Candidate to Race #${race.raceId}`}</button>
-            </div>
-            <div className={styles.internalList}>
-                <span>Issues:</span>
-                {
-                    race.issues.map((issue) => {
-                        return <IssueBuilder
-                            key={issue.issueId}
-                            issue={issue}
-                            updateIssue={updateIssue}
-                        />;
-                    })
-                }
-            </div>
-            <div className={styles.internalList}>
-                <span>Candidates:</span>
-                {
-                    race.candidates.map((candidate) => {
-                        return <CandidateBuilder
-                            key={candidate.candidateId}
-                            candidate={candidate}
-                            updateCandidate={updateCandidate}
-                            issues={race.issues}
-                        />;
-                    })
-                }
-            </div>
+            {
+                !collapsed && <>
+                    <div className={styles.MultiButton}>
+                        <button onClick={addIssue}>{`Add Issue to ${raceIdentifier}`}</button>
+                        <button onClick={addCandidate}>{`Add Candidate to ${raceIdentifier}`}</button>
+                    </div>
+                    <IssueList race={race} updateIssue={updateIssue} />
+                    <CandidateList race={race} updateCandidate={updateCandidate} />
+                </>
+            }
         </div>
     );
 };

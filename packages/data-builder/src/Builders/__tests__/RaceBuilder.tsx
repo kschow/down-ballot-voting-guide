@@ -81,3 +81,53 @@ describe('Adds a candidate to a race properly', () => {
         expect(screen.queryAllByText(/Position:/u)).toHaveLength(2);
     });
 });
+
+describe('Collapses things correctly', () => {
+    it('Collapses the entire race correctly', () => {
+        renderElectionWithRace();
+
+        expect(screen.queryByText('Add Issue to Race #2')).toBeInTheDocument();
+        expect(screen.queryByText('Add Candidate to Race #2')).toBeInTheDocument();
+        expect(screen.queryByText(/Issues:/u)).toBeInTheDocument();
+        expect(screen.queryByText(/Candidates:/u)).toBeInTheDocument();
+        const collapseRace = screen.getByRole('button', { name: 'Collapse Race #2' });
+        userEvent.click(collapseRace);
+
+        expect(screen.queryByText('Add Issue to Race #2')).not.toBeInTheDocument();
+        expect(screen.queryByText('Add Candidate to Race #2')).not.toBeInTheDocument();
+        expect(screen.queryByText(/Issues:/u)).not.toBeInTheDocument();
+        expect(screen.queryByText(/Candidates:/u)).not.toBeInTheDocument();
+    });
+
+    it('Collapses Issues correctly', () => {
+        renderElectionWithRace();
+
+        userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+        userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
+
+        expect(screen.queryByText(/Issues:/u)).toBeInTheDocument();
+        expect(screen.queryAllByText('Issue Name:')).toHaveLength(2);
+
+        const collapseRace = screen.getByRole('button', { name: 'Collapse Race #2 Issues' });
+        userEvent.click(collapseRace);
+
+        expect(screen.queryByText(/Issues:/u)).toBeInTheDocument();
+        expect(screen.queryAllByText('Issue Name:')).toHaveLength(0);
+    });
+
+    it('Collapses Candidates correctly', () => {
+        renderElectionWithRace();
+
+        userEvent.click(screen.getByRole('button', { name: 'Add Candidate to Race #2' }));
+        userEvent.click(screen.getByRole('button', { name: 'Add Candidate to Race #2' }));
+
+        expect(screen.queryByText(/Candidates:/u)).toBeInTheDocument();
+        expect(screen.queryAllByText('Candidate Name:')).toHaveLength(2);
+
+        const collapseRace = screen.getByRole('button', { name: 'Collapse Race #2 Candidates' });
+        userEvent.click(collapseRace);
+
+        expect(screen.queryByText(/Candidates:/u)).toBeInTheDocument();
+        expect(screen.queryAllByText('Candidate Name:')).toHaveLength(0);
+    });
+});

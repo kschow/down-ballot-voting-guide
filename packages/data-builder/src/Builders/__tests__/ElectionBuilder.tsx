@@ -50,6 +50,17 @@ it('Adds an empty ballot when Add Ballot is pressed', () => {
     expect(screen.queryByRole('button', { name: 'Add Race to Ballot #1' })).toBeInTheDocument();
 });
 
+it('Collapses and hides ballots properly', () => {
+    renderElectionBuilder();
+    const addBallotButton = screen.getByRole('button', { name: 'Add Ballot' });
+    userEvent.click(addBallotButton);
+
+    expect(screen.queryByText('Ballot #1')).toBeInTheDocument();
+    const collapseElectionInfo = screen.getByRole('button', { name: 'Collapse election' });
+    userEvent.click(collapseElectionInfo);
+    expect(screen.queryByText('Ballot #1')).not.toBeInTheDocument();
+});
+
 it('Saves to localStorage on changes to election', () => {
     renderElectionBuilder();
     const initialStorage = {

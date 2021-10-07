@@ -5,6 +5,7 @@ import EditableField from '../Fields/EditableField';
 import { useIdGenerator } from '../IdContext';
 import RaceBuilder from './RaceBuilder';
 import FieldTypes from '../Fields/FieldTypes';
+import useCollapsed from './UseCollapsed';
 
 type BallotBuilderProps = {
     ballot: Ballot;
@@ -13,6 +14,8 @@ type BallotBuilderProps = {
 
 const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
     const { getNewId } = useIdGenerator();
+    const ballotIdentifier = `Ballot #${ballot.ballotId}`;
+    const [collapsed, CollapseButton] = useCollapsed(ballotIdentifier);
 
     const updateName = (ballotName: string) => {
         updateBallot({ ...ballot, ballotName });
@@ -39,23 +42,31 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
     };
 
     return (
-        <div className={styles.builder}>
-            <EditableField
-                type={FieldTypes.Input}
-                name={`Ballot #${ballot.ballotId} Name`}
-                label="Ballot Name:"
-                data={ballot.ballotName}
-                updateField={updateName}
-            />
-            <button onClick={addRace}>{`Add Race to Ballot #${ballot.ballotId}`}</button>
+        <div className={styles.Builder}>
+            <div className={styles.Collapse}>
+                <EditableField
+                    type={FieldTypes.Input}
+                    name={`${ballotIdentifier} Name`}
+                    label="Ballot Name:"
+                    data={ballot.ballotName}
+                    updateField={updateName}
+                />
+                <CollapseButton />
+            </div>
             {
-                ballot.races.map((race, index) => {
-                    return <RaceBuilder
-                        key={index}
-                        race={race}
-                        updateRace={updateRace}
-                    />;
-                })
+                !collapsed &&
+                <>
+                    <button onClick={addRace}>{`Add Race to ${ballotIdentifier}`}</button>
+                    {
+                        ballot.races.map((race, index) => {
+                            return <RaceBuilder
+                                key={index}
+                                race={race}
+                                updateRace={updateRace}
+                            />;
+                        })
+                    }
+                </>
             }
         </div>
     );

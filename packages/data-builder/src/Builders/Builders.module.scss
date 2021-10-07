@@ -1,33 +1,49 @@
 $borderRadius: 3px;
 
-.main {
+.Main {
   max-width: 65%;
   margin: 3rem auto auto;
-  border: 2px solid black;
-  border-radius: $borderRadius;
   font-size: 1.25rem;
 }
 
-.election {
-  margin: 1rem;
-}
-
-.builder {
+.Builder {
   border: 1px solid black;
   border-radius: $borderRadius;
   padding: 1rem;
   margin: .5rem 0;
+
+  &.Election {
+    margin: 1rem;
+    border: 2px solid black;
+    border-radius: $borderRadius;
+  }
 }
 
-.internalList {
+.InternalList {
   border: 1px solid black;
   border-radius: $borderRadius;
   margin-top: .5rem;
   padding: .5rem;
 }
 
-.multiButton {
+.MultiButton {
   button {
     margin-right: 1.5rem;
   }
+}
+
+.Collapse {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  button {
+    border: none;
+    background: inherit;
+    cursor: pointer;
+  }
+}
+
+.Collapsed {
+  display: none;
 }
