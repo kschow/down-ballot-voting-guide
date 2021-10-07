@@ -38,7 +38,7 @@ it('Updates the election name properly', () => {
 
     userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-    expect(screen.getByText('Election Name: new name')).toBeInTheDocument();
+    expect(screen.getByText('new name')).toBeInTheDocument();
 });
 
 it('Adds an empty ballot when Add Ballot is pressed', () => {
@@ -46,7 +46,7 @@ it('Adds an empty ballot when Add Ballot is pressed', () => {
     const addBallotButton = screen.getByRole('button', { name: 'Add Ballot' });
     userEvent.click(addBallotButton);
 
-    expect(screen.queryByText('Ballot Name: Ballot #1')).toBeInTheDocument();
+    expect(screen.queryByText('Ballot #1')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Add Race to Ballot #1' })).toBeInTheDocument();
 });
 
@@ -65,7 +65,6 @@ it('Saves to localStorage on changes to election', () => {
     };
     userEvent.click(screen.getByRole('button', { name: 'Edit (Election Name)' }));
     const updateName = screen.getByLabelText(/Election Name/u);
-    userEvent.clear(updateName);
     userEvent.type(updateName, newName);
 
     /*

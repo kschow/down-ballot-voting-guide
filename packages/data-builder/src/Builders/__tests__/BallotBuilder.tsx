@@ -20,21 +20,21 @@ const renderElectionWithBallot = () => {
 it('Updates ballot name properly', () => {
     renderElectionWithBallot();
 
-    const nameElement = screen.getByText('Ballot Name: Ballot #1');
+    const nameElement = screen.getByText('Ballot #1');
     expect(nameElement).toBeInTheDocument();
 
     userEvent.click(screen.getByRole('button', { name: 'Edit (Ballot #1 Name)' }));
     const updateName = screen.getByLabelText(/Ballot Name/u);
     userEvent.clear(updateName);
-    userEvent.type(updateName, 'ballot name');
+    userEvent.type(updateName, 'new ballot name');
     userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-    expect(screen.getByText('Ballot Name: ballot name')).toBeInTheDocument();
+    expect(screen.getByText('new ballot name')).toBeInTheDocument();
 });
 
 it('Adds a race to the ballot properly', () => {
     renderElectionWithBallot();
 
     userEvent.click(screen.getByRole('button', { name: 'Add Race to Ballot #1' }));
-    expect(screen.queryByText('Race Name: Race #2')).toBeInTheDocument();
+    expect(screen.queryByText('Race #2')).toBeInTheDocument();
 });

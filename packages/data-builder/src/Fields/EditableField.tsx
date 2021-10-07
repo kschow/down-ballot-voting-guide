@@ -4,6 +4,7 @@ import FieldTypes from './FieldTypes';
 import EditableInput from './EditableInput';
 import EditableTextArea from './EditableTextArea';
 import styles from './Editable.module.scss';
+import global from '../Global.module.scss';
 // using material icons
 import editIcon from './icons/edit.svg';
 import disabledEdit from './icons/edit-disabled.svg';
@@ -67,7 +68,10 @@ const EditableField:FC<EditableFieldProps> = (props) => {
             { areEditing ?
                 determineFormStructure() :
                 <div className={styles.Editable}>
-                    <span>{`${label} ${data ? data : ''}`}</span>
+                    <div>
+                        <p className={global.label}>{label}</p>
+                        <p className={styles.Data}>{`${data ? data : ''}`}</p>
+                    </div>
                     <input
                         type="image"
                         disabled={!isEditable}

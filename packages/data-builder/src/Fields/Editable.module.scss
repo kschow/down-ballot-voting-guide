@@ -4,9 +4,13 @@
     display: flex;
     align-items: flex-start;
 
+    label {
+        font-weight: 500;
+    }
+
     input[type="text"] {
         font-size: 1rem;
-        margin:0 .5rem;
+        margin :0 .5rem;
     }
 
     span {
@@ -23,5 +27,9 @@
 
     textarea {
         resize: none;
+    }
+
+    .Data {
+        font-size: 1rem;
     }
 }

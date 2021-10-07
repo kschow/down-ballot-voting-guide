@@ -48,9 +48,9 @@ const renderTestSubject = () => {
 it('Displays all labels and fields to start', () => {
     renderTestSubject();
 
-    expect(screen.queryByText('First: first')).toBeInTheDocument();
-    expect(screen.queryByText('Second: second')).toBeInTheDocument();
-    expect(screen.queryByText('Third: third')).toBeInTheDocument();
+    expect(screen.queryByText('first')).toBeInTheDocument();
+    expect(screen.queryByText('second')).toBeInTheDocument();
+    expect(screen.queryByText('third')).toBeInTheDocument();
 });
 
 it('Has all fields editable to start', () => {
@@ -76,7 +76,7 @@ it('Only allows one field to be editable at a time', () => {
     });
 });
 
-it('Clicking edit on a field displays edit capability for that field', () => {
+it('Clicks edit on a field displaying edit capability for that field', () => {
     renderTestSubject();
 
     const editFirst = screen.getByRole('button', { name: 'Edit (First)' });
@@ -87,7 +87,7 @@ it('Clicking edit on a field displays edit capability for that field', () => {
     expect(screen.queryByRole('button', { name: 'Cancel' })).toBeInTheDocument();
 });
 
-it('Cancelling an update returns to all fields editable with no changes', () => {
+it('Cancels an update returning to all fields to editable with no changes', () => {
     renderTestSubject();
 
     const editFirst = screen.getByRole('button', { name: 'Edit (First)' });
@@ -98,7 +98,7 @@ it('Cancelling an update returns to all fields editable with no changes', () => 
     const cancel = screen.getByRole('button', { name: 'Cancel' });
     userEvent.click(cancel);
 
-    expect(screen.getByText('First: first')).toBeInTheDocument();
+    expect(screen.getByText('first')).toBeInTheDocument();
     expect(screen.queryByText(/will not be saved/u)).not.toBeInTheDocument();
     const editableButtons = screen.getAllByRole('button', { name: /Edit/u });
     expect(editableButtons).toHaveLength(3);
@@ -107,7 +107,7 @@ it('Cancelling an update returns to all fields editable with no changes', () => 
     });
 });
 
-it('Saving an edit persists value and returns all fields to editable', () => {
+it('Saves an edit persisting value and returning all fields to editable', () => {
     renderTestSubject();
 
     const editSecond = screen.getByRole('button', { name: 'Edit (Second)' });
@@ -118,10 +118,24 @@ it('Saving an edit persists value and returns all fields to editable', () => {
     const save = screen.getByRole('button', { name: 'Save' });
     userEvent.click(save);
 
-    expect(screen.queryByText('Second: will be saved')).toBeInTheDocument();
+    expect(screen.queryByText('will be saved')).toBeInTheDocument();
     const editableButtons = screen.getAllByRole('button', { name: /Edit/u });
     expect(editableButtons).toHaveLength(3);
     editableButtons.forEach((button) => {
         expect(button).toBeEnabled();
     });
+});
+
+it('Updates a textarea properly', () => {
+    renderTestSubject();
+
+    const editThird = screen.getByRole('button', { name: 'Edit (Third)' });
+    userEvent.click(editThird);
+
+    const thirdData = screen.getByLabelText(/Third/u);
+    userEvent.type(thirdData, 'saves properly');
+    const save = screen.getByRole('button', { name: 'Save' });
+    userEvent.click(save);
+
+    expect(screen.queryByText('saves properly')).toBeInTheDocument();
 });

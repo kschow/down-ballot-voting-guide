@@ -29,7 +29,7 @@ describe('Updates candidate fields properly', () => {
         userEvent.type(candidateNameData, 'new name');
         userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-        expect(screen.queryByText('Candidate Name: new name')).toBeInTheDocument();
+        expect(screen.queryByText('new name')).toBeInTheDocument();
     });
 
     it('Updates education properly', () => {
@@ -41,7 +41,7 @@ describe('Updates candidate fields properly', () => {
         userEvent.type(educationData, 'my education');
         userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-        expect(screen.queryByText('Education: my education')).toBeInTheDocument();
+        expect(screen.queryByText('my education')).toBeInTheDocument();
     });
 
     it('Updates website properly', () => {
@@ -53,7 +53,7 @@ describe('Updates candidate fields properly', () => {
         userEvent.type(websiteData, 'www.website.com');
         userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-        expect(screen.queryByText('Campaign Website: www.website.com')).toBeInTheDocument();
+        expect(screen.queryByText('www.website.com')).toBeInTheDocument();
     });
 
     it('Updates facebook page properly', () => {
@@ -65,7 +65,7 @@ describe('Updates candidate fields properly', () => {
         userEvent.type(facebookData, 'www.facebook.com');
         userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-        expect(screen.queryByText('Facebook Page: www.facebook.com')).toBeInTheDocument();
+        expect(screen.queryByText('www.facebook.com')).toBeInTheDocument();
     });
 
     it('Updates twitter properly', () => {
@@ -77,7 +77,7 @@ describe('Updates candidate fields properly', () => {
         userEvent.type(twitterData, 'www.twitter.com');
         userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-        expect(screen.queryByText('Twitter Profile: www.twitter.com')).toBeInTheDocument();
+        expect(screen.queryByText('www.twitter.com')).toBeInTheDocument();
     });
 
     it('Updates video properly', () => {
@@ -89,7 +89,7 @@ describe('Updates candidate fields properly', () => {
         userEvent.type(videoData, 'www.vimeo.com');
         userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-        expect(screen.queryByText('Video Link: www.vimeo.com')).toBeInTheDocument();
+        expect(screen.queryByText('www.vimeo.com')).toBeInTheDocument();
     });
 });
 
@@ -105,5 +105,5 @@ it('Updates candidate position properly', () => {
     userEvent.type(positionData, 'new position');
     userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-    expect(screen.queryByText('Position: new position')).toBeInTheDocument();
+    expect(screen.queryByText('new position')).toBeInTheDocument();
 });

@@ -27,7 +27,7 @@ it('Updates Issue name properly', () => {
     userEvent.type(issueNameData, 'New Issue Name');
     userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-    expect(screen.getByText('Issue Name: New Issue Name')).toBeInTheDocument();
+    expect(screen.getByText('New Issue Name')).toBeInTheDocument();
 });
 
 it('Updates Issue question properly', () => {
@@ -39,5 +39,5 @@ it('Updates Issue question properly', () => {
     userEvent.type(issueQuestionData, 'What is your opinion on this issue?');
     userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-    expect(screen.getByText('Issue Question: What is your opinion on this issue?')).toBeInTheDocument();
+    expect(screen.getByText('What is your opinion on this issue?')).toBeInTheDocument();
 });

@@ -2,6 +2,7 @@ import { Candidate, CandidatePosition, Issue } from '@dbvg/shared-types';
 import React, { FC } from 'react';
 import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';
 import styles from './Builders.module.scss';
+import global from '../Global.module.scss';
 import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';
 
@@ -24,7 +25,10 @@ const CandidatePositionBuilder: FC<CandidatePositionBuilderProps> = (props) => {
 
     return (
         <div className={styles.builder}>
-            <div><span>Question: {question}</span></div>
+            <div className={styles.stacked}>
+                <p className={global.label}>Question: </p>
+                <p>{question}</p>
+            </div>
             <EditableField
                 type={FieldTypes.TextArea}
                 name={`Position for Candidate #${candidateId} and Issue #${position.issueId}`}
@@ -64,7 +68,7 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
                 updateField={updateValueForAttribute('candidateName')}
             />
             <div className={styles.internalList}>
-                <span>Information:</span>
+                <p>Information:</p>
                 <EditableField
                     type={FieldTypes.TextArea}
                     name={`Candidate #${candidate.candidateId} Education`}
@@ -102,7 +106,7 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
                 />
             </div>
             <div className={styles.internalList}>
-                <span>Positions:</span>
+                <p>Positions:</p>
                 {
                     candidate.positions.map((position) => {
                         const questionForPosition =

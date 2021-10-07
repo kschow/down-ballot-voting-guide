@@ -5,6 +5,7 @@ $borderRadius: 3px;
   margin: 3rem auto auto;
   border: 2px solid black;
   border-radius: $borderRadius;
+  font-size: 1.25rem;
 }
 
 .election {
@@ -23,10 +24,6 @@ $borderRadius: 3px;
   border-radius: $borderRadius;
   margin-top: .5rem;
   padding: .5rem;
-
-  span {
-    font-size: 1.25rem;
-  }
 }
 
 .multiButton {
