@@ -7,22 +7,29 @@ import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';
 import useCollapsed from './UseCollapsed';
 
-const ElectionBuilder:FC = () => {
-    const { getNewId } = useIdGenerator();
-    const [election, setElection] = useState({
+type ElectionBuilderProps = {
+    election?: Election;
+}
+
+const createNewElection = () => {
+    return {
         electionName: '',
         ballots: []
-    } as Election);
+    } as Election;
+};
 
+const ElectionBuilder:FC<ElectionBuilderProps> = ({ election }) => {
+    const { getNewId } = useIdGenerator();
+    const [electionInfo, setElectionInfo] = useState(election ? election : createNewElection());
     const [collapsed, CollapseButton] = useCollapsed('election');
 
     useEffect(() => {
-        localStorage.setItem('election', JSON.stringify(election));
-    }, [election]);
+        localStorage.setItem('election', JSON.stringify(electionInfo));
+    }, [electionInfo]);
 
     const updateName = (electionName: string) => {
-        setElection({
-            ...election,
+        setElectionInfo({
+            ...electionInfo,
             electionName
         });
     };
@@ -30,55 +37,53 @@ const ElectionBuilder:FC = () => {
     const addBallot = () => {
         const ballotId = getNewId();
         const newBallots = [
-            ...election.ballots,
+            ...electionInfo.ballots,
             generateBallot(ballotId)
         ];
-        setElection({
-            ...election,
+        setElectionInfo({
+            ...electionInfo,
             ballots: newBallots
         });
     };
 
     const updateBallot = (ballot: Ballot) => {
-        const updatedBallotIndex = election.ballots.findIndex((find) => find.ballotId === ballot.ballotId);
-        election.ballots.splice(updatedBallotIndex, 1, ballot);
-        setElection({
-            ...election,
-            ballots: election.ballots
+        const updatedBallotIndex = electionInfo.ballots.findIndex((find) => find.ballotId === ballot.ballotId);
+        electionInfo.ballots.splice(updatedBallotIndex, 1, ballot);
+        setElectionInfo({
+            ...electionInfo,
+            ballots: electionInfo.ballots
         });
     };
 
     return (
-        <div className={styles.Main}>
-            <div className={`${styles.Builder} ${styles.Election}`}>
-                <div className={styles.Collapse}>
-                    <EditableField
-                        type={FieldTypes.Input}
-                        name="Election Name"
-                        label="Election Name:"
-                        data={election.electionName}
-                        updateField={updateName}
-                    />
-                    <CollapseButton />
-                </div>
-                {
-                    !collapsed &&
-                    <>
-                        <button onClick={addBallot}>Add Ballot</button>
-                        <div id="ballots">
-                            {
-                                election.ballots.map((ballot, index) => {
-                                    return <BallotBuilder
-                                        key={index}
-                                        ballot={ballot}
-                                        updateBallot={updateBallot}
-                                    />;
-                                })
-                            }
-                        </div>
-                    </>
-                }
+        <div className={`${styles.Builder} ${styles.Election}`}>
+            <div className={styles.Collapse}>
+                <EditableField
+                    type={FieldTypes.Input}
+                    name="Election Name"
+                    label="Election Name:"
+                    data={electionInfo.electionName}
+                    updateField={updateName}
+                />
+                <CollapseButton />
             </div>
+            {
+                !collapsed &&
+                <>
+                    <button onClick={addBallot}>Add Ballot</button>
+                    <div id="ballots">
+                        {
+                            electionInfo.ballots.map((ballot, index) => {
+                                return <BallotBuilder
+                                    key={index}
+                                    ballot={ballot}
+                                    updateBallot={updateBallot}
+                                />;
+                            })
+                        }
+                    </div>
+                </>
+            }
         </div>
     );
 };
