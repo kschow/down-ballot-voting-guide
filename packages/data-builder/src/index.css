@@ -14,7 +14,7 @@ code {
 }
 
 main {
-  max-width: 65%;
+  width: max(75%, 40rem);
   margin: 3rem auto auto;
   font-size: 1.25rem;
 }
