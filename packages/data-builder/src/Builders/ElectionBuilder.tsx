@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Election, Ballot, generateBallot } from '@dbvg/shared-types';
 import BallotBuilder from './BallotBuilder';
-import { useIdGenerator } from '../IdContext';
+import { useIdGenerator } from './IdContext';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';

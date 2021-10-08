@@ -18,3 +18,7 @@ main {
   margin: 3rem auto auto;
   font-size: 1.25rem;
 }
+
+hr {
+  border-color: black;
+}

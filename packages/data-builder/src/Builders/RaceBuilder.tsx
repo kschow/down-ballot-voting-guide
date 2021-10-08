@@ -3,7 +3,7 @@ import { Candidate, generateIssue, generateNullCandidate, Issue, Race } from '@d
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';
-import { useIdGenerator } from '../IdContext';
+import { useIdGenerator } from './IdContext';
 import IssueBuilder from './IssueBuilder';
 import CandidateBuilder from './CandidateBuilder';
 import FieldTypes from '../Fields/FieldTypes';

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { Ballot, generateRace, Race } from '@dbvg/shared-types';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
-import { useIdGenerator } from '../IdContext';
+import { useIdGenerator } from './IdContext';
 import RaceBuilder from './RaceBuilder';
 import FieldTypes from '../Fields/FieldTypes';
 import useCollapsed from './UseCollapsed';

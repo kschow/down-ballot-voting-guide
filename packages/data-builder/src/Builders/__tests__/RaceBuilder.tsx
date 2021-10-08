@@ -1,5 +1,5 @@
 import React from 'react';
-import { IdProvider } from '../../IdContext';
+import { IdProvider } from '../IdContext';
 import { EditableProvider } from '../../Fields/EditableContext';
 import { render, screen } from '@testing-library/react';
 import ElectionBuilder from '../ElectionBuilder';
