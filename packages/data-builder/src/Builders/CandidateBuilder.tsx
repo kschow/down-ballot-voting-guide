@@ -60,7 +60,7 @@ const CandidatePositionList: FC<CandidatePositionList> = (props) => {
     return (
         <div className={styles.InternalList}>
             <div className={styles.Collapse}>
-                <p>Positions:</p>
+                <p className={styles.SubHeader}>Positions:</p>
                 <CollapseButton />
             </div>
             {
@@ -110,7 +110,7 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
                 !collapsed &&
                 <>
                     <div className={styles.InternalList}>
-                        <p>Information:</p>
+                        <p className={styles.SubHeader}>Information:</p>
                         <EditableField
                             type={FieldTypes.TextArea}
                             name={`${candidateIdentifier} Education`}

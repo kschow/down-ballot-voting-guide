@@ -70,7 +70,7 @@ const EditableField:FC<EditableFieldProps> = (props) => {
                 <div className={styles.Editable}>
                     <div>
                         <p className={global.label}>{label}</p>
-                        <p className={styles.Data}>{`${data ? data : ''}`}</p>
+                        <p>{`${data ? data : ''}`}</p>
                     </div>
                     <input
                         type="image"

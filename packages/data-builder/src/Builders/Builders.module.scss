@@ -41,3 +41,15 @@ $borderRadius: 3px;
 .Collapsed {
   display: none;
 }
+
+.SubHeader {
+  text-decoration: underline;
+}
+
+.SaveButton {
+  text-align: center;
+
+  button {
+    font-size: 1.25rem;
+  }
+}

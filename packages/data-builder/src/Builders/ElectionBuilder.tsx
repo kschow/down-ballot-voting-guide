@@ -6,6 +6,7 @@ import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';
 import useCollapsed from './UseCollapsed';
+import { saveAs } from 'file-saver';
 
 type ElectionBuilderProps = {
     election?: Election;
@@ -55,6 +56,13 @@ const ElectionBuilder:FC<ElectionBuilderProps> = ({ election }) => {
         });
     };
 
+    const saveToJson = () => {
+        const prettifiedElection = JSON.stringify(electionInfo, null, 2);
+        const electionFile =
+            new File([prettifiedElection], `${electionInfo.electionName}.json`, { type: 'application/json' });
+        saveAs(electionFile);
+    };
+
     return (
         <div className={`${styles.Builder} ${styles.Election}`}>
             <div className={styles.Collapse}>
@@ -84,6 +92,9 @@ const ElectionBuilder:FC<ElectionBuilderProps> = ({ election }) => {
                     </div>
                 </>
             }
+            <div className={styles.SaveButton}>
+                <button onClick={saveToJson}>Save File</button>
+            </div>
         </div>
     );
 };

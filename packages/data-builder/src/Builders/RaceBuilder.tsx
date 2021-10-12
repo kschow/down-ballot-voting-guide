@@ -29,7 +29,7 @@ const IssueList:FC<IssueListProps> = ({ race, updateIssue }) => {
     return (
         <div className={styles.InternalList}>
             <div className={styles.Collapse}>
-                <span>Issues:</span>
+                <span className={styles.SubHeader}>Issues:</span>
                 <CollapseButton />
             </div>
             {
@@ -50,7 +50,7 @@ const CandidateList:FC<CandidateListProps> = ({ race, updateCandidate }) => {
     return (
         <div className={styles.InternalList}>
             <div className={styles.Collapse}>
-                <span>Candidates:</span>
+                <span className={styles.SubHeader}>Candidates:</span>
                 <CollapseButton />
             </div>
             {
