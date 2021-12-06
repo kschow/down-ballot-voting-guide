@@ -136,7 +136,7 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
                 <CollapseButton />
             </div>
             <EditableField
-                type={FieldTypes.Input}
+                type={FieldTypes.TextArea}
                 name={`${raceIdentifier} Description`}
                 label="Position Description:"
                 data={race.description}
