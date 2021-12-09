@@ -2,7 +2,8 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "allowJs": false,
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "incremental": true
   },
   "exclude": [
     "node_modules"

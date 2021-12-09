@@ -7,6 +7,7 @@
   },
   "scripts": {
     "setup": "yarn && lerna clean -y && lerna bootstrap",
+    "prod-build": "lerna run prod-build",
     "build": "lerna run build",
     "clean": "lerna run clean",
     "test": "lerna run test",

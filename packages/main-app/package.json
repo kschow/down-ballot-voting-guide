@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
+    "prod-build": "yarn build",
     "clean": "rm -rf .next",
     "start": "next start -p 3001",
     "test": "jest --verbose=true --watchAll=true",
