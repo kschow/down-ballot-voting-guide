@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Election } from '@dbvg/shared-types';
+import { Election, ElectionSchema } from '@dbvg/shared-types';
+import Ajv from 'ajv';
 
 type HomeProps = {
     setElection: (election: Election) => void;
@@ -25,6 +26,25 @@ const Home:FC<HomeProps> = ({ setElection, startBuilding }) => {
             ballots: []
         } as Election);
         startBuilding();
+    };
+
+    const launchLoadDialog = () => {
+        const loadFileInput = document.getElementById('loadFileInput') as HTMLInputElement;
+        loadFileInput.click();
+    };
+
+    const loadFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.currentTarget.files[0]) {
+            const fileContents = await event.currentTarget.files[0].text();
+
+            const contentsAsJson = JSON.parse(fileContents) as Election;
+
+            const ajv = new Ajv();
+            if (ajv.validate(ElectionSchema, contentsAsJson)) {
+                setElection(contentsAsJson);
+                startBuilding();
+            }
+        }
     };
 
     return (
@@ -53,6 +73,15 @@ const Home:FC<HomeProps> = ({ setElection, startBuilding }) => {
                         <button onClick={loadFromLocalStorage}>Continue from last saved</button>
                     </div>
                 }
+                <div>
+                    <button onClick={launchLoadDialog}>Load from file</button>
+                    <input
+                        id="loadFileInput"
+                        type="file"
+                        accept="application/json"
+                        onChange={loadFile}
+                    />
+                </div>
                 <div>
                     <button onClick={startNewElection}>Start new election</button>
                 </div>

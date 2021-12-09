@@ -3,6 +3,7 @@ import { Election } from '@dbvg/shared-types';
 import ElectionBuilder from '../Builders/ElectionBuilder';
 import { IdProvider } from '../Builders/IdContext';
 import { EditableProvider } from '../Fields/EditableContext';
+import getHighestIdInElection from './Utils/GetHighestIdInElection';
 import Home from './Home';
 
 const App:FC = () => {
@@ -24,9 +25,9 @@ const App:FC = () => {
             }
             {
                 started &&
-                <IdProvider>
+                <IdProvider initialId={getHighestIdInElection(election)}>
                     <EditableProvider>
-                        <ElectionBuilder election={election}/>
+                        <ElectionBuilder election={election} />
                     </EditableProvider>
                 </IdProvider>
             }

@@ -1,13 +1,17 @@
 import React, { createContext, FC, useContext, useState } from 'react';
 
+type IdProviderProps = {
+    initialId?: number;
+}
+
 type IdGenerator = {
     getNewId: () => number
 }
 
 const IdContext = createContext<IdGenerator>(null);
 
-const IdProvider:FC = ({ children }) => {
-    const [id, setId] = useState(1);
+const IdProvider:FC<IdProviderProps> = ({ initialId, children }) => {
+    const [id, setId] = useState(initialId ? initialId + 1 : 1);
 
     const getNewId = () => {
         setId(id + 1);

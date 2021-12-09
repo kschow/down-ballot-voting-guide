@@ -1,0 +1,9 @@
+#!/bin/sh
+mkdir src/gen
+# generate schema for Election
+npx ts-json-schema-generator --path 'src/Data.ts' --type 'Election' > src/gen/ElectionSchema.json
+# update index to include generated schema
+# This DOES update the index file, make sure to not check in the below changes!
+# The cleanupIndex script should handle this and is run on various npm scripts to limit the chance this gets committed
+echo "import ElectionSchema from './gen/ElectionSchema.json';" >> src/index.ts
+echo "export { ElectionSchema };" >> src/index.ts

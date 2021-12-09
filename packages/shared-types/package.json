@@ -7,11 +7,12 @@
     "lib"
   ],
   "scripts": {
-    "build": "tsc -b",
-    "clean": "rm -rf lib",
+    "build": "./cleanupIndex && ./prebuild && tsc -b",
+    "clean": "rm -rf lib && rm -rf src/gen && ./cleanupIndex",
     "watch": "tsc --watch",
-    "test": "jest --verbose=true --watchAll=true",
-    "test-ci": "jest --verbose=false --watchAll=false",
+    "pre-test": "./cleanupIndex",
+    "test": "yarn pre-test && jest --verbose=true --watchAll=true",
+    "test-ci": "yarn pre-test && jest --verbose=false --watchAll=false",
     "lint": "eslint 'src/**/**.ts'",
     "tint": "yarn test-ci && yarn lint"
   },
