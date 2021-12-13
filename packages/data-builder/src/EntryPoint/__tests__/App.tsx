@@ -18,6 +18,12 @@ it('Starts a new election properly', () => {
     expect(screen.queryByText('Ballot Name:')).not.toBeInTheDocument();
 });
 
+it('Does not erroneously display Continue from last saved message if a user has not used the app', () => {
+    render(<App />);
+
+    expect(screen.queryByText('Continue from last saved')).not.toBeInTheDocument();
+});
+
 it('Recognizes and loads from local storage properly', () => {
     const initialStorage = {
         electionName: 'election exists',

@@ -11,8 +11,7 @@ const readmeLink =
     'https://github.com/kschow/down-ballot-voting-guide/blob/master/packages/data-builder/README.md';
 
 const Home:FC<HomeProps> = ({ setElection, startBuilding }) => {
-    // eslint-disable-next-line no-undefined
-    const hasPreviouslyStarted = localStorage.getItem('election') !== undefined;
+    const hasPreviouslyStarted = localStorage.getItem('election') !== null;
 
     const loadFromLocalStorage = () => {
         const election = JSON.parse(localStorage.getItem('election')) as Election;
