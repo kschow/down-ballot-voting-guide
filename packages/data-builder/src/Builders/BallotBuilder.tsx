@@ -41,6 +41,10 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
         });
     };
 
+    const addRaceButton = () => {
+        return <button onClick={addRace}>{`Add Race to ${ballotIdentifier}`}</button>;
+    };
+
     return (
         <div className={styles.Builder}>
             <div className={styles.Collapse}>
@@ -56,7 +60,7 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
             {
                 !collapsed &&
                 <>
-                    <button onClick={addRace}>{`Add Race to ${ballotIdentifier}`}</button>
+                    { addRaceButton() }
                     {
                         ballot.races.map((race, index) => {
                             return <RaceBuilder
@@ -65,6 +69,9 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
                                 updateRace={updateRace}
                             />;
                         })
+                    }
+                    {
+                        ballot.races.length > 0 && addRaceButton()
                     }
                 </>
             }

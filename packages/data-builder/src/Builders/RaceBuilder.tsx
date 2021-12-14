@@ -123,6 +123,15 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
         });
     };
 
+    const addButtons = () => {
+        return (
+            <div className={styles.MultiButton}>
+                <button onClick={addIssue}>{`Add Issue to ${raceIdentifier}`}</button>
+                <button onClick={addCandidate}>{`Add Candidate to ${raceIdentifier}`}</button>
+            </div>
+        );
+    };
+
     return (
         <div className={styles.Builder}>
             <div className={styles.Collapse}>
@@ -135,21 +144,24 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
                 />
                 <CollapseButton />
             </div>
-            <EditableField
-                type={FieldTypes.TextArea}
-                name={`${raceIdentifier} Description`}
-                label="Position Description:"
-                data={race.description}
-                updateField={updateValueForAttribute('description')}
-            />
+
             {
-                !collapsed && <>
-                    <div className={styles.MultiButton}>
-                        <button onClick={addIssue}>{`Add Issue to ${raceIdentifier}`}</button>
-                        <button onClick={addCandidate}>{`Add Candidate to ${raceIdentifier}`}</button>
-                    </div>
+                !collapsed &&
+                <>
+                    <EditableField
+                        type={FieldTypes.TextArea}
+                        name={`${raceIdentifier} Description`}
+                        label="Position Description:"
+                        data={race.description}
+                        updateField={updateValueForAttribute('description')}
+                    />
+                    { addButtons() }
                     <IssueList race={race} updateIssue={updateIssue} />
                     <CandidateList race={race} updateCandidate={updateCandidate} />
+                    {
+                        (race.issues.length > 0 || race.candidates.length > 0) &&
+                            addButtons()
+                    }
                 </>
             }
         </div>

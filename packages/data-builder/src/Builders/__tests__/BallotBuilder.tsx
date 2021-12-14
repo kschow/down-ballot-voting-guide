@@ -44,7 +44,19 @@ it('Collapses races properly', () => {
 
     userEvent.click(screen.getByRole('button', { name: 'Add Race to Ballot #1' }));
     expect(screen.queryByText('Race #2')).toBeInTheDocument();
+
     const collapseBallot = screen.getByRole('button', { name: 'Collapse Ballot #1' });
     userEvent.click(collapseBallot);
+
     expect(screen.queryByText('Race #2')).not.toBeInTheDocument();
+});
+
+it('displays a second add race button at the bottom if there are any races on the ballot', () => {
+    renderElectionWithBallot();
+
+    const addRaceText = 'Add Race to Ballot #1';
+    expect(screen.queryAllByText(addRaceText)).toHaveLength(1);
+    userEvent.click(screen.getByRole('button', { name: addRaceText }));
+
+    expect(screen.queryAllByText(addRaceText)).toHaveLength(2);
 });

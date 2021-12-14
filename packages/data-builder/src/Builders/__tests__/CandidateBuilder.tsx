@@ -15,10 +15,13 @@ const renderElectionWithIssueAndCandidate = (extraIssues?: number) => {
     );
     userEvent.click(screen.getByRole('button', { name: /Add Ballot/u }));
     userEvent.click(screen.getByRole('button', { name: /Add Race/u }));
-    userEvent.click(screen.getByRole('button', { name: /Add Issue/u }));
-    userEvent.click(screen.getByRole('button', { name: /Add Candidate/u }));
+
+    const addIssueButton = screen.getByRole('button', { name: /Add Issue/u });
+    const addCandidateButton = screen.getByRole('button', { name: /Add Candidate/u });
+    userEvent.click(addIssueButton);
+    userEvent.click(addCandidateButton);
     for (let times = 0; times < extraIssues; times++) {
-        userEvent.click(screen.getByRole('button', { name: /Add Issue/u }));
+        userEvent.click(addIssueButton);
     }
 };
 
@@ -123,6 +126,24 @@ describe('Collapses properly', () => {
 
         expect(screen.queryByText('Information:')).not.toBeInTheDocument();
         expect(screen.queryByText('Positions:')).not.toBeInTheDocument();
+    });
+
+    it('Collapses information section properly', () => {
+        renderElectionWithIssueAndCandidate();
+
+        expect(screen.queryByText('Education:')).toBeInTheDocument();
+        expect(screen.queryByText('Campaign Website:')).toBeInTheDocument();
+        expect(screen.queryByText('Facebook Page:')).toBeInTheDocument();
+        expect(screen.queryByText('Twitter Profile:')).toBeInTheDocument();
+        expect(screen.queryByText('Video Link:')).toBeInTheDocument();
+
+        userEvent.click(screen.getByRole('button', { name: 'Collapse Candidate #4 Information' }));
+
+        expect(screen.queryByText('Education:')).not.toBeInTheDocument();
+        expect(screen.queryByText('Campaign Website:')).not.toBeInTheDocument();
+        expect(screen.queryByText('Facebook Page:')).not.toBeInTheDocument();
+        expect(screen.queryByText('Twitter Profile:')).not.toBeInTheDocument();
+        expect(screen.queryByText('Video Link:')).not.toBeInTheDocument();
     });
 
     it('Collapses positions properly', () => {

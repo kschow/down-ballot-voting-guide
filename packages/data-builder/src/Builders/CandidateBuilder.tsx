@@ -20,6 +20,11 @@ type CandidatePositionList = {
     issues: Issue[];
 }
 
+type CandidateInformationProps = {
+    candidate: Candidate;
+    updateCandidateAttribute: (attribute: string) => (val: string) => void;
+};
+
 type CandidateBuilderProps = {
     candidate: Candidate;
     updateCandidate: (candidate: Candidate) => void;
@@ -80,6 +85,61 @@ const CandidatePositionList: FC<CandidatePositionList> = (props) => {
     );
 };
 
+const CandidateInformation: FC<CandidateInformationProps> = (props) => {
+    const { candidate, updateCandidateAttribute } = props;
+    const candidateIdentifier = `Candidate #${candidate.candidateId}`;
+    const [collapsed, CollapseButton] = useCollapsed(`${candidateIdentifier} Information`);
+
+    return (
+        <div className={styles.InternalList}>
+            <div className={styles.Collapse}>
+                <p className={styles.SubHeader}>Information:</p>
+                <CollapseButton />
+            </div>
+            {
+                !collapsed &&
+                <>
+                    <EditableField
+                        type={FieldTypes.TextArea}
+                        name={`${candidateIdentifier} Education`}
+                        label="Education:"
+                        data={candidate.education}
+                        updateField={updateCandidateAttribute('education')}
+                    />
+                    <EditableField
+                        type={FieldTypes.Input}
+                        name={`${candidateIdentifier} Campaign Website`}
+                        label="Campaign Website:"
+                        data={candidate.campaignWebsite}
+                        updateField={updateCandidateAttribute('campaignWebsite')}
+                    />
+                    <EditableField
+                        type={FieldTypes.Input}
+                        name={`${candidateIdentifier} Facebook Page`}
+                        label="Facebook Page:"
+                        data={candidate.facebook}
+                        updateField={updateCandidateAttribute('facebook')}
+                    />
+                    <EditableField
+                        type={FieldTypes.Input}
+                        name={`${candidateIdentifier} Twitter Profile`}
+                        label="Twitter Profile:"
+                        data={candidate.twitter}
+                        updateField={updateCandidateAttribute('twitter')}
+                    />
+                    <EditableField
+                        type={FieldTypes.Input}
+                        name={`${candidateIdentifier} Video Link`}
+                        label="Video Link:"
+                        data={candidate.video}
+                        updateField={updateCandidateAttribute('video')}
+                    />
+                </>
+            }
+        </div>
+    );
+};
+
 const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidate, issues }) => {
     const candidateIdentifier = `Candidate #${candidate.candidateId}`;
     const [collapsed, CollapseButton] = useCollapsed(candidateIdentifier);
@@ -109,44 +169,10 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
             {
                 !collapsed &&
                 <>
-                    <div className={styles.InternalList}>
-                        <p className={styles.SubHeader}>Information:</p>
-                        <EditableField
-                            type={FieldTypes.TextArea}
-                            name={`${candidateIdentifier} Education`}
-                            label="Education:"
-                            data={candidate.education}
-                            updateField={updateValueForAttribute('education')}
-                        />
-                        <EditableField
-                            type={FieldTypes.Input}
-                            name={`${candidateIdentifier} Campaign Website`}
-                            label="Campaign Website:"
-                            data={candidate.campaignWebsite}
-                            updateField={updateValueForAttribute('campaignWebsite')}
-                        />
-                        <EditableField
-                            type={FieldTypes.Input}
-                            name={`${candidateIdentifier} Facebook Page`}
-                            label="Facebook Page:"
-                            data={candidate.facebook}
-                            updateField={updateValueForAttribute('facebook')}
-                        />
-                        <EditableField
-                            type={FieldTypes.Input}
-                            name={`${candidateIdentifier} Twitter Profile`}
-                            label="Twitter Profile:"
-                            data={candidate.twitter}
-                            updateField={updateValueForAttribute('twitter')}
-                        />
-                        <EditableField
-                            type={FieldTypes.Input}
-                            name={`${candidateIdentifier} Video Link`}
-                            label="Video Link:"
-                            data={candidate.video}
-                            updateField={updateValueForAttribute('video')}
-                        />
-                    </div>
+                    <CandidateInformation
+                        candidate={candidate}
+                        updateCandidateAttribute={updateValueForAttribute}
+                    />
                     <CandidatePositionList
                         candidate={candidate}
                         updatePosition={updatePosition}
