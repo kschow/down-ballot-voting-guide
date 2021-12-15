@@ -7,7 +7,7 @@ import { useIdGenerator } from './IdContext';
 import IssueBuilder from './IssueBuilder';
 import CandidateBuilder from './CandidateBuilder';
 import FieldTypes from '../Fields/FieldTypes';
-import useCollapsed from './UseCollapsed';
+import useCollapsed, { CollapseButtonType } from './UseCollapsed';
 
 type IssueListProps = {
     race: Race;
@@ -30,7 +30,7 @@ const IssueList:FC<IssueListProps> = ({ race, updateIssue }) => {
         <div className={styles.InternalList}>
             <div className={styles.Collapse}>
                 <span className={styles.SubHeader}>Issues:</span>
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE } />
             </div>
             {
                 !collapsed && race.issues.map((issue) => {
@@ -40,6 +40,13 @@ const IssueList:FC<IssueListProps> = ({ race, updateIssue }) => {
                         updateIssue={updateIssue}
                     />;
                 })
+            }
+            {
+                !collapsed &&
+                    <div className={styles.Collapse}>
+                        <span />
+                        <CollapseButton type={CollapseButtonType.TEXT} />
+                    </div>
             }
         </div>
     );
@@ -51,7 +58,7 @@ const CandidateList:FC<CandidateListProps> = ({ race, updateCandidate }) => {
         <div className={styles.InternalList}>
             <div className={styles.Collapse}>
                 <span className={styles.SubHeader}>Candidates:</span>
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
             {
                 !collapsed && race.candidates.map((candidate) => {
@@ -62,6 +69,13 @@ const CandidateList:FC<CandidateListProps> = ({ race, updateCandidate }) => {
                         issues={race.issues}
                     />;
                 })
+            }
+            {
+                !collapsed &&
+                    <div className={styles.Collapse}>
+                        <span />
+                        <CollapseButton type={CollapseButtonType.TEXT} />
+                    </div>
             }
         </div>
     );
@@ -142,7 +156,7 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
                     data={race.raceName}
                     updateField={updateValueForAttribute('raceName')}
                 />
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
 
             {
@@ -160,7 +174,10 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace }) => {
                     <CandidateList race={race} updateCandidate={updateCandidate} />
                     {
                         (race.issues.length > 0 || race.candidates.length > 0) &&
-                            addButtons()
+                            <div className={styles.Collapse}>
+                                { addButtons() }
+                                { <CollapseButton type={CollapseButtonType.TEXT} /> }
+                            </div>
                     }
                 </>
             }

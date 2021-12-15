@@ -115,45 +115,131 @@ it('Updates candidate position properly', () => {
 });
 
 describe('Collapses properly', () => {
-    it('Collapses the whole candidate properly', () => {
-        renderElectionWithIssueAndCandidate();
+    describe('Collapses the whole candidate properly', () => {
+        it('Collapses with top image button', () => {
+            renderElectionWithIssueAndCandidate();
 
-        expect(screen.queryByText('Information:')).toBeInTheDocument();
-        expect(screen.queryByText('Positions:')).toBeInTheDocument();
+            expect(screen.queryByText('Information:')).toBeInTheDocument();
+            expect(screen.queryByText('Positions:')).toBeInTheDocument();
 
-        const collapseButton = screen.getByRole('button', { name: 'Collapse Candidate #4' });
-        userEvent.click(collapseButton);
+            const collapseButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4' });
+            userEvent.click(collapseButtons[0]);
 
-        expect(screen.queryByText('Information:')).not.toBeInTheDocument();
-        expect(screen.queryByText('Positions:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Information:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Positions:')).not.toBeInTheDocument();
+        });
+
+        it('Collapses with bottom text button', () => {
+            renderElectionWithIssueAndCandidate();
+
+            expect(screen.queryByText('Information:')).toBeInTheDocument();
+            expect(screen.queryByText('Positions:')).toBeInTheDocument();
+
+            const collapseButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4' });
+            userEvent.click(collapseButtons[1]);
+
+            expect(screen.queryByText('Information:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Positions:')).not.toBeInTheDocument();
+        });
+
+        it('Only displays bottom text button if not collapsed', () => {
+            renderElectionWithIssueAndCandidate();
+
+            let collapseButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4' });
+            expect(collapseButtons).toHaveLength(2);
+
+            userEvent.click(collapseButtons[0]);
+
+            collapseButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4' });
+            expect(collapseButtons).toHaveLength(1);
+        });
     });
 
-    it('Collapses information section properly', () => {
-        renderElectionWithIssueAndCandidate();
+    describe('Collapses information section properly', () => {
+        it('Collapses with top image button', () => {
+            renderElectionWithIssueAndCandidate();
 
-        expect(screen.queryByText('Education:')).toBeInTheDocument();
-        expect(screen.queryByText('Campaign Website:')).toBeInTheDocument();
-        expect(screen.queryByText('Facebook Page:')).toBeInTheDocument();
-        expect(screen.queryByText('Twitter Profile:')).toBeInTheDocument();
-        expect(screen.queryByText('Video Link:')).toBeInTheDocument();
+            expect(screen.queryByText('Education:')).toBeInTheDocument();
+            expect(screen.queryByText('Campaign Website:')).toBeInTheDocument();
+            expect(screen.queryByText('Facebook Page:')).toBeInTheDocument();
+            expect(screen.queryByText('Twitter Profile:')).toBeInTheDocument();
+            expect(screen.queryByText('Video Link:')).toBeInTheDocument();
 
-        userEvent.click(screen.getByRole('button', { name: 'Collapse Candidate #4 Information' }));
+            const collapseInfoButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Information' });
+            userEvent.click(collapseInfoButtons[0]);
 
-        expect(screen.queryByText('Education:')).not.toBeInTheDocument();
-        expect(screen.queryByText('Campaign Website:')).not.toBeInTheDocument();
-        expect(screen.queryByText('Facebook Page:')).not.toBeInTheDocument();
-        expect(screen.queryByText('Twitter Profile:')).not.toBeInTheDocument();
-        expect(screen.queryByText('Video Link:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Education:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Campaign Website:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Facebook Page:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Twitter Profile:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Video Link:')).not.toBeInTheDocument();
+        });
+
+        it('Collapses with bottom text button', () => {
+            renderElectionWithIssueAndCandidate();
+
+            expect(screen.queryByText('Education:')).toBeInTheDocument();
+            expect(screen.queryByText('Campaign Website:')).toBeInTheDocument();
+            expect(screen.queryByText('Facebook Page:')).toBeInTheDocument();
+            expect(screen.queryByText('Twitter Profile:')).toBeInTheDocument();
+            expect(screen.queryByText('Video Link:')).toBeInTheDocument();
+
+            const collapseInfoButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Information' });
+            userEvent.click(collapseInfoButtons[1]);
+
+            expect(screen.queryByText('Education:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Campaign Website:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Facebook Page:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Twitter Profile:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Video Link:')).not.toBeInTheDocument();
+        });
+
+        it('Only displays bottom text button if info is not collapsed', () => {
+            renderElectionWithIssueAndCandidate();
+
+            let collapseInfoButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Information' });
+            expect(collapseInfoButtons).toHaveLength(2);
+
+            userEvent.click(collapseInfoButtons[0]);
+
+            collapseInfoButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Information' });
+            expect(collapseInfoButtons).toHaveLength(1);
+        });
     });
 
-    it('Collapses positions properly', () => {
-        renderElectionWithIssueAndCandidate(2);
+    describe('Collapses positions properly', () => {
+        it('Collapses with top image button', () => {
+            renderElectionWithIssueAndCandidate(2);
 
-        expect(screen.queryAllByText('Position:')).toHaveLength(3);
+            expect(screen.queryAllByText('Position:')).toHaveLength(3);
 
-        const collapseButton = screen.getByRole('button', { name: 'Collapse Candidate #4 Positions' });
-        userEvent.click(collapseButton);
+            const collapsePositionsButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Positions' });
+            userEvent.click(collapsePositionsButtons[0]);
 
-        expect(screen.queryAllByText('Position:')).toHaveLength(0);
+            expect(screen.queryAllByText('Position:')).toHaveLength(0);
+        });
+
+        it('Collapses with bottom text button', () => {
+            renderElectionWithIssueAndCandidate(2);
+
+            expect(screen.queryAllByText('Position:')).toHaveLength(3);
+
+            const collapsePositionsButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Positions' });
+            userEvent.click(collapsePositionsButtons[1]);
+
+            expect(screen.queryAllByText('Position:')).toHaveLength(0);
+        });
+
+        it('Only displays bottom text button if info is not collapsed', () => {
+            renderElectionWithIssueAndCandidate();
+
+            let collapsePositionsButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Positions' });
+            expect(collapsePositionsButtons).toHaveLength(2);
+
+            userEvent.click(collapsePositionsButtons[0]);
+
+            collapsePositionsButtons = screen.getAllByRole('button', { name: 'Collapse Candidate #4 Positions' });
+            expect(collapsePositionsButtons).toHaveLength(1);
+        });
     });
 });

@@ -5,7 +5,7 @@ import EditableField from '../Fields/EditableField';
 import { useIdGenerator } from './IdContext';
 import RaceBuilder from './RaceBuilder';
 import FieldTypes from '../Fields/FieldTypes';
-import useCollapsed from './UseCollapsed';
+import useCollapsed, { CollapseButtonType } from './UseCollapsed';
 
 type BallotBuilderProps = {
     ballot: Ballot;
@@ -55,7 +55,7 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
                     data={ballot.ballotName}
                     updateField={updateName}
                 />
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
             {
                 !collapsed &&
@@ -71,8 +71,13 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
                         })
                     }
                     {
-                        ballot.races.length > 0 && addRaceButton()
+                        ballot.races.length > 0 &&
+                        <div className={styles.Collapse}>
+                            { addRaceButton() }
+                            <CollapseButton type={CollapseButtonType.TEXT} />
+                        </div>
                     }
+
                 </>
             }
         </div>

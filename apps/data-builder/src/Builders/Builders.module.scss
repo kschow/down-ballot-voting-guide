@@ -16,11 +16,13 @@ $borderRadius: 3px;
 .InternalList {
   border: 1px solid black;
   border-radius: $borderRadius;
-  margin-top: .5rem;
+  margin: .5rem 0;
   padding: .5rem;
 }
 
 .MultiButton {
+  display: flex;
+
   button {
     margin-right: 1.5rem;
   }
@@ -31,7 +33,7 @@ $borderRadius: 3px;
   justify-content: space-between;
   align-items: flex-start;
 
-  button {
+  button.Image {
     border: none;
     background: inherit;
     cursor: pointer;

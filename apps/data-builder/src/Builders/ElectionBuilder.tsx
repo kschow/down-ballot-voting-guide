@@ -1,11 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Election, Ballot, generateBallot } from '@dbvg/shared-types';
+import { Ballot, Election, generateBallot } from '@dbvg/shared-types';
 import BallotBuilder from './BallotBuilder';
 import { useIdGenerator } from './IdContext';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';
-import useCollapsed from './UseCollapsed';
+import useCollapsed, { CollapseButtonType } from './UseCollapsed';
 import { saveAs } from 'file-saver';
 
 type ElectionBuilderProps = {
@@ -73,7 +73,7 @@ const ElectionBuilder:FC<ElectionBuilderProps> = ({ election }) => {
                     data={electionInfo.electionName}
                     updateField={updateName}
                 />
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
             {
                 !collapsed &&

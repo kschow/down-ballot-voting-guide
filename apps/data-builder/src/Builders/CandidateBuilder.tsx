@@ -5,7 +5,7 @@ import styles from './Builders.module.scss';
 import global from '../Global.module.scss';
 import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';
-import useCollapsed from './UseCollapsed';
+import useCollapsed, { CollapseButtonType } from './UseCollapsed';
 
 type CandidatePositionBuilderProps = {
     candidateId: number;
@@ -43,7 +43,7 @@ const CandidatePositionBuilder: FC<CandidatePositionBuilderProps> = (props) => {
 
     return (
         <div className={styles.Builder}>
-            <div className={styles.stacked}>
+            <div>
                 <p className={global.label}>Question: </p>
                 <p>{question}</p>
             </div>
@@ -66,7 +66,7 @@ const CandidatePositionList: FC<CandidatePositionList> = (props) => {
         <div className={styles.InternalList}>
             <div className={styles.Collapse}>
                 <p className={styles.SubHeader}>Positions:</p>
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
             {
                 !collapsed && candidate.positions.map((position) => {
@@ -81,6 +81,13 @@ const CandidatePositionList: FC<CandidatePositionList> = (props) => {
                     />;
                 })
             }
+            {
+                !collapsed &&
+                    <div className={styles.Collapse}>
+                        <span />
+                        <CollapseButton type={CollapseButtonType.TEXT} />
+                    </div>
+            }
         </div>
     );
 };
@@ -94,7 +101,7 @@ const CandidateInformation: FC<CandidateInformationProps> = (props) => {
         <div className={styles.InternalList}>
             <div className={styles.Collapse}>
                 <p className={styles.SubHeader}>Information:</p>
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
             {
                 !collapsed &&
@@ -134,6 +141,10 @@ const CandidateInformation: FC<CandidateInformationProps> = (props) => {
                         data={candidate.video}
                         updateField={updateCandidateAttribute('video')}
                     />
+                    <div className={styles.Collapse}>
+                        <span />
+                        <CollapseButton type={CollapseButtonType.TEXT} />
+                    </div>
                 </>
             }
         </div>
@@ -164,7 +175,7 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
                     data={candidate.candidateName}
                     updateField={updateValueForAttribute('candidateName')}
                 />
-                <CollapseButton />
+                <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
             {
                 !collapsed &&
@@ -178,6 +189,10 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
                         updatePosition={updatePosition}
                         issues={issues}
                     />
+                    <div className={styles.Collapse}>
+                        <span />
+                        <CollapseButton type={CollapseButtonType.TEXT} />
+                    </div>
                 </>
             }
         </div>
