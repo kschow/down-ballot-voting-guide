@@ -19,6 +19,7 @@
     "dev": "lerna run dev"
   },
   "workspaces": [
+    "apps/*",
     "packages/*"
   ]
 }

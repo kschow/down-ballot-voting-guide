@@ -2,8 +2,8 @@
 
 # dependencies
 /node_modules
-packages/**/node_modules
-packages/**/lib
+**/node_modules
+**/lib
 /.pnp
 .pnp.js
 
@@ -11,13 +11,13 @@ packages/**/lib
 /coverage
 
 # next.js
-/.next/
-packages/**/.next
+/.next
+**/.next
 /out/
 
 # production
 /build
-packages/**/build
+**/**/build
 
 # misc
 .DS_Store
