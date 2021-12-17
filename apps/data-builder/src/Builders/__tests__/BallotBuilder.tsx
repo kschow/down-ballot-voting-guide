@@ -82,7 +82,7 @@ describe('Collapses races properly', () => {
     });
 });
 
-it('displays a second add race button at the bottom if there are any races on the ballot', () => {
+it('Displays a second add race button at the bottom if there are any races on the ballot', () => {
     renderElectionWithBallot();
 
     const addRaceText = 'Add Race to Ballot #1';
@@ -90,4 +90,26 @@ it('displays a second add race button at the bottom if there are any races on th
     userEvent.click(screen.getByRole('button', { name: addRaceText }));
 
     expect(screen.queryAllByText(addRaceText)).toHaveLength(2);
+});
+
+it('Deletes a ballot properly', () => {
+    renderElectionWithBallot();
+
+    expect(screen.queryByText('Ballot #1')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Ballot #1' }));
+    userEvent.click(screen.getByRole('button', { name: 'Yes' }));
+
+    expect(screen.queryByText('Ballot #1')).not.toBeInTheDocument();
+});
+
+it('Cancels a delete properly', () => {
+    renderElectionWithBallot();
+
+    expect(screen.queryByText('Ballot #1')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Ballot #1' }));
+    userEvent.click(screen.getByRole('button', { name: 'No' }));
+
+    expect(screen.queryByText('Ballot #1')).toBeInTheDocument();
 });

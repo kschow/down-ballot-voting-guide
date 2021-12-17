@@ -6,6 +6,7 @@ import global from '../Global.module.scss';
 import EditableField from '../Fields/EditableField';
 import FieldTypes from '../Fields/FieldTypes';
 import useCollapsed, { CollapseButtonType } from './UseCollapsed';
+import useDelete from './UseDelete';
 
 type CandidatePositionBuilderProps = {
     candidateId: number;
@@ -28,6 +29,7 @@ type CandidateInformationProps = {
 type CandidateBuilderProps = {
     candidate: Candidate;
     updateCandidate: (candidate: Candidate) => void;
+    deleteCandidate: (candidate: Candidate) => void;
     issues: Issue[];
 };
 
@@ -64,7 +66,7 @@ const CandidatePositionList: FC<CandidatePositionList> = (props) => {
 
     return (
         <div className={styles.InternalList}>
-            <div className={styles.Collapse}>
+            <div className={styles.SplitWide}>
                 <p className={styles.SubHeader}>Positions:</p>
                 <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
@@ -83,7 +85,7 @@ const CandidatePositionList: FC<CandidatePositionList> = (props) => {
             }
             {
                 !collapsed &&
-                    <div className={styles.Collapse}>
+                    <div className={styles.SplitWide}>
                         <span />
                         <CollapseButton type={CollapseButtonType.TEXT} />
                     </div>
@@ -99,7 +101,7 @@ const CandidateInformation: FC<CandidateInformationProps> = (props) => {
 
     return (
         <div className={styles.InternalList}>
-            <div className={styles.Collapse}>
+            <div className={styles.SplitWide}>
                 <p className={styles.SubHeader}>Information:</p>
                 <CollapseButton type={CollapseButtonType.IMAGE} />
             </div>
@@ -141,7 +143,7 @@ const CandidateInformation: FC<CandidateInformationProps> = (props) => {
                         data={candidate.video}
                         updateField={updateCandidateAttribute('video')}
                     />
-                    <div className={styles.Collapse}>
+                    <div className={styles.SplitWide}>
                         <span />
                         <CollapseButton type={CollapseButtonType.TEXT} />
                     </div>
@@ -151,10 +153,15 @@ const CandidateInformation: FC<CandidateInformationProps> = (props) => {
     );
 };
 
-const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidate, issues }) => {
+const CandidateBuilder: FC<CandidateBuilderProps> = (props) => {
+    const { candidate, updateCandidate, issues, deleteCandidate } = props;
     const candidateIdentifier = `Candidate #${candidate.candidateId}`;
     const [collapsed, CollapseButton] = useCollapsed(candidateIdentifier);
     const updateValueForAttribute = curriedUpdateAttribute(updateCandidate)(candidate);
+    const [DeleteModal, DeleteButton] =
+        useDelete(candidateIdentifier,
+            candidate.candidateName,
+            () => deleteCandidate(candidate));
 
     const updatePosition = (position: CandidatePosition) => {
         const updatedIndex = candidate.positions.findIndex((pos) => pos.issueId === position.issueId);
@@ -167,7 +174,7 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
 
     return (
         <div className={styles.Builder}>
-            <div className={styles.Collapse}>
+            <div className={styles.SplitWide}>
                 <EditableField
                     type={FieldTypes.Input}
                     name={`${candidateIdentifier} Name`}
@@ -175,7 +182,11 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
                     data={candidate.candidateName}
                     updateField={updateValueForAttribute('candidateName')}
                 />
-                <CollapseButton type={CollapseButtonType.IMAGE} />
+                <div>
+                    <DeleteModal />
+                    <DeleteButton />
+                    <CollapseButton type={CollapseButtonType.IMAGE} />
+                </div>
             </div>
             {
                 !collapsed &&
@@ -189,7 +200,7 @@ const CandidateBuilder: FC<CandidateBuilderProps> = ({ candidate, updateCandidat
                         updatePosition={updatePosition}
                         issues={issues}
                     />
-                    <div className={styles.Collapse}>
+                    <div className={styles.SplitWide}>
                         <span />
                         <CollapseButton type={CollapseButtonType.TEXT} />
                     </div>

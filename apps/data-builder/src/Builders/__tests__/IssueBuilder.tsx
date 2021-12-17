@@ -41,3 +41,25 @@ it('Updates Issue question properly', () => {
 
     expect(screen.getByText('What is your opinion on this issue?')).toBeInTheDocument();
 });
+
+it('Deletes an issue properly', () => {
+    renderElectionWithIssue();
+
+    expect(screen.queryByText('Issue #3')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Issue #3' }));
+    userEvent.click(screen.getByRole('button', { name: 'Yes' }));
+
+    expect(screen.queryByText('Issue #3')).not.toBeInTheDocument();
+});
+
+it('Cancels a delete properly', () => {
+    renderElectionWithIssue();
+
+    expect(screen.queryByText('Issue #3')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Issue #3' }));
+    userEvent.click(screen.getByRole('button', { name: 'No' }));
+
+    expect(screen.queryByText('Issue #3')).toBeInTheDocument();
+});

@@ -243,3 +243,25 @@ describe('Collapses properly', () => {
         });
     });
 });
+
+it('Deletes a candidate properly', () => {
+    renderElectionWithIssueAndCandidate();
+
+    expect(screen.queryByText('Candidate #4')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Candidate #4' }));
+    userEvent.click(screen.getByRole('button', { name: 'Yes' }));
+
+    expect(screen.queryByText('Candidate #4')).not.toBeInTheDocument();
+});
+
+it('Cancels a delete properly', () => {
+    renderElectionWithIssueAndCandidate();
+
+    expect(screen.queryByText('Candidate #4')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Candidate #4' }));
+    userEvent.click(screen.getByRole('button', { name: 'No' }));
+
+    expect(screen.queryByText('Candidate #4')).toBeInTheDocument();
+});

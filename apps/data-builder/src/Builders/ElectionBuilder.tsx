@@ -56,6 +56,15 @@ const ElectionBuilder:FC<ElectionBuilderProps> = ({ election }) => {
         });
     };
 
+    const deleteBallot = (ballot: Ballot) => {
+        const deletedBallotIndex = electionInfo.ballots.findIndex((find) => find.ballotId === ballot.ballotId);
+        electionInfo.ballots.splice(deletedBallotIndex, 1);
+        setElectionInfo({
+            ...electionInfo,
+            ballots: electionInfo.ballots
+        });
+    };
+
     const saveToJson = () => {
         const prettifiedElection = JSON.stringify(electionInfo, null, 2);
         const electionFile =
@@ -65,7 +74,7 @@ const ElectionBuilder:FC<ElectionBuilderProps> = ({ election }) => {
 
     return (
         <div className={`${styles.Builder} ${styles.Election}`}>
-            <div className={styles.Collapse}>
+            <div className={styles.SplitWide}>
                 <EditableField
                     type={FieldTypes.Input}
                     name="Election Name"
@@ -86,6 +95,7 @@ const ElectionBuilder:FC<ElectionBuilderProps> = ({ election }) => {
                                     key={index}
                                     ballot={ballot}
                                     updateBallot={updateBallot}
+                                    deleteBallot={deleteBallot}
                                 />;
                             })
                         }

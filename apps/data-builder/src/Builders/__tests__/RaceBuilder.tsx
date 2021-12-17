@@ -278,3 +278,25 @@ describe('Displays a second set of add buttons if there are any candidates or is
         expect(screen.queryAllByText('Candidate Name:')).toHaveLength(3);
     });
 });
+
+it('Deletes a race properly', () => {
+    renderElectionWithRace();
+
+    expect(screen.queryByText('Race #2')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Race #2' }));
+    userEvent.click(screen.getByRole('button', { name: 'Yes' }));
+
+    expect(screen.queryByText('Race #2')).not.toBeInTheDocument();
+});
+
+it('Cancels a delete properly', () => {
+    renderElectionWithRace();
+
+    expect(screen.queryByText('Race #2')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Delete Race #2' }));
+    userEvent.click(screen.getByRole('button', { name: 'No' }));
+
+    expect(screen.queryByText('Race #2')).toBeInTheDocument();
+});

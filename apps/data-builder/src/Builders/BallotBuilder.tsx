@@ -6,16 +6,22 @@ import { useIdGenerator } from './IdContext';
 import RaceBuilder from './RaceBuilder';
 import FieldTypes from '../Fields/FieldTypes';
 import useCollapsed, { CollapseButtonType } from './UseCollapsed';
+import useDelete from './UseDelete';
 
 type BallotBuilderProps = {
     ballot: Ballot;
     updateBallot: (ballot: Ballot) => void;
+    deleteBallot: (ballot: Ballot) => void;
 }
 
-const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
+const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot, deleteBallot }) => {
     const { getNewId } = useIdGenerator();
     const ballotIdentifier = `Ballot #${ballot.ballotId}`;
     const [collapsed, CollapseButton] = useCollapsed(ballotIdentifier);
+    const [DeleteModal, DeleteButton] =
+        useDelete(ballotIdentifier,
+            ballot.ballotName,
+            () => deleteBallot(ballot));
 
     const updateName = (ballotName: string) => {
         updateBallot({ ...ballot, ballotName });
@@ -41,13 +47,22 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
         });
     };
 
+    const deleteRace = (race: Race) => {
+        const deletedRaceIndex = ballot.races.findIndex((find) => find.raceId === race.raceId);
+        ballot.races.splice(deletedRaceIndex, 1);
+        updateBallot({
+            ...ballot,
+            races: ballot.races
+        });
+    };
+
     const addRaceButton = () => {
         return <button onClick={addRace}>{`Add Race to ${ballotIdentifier}`}</button>;
     };
 
     return (
         <div className={styles.Builder}>
-            <div className={styles.Collapse}>
+            <div className={styles.SplitWide}>
                 <EditableField
                     type={FieldTypes.Input}
                     name={`${ballotIdentifier} Name`}
@@ -55,7 +70,11 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
                     data={ballot.ballotName}
                     updateField={updateName}
                 />
-                <CollapseButton type={CollapseButtonType.IMAGE} />
+                <div>
+                    <DeleteModal />
+                    <DeleteButton />
+                    <CollapseButton type={CollapseButtonType.IMAGE} />
+                </div>
             </div>
             {
                 !collapsed &&
@@ -67,12 +86,13 @@ const BallotBuilder:FC<BallotBuilderProps> = ({ ballot, updateBallot }) => {
                                 key={index}
                                 race={race}
                                 updateRace={updateRace}
+                                deleteRace={deleteRace}
                             />;
                         })
                     }
                     {
                         ballot.races.length > 0 &&
-                        <div className={styles.Collapse}>
+                        <div className={styles.SplitWide}>
                             { addRaceButton() }
                             <CollapseButton type={CollapseButtonType.TEXT} />
                         </div>
