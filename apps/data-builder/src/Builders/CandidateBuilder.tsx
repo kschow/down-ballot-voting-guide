@@ -1,5 +1,5 @@
 import { Candidate, CandidatePosition, Issue } from '@dbvg/shared-types';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';
 import styles from './Builders.module.scss';
 import global from '../Global.module.scss';

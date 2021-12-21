@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Election, ElectionSchema } from '@dbvg/shared-types';
 import Ajv from 'ajv';
 

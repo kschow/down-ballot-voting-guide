@@ -1,5 +1,5 @@
 import { Issue } from '@dbvg/shared-types';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';
 import curriedUpdateAttribute from './Utils/CurriedUpdateAttribute';

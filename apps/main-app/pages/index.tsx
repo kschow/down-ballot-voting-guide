@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import BaseLayout from '../components/Shared/Layout';
 
 const Home: FunctionComponent = () => (

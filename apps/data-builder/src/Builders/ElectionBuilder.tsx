@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Ballot, Election, generateBallot } from '@dbvg/shared-types';
 import BallotBuilder from './BallotBuilder';
 import { useIdGenerator } from './IdContext';

@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import Election from '../../data/current_election/2020 Primary Election.json';
 import { Race } from '@dbvg/shared-types';
 import global from './Global.module.scss';

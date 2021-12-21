@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import { CandidateIssueResult, Result } from '../../data/Scoring';
 import singleSelect from './SingleSelect.module.scss';
 import global from '../Shared/Global.module.scss';

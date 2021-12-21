@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Ballot, generateRace, Race } from '@dbvg/shared-types';
 import styles from './Builders.module.scss';
 import EditableField from '../Fields/EditableField';

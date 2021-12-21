@@ -1,4 +1,4 @@
-import React, { FC, useRef } from 'react';
+import { FC, useRef } from 'react';
 import styles from './Editable.module.scss';
 import EditableFormArea from './EditableFormArea';
 

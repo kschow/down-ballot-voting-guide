@@ -1,5 +1,4 @@
 import Results from '../Results';
-import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import {
     generateCandidate,

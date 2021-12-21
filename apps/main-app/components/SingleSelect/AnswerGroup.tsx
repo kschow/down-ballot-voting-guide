@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import AnswerCard from './AnswerCard';
 import singleSelect from './SingleSelect.module.scss';
 import { IssuePosition } from '@dbvg/shared-types';

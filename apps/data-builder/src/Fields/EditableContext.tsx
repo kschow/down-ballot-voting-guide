@@ -1,5 +1,5 @@
 /* eslint-disable no-undefined */
-import React, { createContext, FC, useContext, useState } from 'react';
+import { createContext, FC, useContext, useState } from 'react';
 
 type EditableContext = {
     isEditable: boolean,

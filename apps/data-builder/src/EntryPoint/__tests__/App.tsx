@@ -1,4 +1,3 @@
-import React from 'react';
 import App from '../App';
 import { Election } from '@dbvg/shared-types';
 import { screen, render } from '@testing-library/react';

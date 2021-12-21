@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useState } from 'react';
 import BaseLayout from '../components/Shared/Layout';
 import RaceSelection from '../components/Shared/RaceSelection';
 import Description from '../components/SingleSelect/Description';

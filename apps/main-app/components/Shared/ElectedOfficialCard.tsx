@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import { FunctionComponent } from 'react';
 import global from './Global.module.scss';
 
 type ElectedOfficialCardProps = {

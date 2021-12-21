@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { Election } from '@dbvg/shared-types';
 import ElectionBuilder from '../Builders/ElectionBuilder';
 import { IdProvider } from '../Builders/IdContext';

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import styles from './Builders.module.scss';
 import Delete from './icons/delete.svg';
 

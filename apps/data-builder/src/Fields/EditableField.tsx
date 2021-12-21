@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import { useEditable } from './EditableContext';
 import FieldTypes from './FieldTypes';
 import EditableInput from './EditableInput';

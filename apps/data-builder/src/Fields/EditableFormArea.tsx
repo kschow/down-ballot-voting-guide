@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 // using material icons
 import saveIcon from './icons/save.svg';
 import cancelIcon from './icons/cancel.svg';

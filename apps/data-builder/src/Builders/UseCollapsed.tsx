@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import styles from './Builders.module.scss';
 import UpArrow from './icons/up-arrow.svg';
 import DownArrow from './icons/down-arrow.svg';

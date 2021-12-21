@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import EditableField from '../EditableField';
 import { EditableProvider } from '../EditableContext';
 import FieldTypes from '../FieldTypes';
