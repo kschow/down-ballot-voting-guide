@@ -1,6 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import LWV_DEM_SEN from '../../data/dem/lwv-dem-sen';
-import LWV_GOP_SEN from '../../data/gop/lwv-gop-sen';
+import Election from '../../data/current_election/2020 Primary Election.json';
 import { Race } from '@dbvg/shared-types';
 import global from './Global.module.scss';
 
@@ -26,9 +25,9 @@ type RaceSelectionProps = {
 
 const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, races }) => {
     // eslint-disable-next-line prefer-destructuring
-    const democratUSsenatorRace = LWV_DEM_SEN.races[0];
+    const gopUSsenatorRace = Election.ballots[0].races;
     // eslint-disable-next-line prefer-destructuring
-    const gopUSsenatorRace = LWV_GOP_SEN.races[0];
+    const democratUSsenatorRace = Election.ballots[1].races;
 
     return (
         <>
@@ -49,12 +48,12 @@ const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, race
                     }) :
                     <>
                         <RaceCard
-                            race={democratUSsenatorRace}
+                            race={democratUSsenatorRace[0]}
                             raceDisplay="Democratic Primary: US Senator"
                             selectRace={selectRace}
                         />
                         <RaceCard
-                            race={gopUSsenatorRace}
+                            race={gopUSsenatorRace[0]}
                             raceDisplay="GOP Primary: US Senator"
                             selectRace={selectRace}
                         />

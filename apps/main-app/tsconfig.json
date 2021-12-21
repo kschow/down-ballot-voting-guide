@@ -3,7 +3,8 @@
   "compilerOptions": {
     "allowJs": false,
     "baseUrl": "./",
-    "incremental": true
+    "incremental": true,
+    "resolveJsonModule": true
   },
   "exclude": [
     "node_modules"
