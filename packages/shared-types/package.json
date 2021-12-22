@@ -8,21 +8,13 @@
   ],
   "scripts": {
     "prod-build": "./prebuild && tsc -b",
-    "build": "./cleanupIndex && yarn prod-build",
+    "build": "./cleanupIndex && npm run prod-build",
     "clean": "rm -rf lib && rm -rf src/gen && ./cleanupIndex",
     "watch": "tsc --watch",
     "pre-test": "./cleanupIndex",
-    "test": "yarn pre-test && jest --verbose=true --watchAll=true",
-    "test-ci": "yarn pre-test && jest --verbose=false --watchAll=false",
+    "test": "npm run pre-test && jest --verbose=true --watchAll=true",
+    "test-ci": "npm run pre-test && jest --verbose=false --watchAll=false",
     "lint": "eslint 'src/**/**.ts'",
-    "tint": "yarn test-ci && yarn lint"
-  },
-  "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.13.15",
-    "@babel/preset-env": "^7.14.0",
-    "@babel/preset-typescript": "^7.13.0",
-    "eslint": "^7.25.0",
-    "jest": "^26.6.3",
-    "typescript": "^4.2.4"
+    "tint": "npm run test-ci && npm run lint"
   }
 }

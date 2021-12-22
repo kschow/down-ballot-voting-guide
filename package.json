@@ -3,10 +3,10 @@
   "private": true,
   "devDependencies": {
     "lerna": "^4.0.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.5.4"
   },
   "scripts": {
-    "setup": "yarn && lerna clean -y && lerna bootstrap",
+    "setup": "npm install && lerna clean -y && lerna bootstrap --hoist",
     "prod-build": "lerna run prod-build",
     "build": "lerna run build",
     "clean": "lerna run clean",
@@ -14,8 +14,8 @@
     "test-ci": "lerna run test-ci",
     "lint": "lerna run lint",
     "tint": "lerna run tint",
-    "pre-commit": "yarn tint",
-    "pre-push": "yarn tint && yarn clean && yarn build",
+    "pre-commit": "npm run tint",
+    "pre-push": "npm run tint && npm run clean && npm run build",
     "dev": "lerna run dev"
   },
   "workspaces": [
