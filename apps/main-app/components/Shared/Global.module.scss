@@ -8,7 +8,8 @@
     margin-bottom: .5rem;
   }
 
-  &.race {
+  &.race,
+  &.ballot {
     cursor: pointer;
 
     background-image: url("../Icons/keyboard_arrow_right-24px.svg");

@@ -1,5 +1,11 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { generateCandidate, generateIssues, generateRace } from '@dbvg/shared-types';
+import {
+    generateBallot,
+    generateCandidate,
+    generateElection,
+    generateIssues,
+    generateRace
+} from '@dbvg/shared-types';
 import SingleSelect from '../pages/single-select';
 
 // eslint-disable-next-line no-empty-function,@typescript-eslint/no-empty-function
@@ -12,18 +18,26 @@ const candidates = [candidate1, candidate2];
 
 const race1 = generateRace(256, issues, candidates);
 const race2 = generateRace(100, issues, candidates);
+const race3 = generateRace(12, issues, candidates);
 
-const races = [race1, race2];
+const ballot1 = generateBallot(1, [race1, race2]);
+const ballot2 = generateBallot(2, [race3]);
+const election = generateElection('testElection', [ballot1, ballot2]);
 
 it('follows the flow from beginning to end', () => {
     const issueOrder = [0, 1];
-    const component = <SingleSelect races={races} issueOrder={issueOrder}/>;
+    const component = <SingleSelect election={election} issueOrder={issueOrder}/>;
 
     render(component);
 
     // Expect description page to exist
     expect(screen.getByText('Single Select')).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: /here/u }));
+
+    // Expect ballot selection page to exist with shown ballots
+    expect(screen.getByText(/Ballot #1/u)).toBeInTheDocument();
+    expect(screen.getByText(/Ballot #2/u)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(/Ballot #1/u));
 
     // Expect race selection page to exist with shown races
     expect(screen.getByText(/Race #256/u)).toBeInTheDocument();
