@@ -5,7 +5,7 @@ type BaseLayoutProps = {
     title: string;
 }
 
-const BaseLayout: FunctionComponent<BaseLayoutProps> = ({ title, children }) => (
+const HeadLayout: FunctionComponent<BaseLayoutProps> = ({ title, children }) => (
     <div>
         <Head>
             <title>{title}</title>
@@ -15,4 +15,4 @@ const BaseLayout: FunctionComponent<BaseLayoutProps> = ({ title, children }) => 
     </div>
 );
 
-export default BaseLayout;
+export default HeadLayout;

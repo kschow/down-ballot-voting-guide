@@ -1,21 +1,31 @@
 import { FunctionComponent } from 'react';
-import { Race } from '@dbvg/shared-types';
+import { Candidate, Race } from '@dbvg/shared-types';
 import global from './Global.module.scss';
+import { useSelectedCandidates } from '../../context/SelectedCandidatesContext';
 
 type RaceCardProps = {
     raceDisplay: string;
     race: Race;
+    selectedCandidate: Candidate | null;
     selectRace(race: Race): void;
 }
 
-const RaceCard: FunctionComponent<RaceCardProps> = ({ raceDisplay, race, selectRace }) => (
-    <div
-        className={`${global.card} ${global.race}`}
-        onClick={() => selectRace(race)}
-    >
-        {raceDisplay}
-    </div>
-);
+const RaceCard: FunctionComponent<RaceCardProps> = (props) => {
+    const { raceDisplay, race, selectedCandidate, selectRace } = props;
+    return (
+        <div
+            className={`${global.card} ${global.race}`}
+            onClick={() => selectRace(race)}
+        >
+            <div className={global.flexColumn}>
+                <span>{raceDisplay}</span>
+                {
+                    selectedCandidate && <span>{`Selected: ${selectedCandidate.candidateName}`}</span>
+                }
+            </div>
+        </div>
+    );
+};
 
 type RaceSelectionProps = {
     selectRace(race: Race): void;
@@ -23,6 +33,7 @@ type RaceSelectionProps = {
 }
 
 const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, races }) => {
+    const { getSelectedCandidate } = useSelectedCandidates();
     return (
         <>
             <p>
@@ -30,11 +41,15 @@ const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, race
             </p>
             {
                 races.map((race) => {
+                    const selectedCandidateId = getSelectedCandidate(race.raceId);
+                    const selectedCandidate =
+                        race.candidates.find((candidate) => candidate.candidateId === selectedCandidateId);
                     return (
                         <RaceCard
                             key={race.raceId}
                             race={race}
                             raceDisplay={race.raceName}
+                            selectedCandidate={selectedCandidate ? selectedCandidate : null}
                             selectRace={selectRace}
                         />
                     );

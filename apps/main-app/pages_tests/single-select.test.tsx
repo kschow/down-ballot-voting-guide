@@ -7,6 +7,7 @@ import {
     generateRace
 } from '@dbvg/shared-types';
 import SingleSelect from '../pages/single-select';
+import { SelectedCandidatesProvider } from '../context/SelectedCandidatesContext';
 
 // eslint-disable-next-line no-empty-function,@typescript-eslint/no-empty-function
 window.HTMLElement.prototype.scrollIntoView = (): void => {};
@@ -26,7 +27,15 @@ const election = generateElection('testElection', [ballot1, ballot2]);
 
 it('follows the flow from beginning to end', () => {
     const issueOrder = [0, 1];
-    const component = <SingleSelect election={election} issueOrder={issueOrder}/>;
+
+    /*
+     * SelectedCandidatesProvider is normally added via nextjs
+     * but that isn't available in the tests in the same way
+     */
+    const component =
+        <SelectedCandidatesProvider>
+            <SingleSelect election={election} issueOrder={issueOrder}/>
+        </SelectedCandidatesProvider>;
 
     render(component);
 
@@ -60,5 +69,6 @@ it('follows the flow from beginning to end', () => {
     fireEvent.click(screen.getByRole('button', { name: /Back to Races/u }));
 
     expect(screen.getByText(/Race #256/u)).toBeInTheDocument();
+    expect(screen.getByText(/Selected: Candidate #5/u)).toBeInTheDocument();
     expect(screen.getByText(/Race #100/u)).toBeInTheDocument();
 });

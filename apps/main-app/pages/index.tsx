@@ -1,13 +1,17 @@
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
-import BaseLayout from '../components/Shared/Layout';
+import { ReactElement } from 'react';
+import HeadLayout from '../components/Shared/Layouts/HeadLayout';
 
-const Home: FunctionComponent = () => (
-    <BaseLayout title="Create Next App">
-        <Link href="/single-select">
-            <a>Single Select</a>
-        </Link>
-    </BaseLayout>
+const Home = () => (
+    <Link href="/single-select">
+        <a>Single Select</a>
+    </Link>
+);
+
+Home.getContainer = (page: ReactElement) => (
+    <HeadLayout title={'Create Next App'}>
+        {page}
+    </HeadLayout>
 );
 
 export default Home;

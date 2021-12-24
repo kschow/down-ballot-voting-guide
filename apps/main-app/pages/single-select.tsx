@@ -1,5 +1,4 @@
-import { FunctionComponent, useState } from 'react';
-import BaseLayout from '../components/Shared/Layout';
+import { ReactElement, useState } from 'react';
 import RaceSelection from '../components/Shared/RaceSelection';
 import Description from '../components/SingleSelect/Description';
 import RaceGuide from '../components/SingleSelect/RaceGuide';
@@ -7,23 +6,28 @@ import Results from '../components/SingleSelect/Results';
 import Guide from '../data/Guide';
 import BallotSelection from '../components/Shared/BallotSelection';
 import { Ballot, Election, Race } from '@dbvg/shared-types';
+import { Result } from '../data/Scoring';
+import { SelectedCandidatesProvider, useSelectedCandidates } from '../context/SelectedCandidatesContext';
+import HeadLayout from '../components/Shared/Layouts/HeadLayout';
 
 type SingleSelectProps = {
     election?: Election;
     issueOrder?: number[];
 }
 
-const SingleSelect: FunctionComponent<SingleSelectProps> = ({ election, issueOrder }) => {
+const SingleSelect = ({ election, issueOrder }: SingleSelectProps) => {
     const [pageTitle, setPageTitle] = useState('Single Selection');
     const [flowState, setFlowState] = useState('description');
-    const [selectedRace, setSelectedRace] = useState(null);
-    const [guide, setGuide] = useState(null);
-    const [raceResults, setRaceResults] = useState(null);
-    const [races, setRaces] = useState([]);
+    const [selectedRace, setSelectedRace] = useState(null as Race);
+    const [guide, setGuide] = useState(null as Guide);
+    const [raceResults, setRaceResults] = useState(null as Result[]);
+    const [ballot, setBallot] = useState(null as Ballot);
+    const { setBallotForSelection, selectCandidate } = useSelectedCandidates();
 
     const goToRaces = (): void => {
         setFlowState('raceSelection');
         setPageTitle('Select a Race');
+        setSelectedRace(null);
     };
 
     const goToBallots = (): void => {
@@ -39,8 +43,9 @@ const SingleSelect: FunctionComponent<SingleSelectProps> = ({ election, issueOrd
         setRaceResults(null);
     };
 
-    const selectBallot = (ballot: Ballot): void => {
-        setRaces(ballot.races);
+    const selectBallot = (selectedBallot: Ballot): void => {
+        setBallot(selectedBallot);
+        setBallotForSelection(selectedBallot);
         goToRaces();
     };
 
@@ -50,12 +55,17 @@ const SingleSelect: FunctionComponent<SingleSelectProps> = ({ election, issueOrd
         setRaceResults(guide.tallyResults());
     };
 
-    const updatePageTitle = (issueName): void => {
+    const updatePageTitle = (issueName: string): void => {
         setPageTitle(`${guide.race.raceName} - ${issueName}`);
     };
 
+    const backToRaces = (candidateId: number) => {
+        selectCandidate(selectedRace.raceId, candidateId);
+        goToRaces();
+    };
+
     return (
-        <BaseLayout title={pageTitle}>
+        <HeadLayout title={pageTitle}>
             {
                 flowState === 'description' &&
                     <>
@@ -82,7 +92,7 @@ const SingleSelect: FunctionComponent<SingleSelectProps> = ({ election, issueOrd
                 flowState === 'raceSelection' &&
                     <RaceSelection
                         selectRace={selectRace}
-                        races={races}
+                        races={ballot.races}
                     />
             }
             {
@@ -95,10 +105,12 @@ const SingleSelect: FunctionComponent<SingleSelectProps> = ({ election, issueOrd
             }
             {
                 flowState === 'results' && raceResults &&
-                    <Results results={raceResults} backToRaces={goToRaces} />
+                    <Results results={raceResults} backToRaces={backToRaces} />
             }
-        </BaseLayout>
+        </HeadLayout>
     );
 };
+
+SingleSelect.getContainer = (page: ReactElement) => <SelectedCandidatesProvider>{page}</SelectedCandidatesProvider>;
 
 export default SingleSelect;

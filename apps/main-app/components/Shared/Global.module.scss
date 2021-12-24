@@ -23,6 +23,11 @@
   }
 }
 
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+}
+
 .srOnly {
   position: absolute;
   left: -5000px;
