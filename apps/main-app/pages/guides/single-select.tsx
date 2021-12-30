@@ -1,14 +1,14 @@
 import { ReactElement, useState } from 'react';
-import RaceSelection from '../components/Shared/RaceSelection';
-import Description from '../components/SingleSelect/Description';
-import RaceGuide from '../components/SingleSelect/RaceGuide';
-import Results from '../components/SingleSelect/Results';
-import Guide from '../data/Guide';
-import BallotSelection from '../components/Shared/BallotSelection';
+import RaceSelection from '../../components/Shared/RaceSelection';
+import Description from '../../components/SingleSelect/Description';
+import RaceGuide from '../../components/SingleSelect/RaceGuide';
+import Results from '../../components/SingleSelect/Results';
+import Guide from '../../data/Guide';
+import BallotSelection from '../../components/Shared/BallotSelection';
 import { Ballot, Election, Race } from '@dbvg/shared-types';
-import { Result } from '../data/Scoring';
-import { SelectedCandidatesProvider, useSelectedCandidates } from '../context/SelectedCandidatesContext';
-import HeadLayout from '../components/Shared/Layouts/HeadLayout';
+import { Result } from '../../data/Scoring';
+import { SelectedCandidatesProvider, useSelectedCandidates } from '../../context/SelectedCandidatesContext';
+import HeadLayout from '../../components/Shared/Layouts/HeadLayout';
 
 type SingleSelectProps = {
     election?: Election;

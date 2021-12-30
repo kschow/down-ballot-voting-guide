@@ -6,7 +6,7 @@ import {
     generateIssues,
     generateRace
 } from '@dbvg/shared-types';
-import SingleSelect from '../pages/single-select';
+import SingleSelect from '../pages/guides/single-select';
 import { SelectedCandidatesProvider } from '../context/SelectedCandidatesContext';
 
 // eslint-disable-next-line no-empty-function,@typescript-eslint/no-empty-function
