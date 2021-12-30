@@ -16,5 +16,6 @@
     "test-ci": "npm run pre-test && jest --verbose=false --watchAll=false",
     "lint": "eslint 'src/**/**.ts'",
     "tint": "npm run test-ci && npm run lint"
-  }
+  },
+  "license": "MIT"
 }

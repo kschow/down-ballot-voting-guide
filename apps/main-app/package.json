@@ -71,7 +71,7 @@
   "description": "> TODO: description",
   "author": "Kevin Chow <kschow48@gmail.com>",
   "homepage": "https://github.com/kschow/down-ballot-voting-guide#readme",
-  "license": "ISC",
+  "license": "MIT",
   "main": "pages/index.tsx",
   "repository": {
     "type": "git",
