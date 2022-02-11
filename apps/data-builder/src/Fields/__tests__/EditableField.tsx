@@ -210,7 +210,7 @@ describe('Precincts area', () => {
         userEvent.click(editArrayArea);
 
         const arrayAreaData = screen.getByLabelText(/PrecinctsArea/u);
-        userEvent.type(arrayAreaData, '5,3, 4, TRAVIS, 77');
+        userEvent.type(arrayAreaData, '5,3, 4, Travis, 77');
         const save = screen.getByRole('button', { name: 'Save' });
         userEvent.click(save);
 
@@ -224,7 +224,7 @@ describe('Precincts area', () => {
         userEvent.click(editArrayArea);
 
         const arrayAreaData = screen.getByLabelText(/PrecinctsArea/u);
-        userEvent.type(arrayAreaData, '8, 7 WILLIAMSON, 85');
+        userEvent.type(arrayAreaData, '8, 7 Williamson, 85');
         const save = screen.getByRole('button', { name: 'Save' });
         userEvent.click(save);
 

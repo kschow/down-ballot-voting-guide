@@ -32,6 +32,7 @@ const PrecinctsArea: FC<ArrayAreaProps> = (props) => {
     const save = (event: React.SyntheticEvent) => {
         const inputValue = inputText.current.value;
         const arrayValue = inputValue.split(/[,\s+]/u)
+            .map((str) => str.toUpperCase())
             .filter((str) => isSupportedPrecinct(str));
 
         let precincts;
