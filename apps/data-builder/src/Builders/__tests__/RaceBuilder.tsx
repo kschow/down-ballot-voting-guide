@@ -40,6 +40,39 @@ it('Updates description properly', () => {
     expect(screen.queryByText('new description')).toBeInTheDocument();
 });
 
+it('Displays/Updates county properly', () => {
+    renderElectionWithRace();
+
+    expect(screen.queryByText('ALL')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Edit (Race #2 County)' }));
+
+    expect(screen.queryByText('ALL')).toBeInTheDocument();
+    expect(screen.queryByText('TRAVIS')).toBeInTheDocument();
+    expect(screen.queryByText('WILLIAMSON')).toBeInTheDocument();
+
+    userEvent.selectOptions(screen.getByRole('combobox', { name: 'County:' }), ['TRAVIS']);
+    userEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+    expect(screen.queryByText('ALL')).not.toBeInTheDocument();
+    expect(screen.queryByText('TRAVIS')).toBeInTheDocument();
+    expect(screen.queryByText('WILLIAMSON')).not.toBeInTheDocument();
+});
+
+it('Updates precincts properly', () => {
+    renderElectionWithRace();
+
+    expect(screen.queryByText('[]')).toBeInTheDocument();
+
+    userEvent.click(screen.getByRole('button', { name: 'Edit (Race #2 Precincts)' }));
+    const precincts = screen.getByLabelText(/Precincts:/u);
+    userEvent.clear(precincts);
+    userEvent.type(precincts, '1,2,3, 4, 5');
+    userEvent.click(screen.getByRole('button', { name: 'Save' }));
+
+    expect(screen.queryByText('[1,2,3,4,5]')).toBeInTheDocument();
+});
+
 describe('Adds an issue to a race properly', () => {
     it('Adds a blank issue to a race properly', () => {
         renderElectionWithRace();
@@ -92,6 +125,8 @@ describe('Collapses things correctly', () => {
             renderElectionWithRace();
 
             expect(screen.queryByText('Position Description:')).toBeInTheDocument();
+            expect(screen.queryByText('County:')).toBeInTheDocument();
+            expect(screen.queryByText('Precincts:')).toBeInTheDocument();
             expect(screen.queryByText('Add Issue to Race #2')).toBeInTheDocument();
             expect(screen.queryByText('Add Candidate to Race #2')).toBeInTheDocument();
             expect(screen.queryByText(/Issues:/u)).toBeInTheDocument();
@@ -101,6 +136,8 @@ describe('Collapses things correctly', () => {
             userEvent.click(collapseRace[0]);
 
             expect(screen.queryByText('Position Description:')).not.toBeInTheDocument();
+            expect(screen.queryByText('County:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Precincts:')).not.toBeInTheDocument();
             expect(screen.queryByText('Add Issue to Race #2')).not.toBeInTheDocument();
             expect(screen.queryByText('Add Candidate to Race #2')).not.toBeInTheDocument();
             expect(screen.queryByText(/Issues:/u)).not.toBeInTheDocument();
@@ -127,6 +164,8 @@ describe('Collapses things correctly', () => {
             userEvent.click(screen.getByRole('button', { name: 'Add Issue to Race #2' }));
 
             expect(screen.queryByText('Position Description:')).toBeInTheDocument();
+            expect(screen.queryByText('County:')).toBeInTheDocument();
+            expect(screen.queryByText('Precincts:')).toBeInTheDocument();
             expect(screen.queryAllByText('Add Issue to Race #2')).toHaveLength(2);
             expect(screen.queryAllByText('Add Candidate to Race #2')).toHaveLength(2);
             expect(screen.queryByText(/Issues:/u)).toBeInTheDocument();
@@ -136,6 +175,8 @@ describe('Collapses things correctly', () => {
             userEvent.click(collapseRace[1]);
 
             expect(screen.queryByText('Position Description:')).not.toBeInTheDocument();
+            expect(screen.queryByText('County:')).not.toBeInTheDocument();
+            expect(screen.queryByText('Precincts:')).not.toBeInTheDocument();
             expect(screen.queryAllByText('Add Issue to Race #2')).toHaveLength(0);
             expect(screen.queryAllByText('Add Candidate to Race #2')).toHaveLength(0);
             expect(screen.queryByText(/Issues:/u)).not.toBeInTheDocument();

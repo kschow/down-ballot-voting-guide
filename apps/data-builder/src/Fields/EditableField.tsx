@@ -1,8 +1,11 @@
 import { FC, useState } from 'react';
 import { useEditable } from './EditableContext';
 import FieldTypes from './FieldTypes';
-import EditableInput from './EditableInput';
-import EditableTextArea from './EditableTextArea';
+import FormUpdateType from './FormUpdateType';
+import Input from './Input';
+import TextArea from './TextArea';
+import ArrayArea from './ArrayArea';
+import CountySelect from './CountySelect';
 import styles from './Editable.module.scss';
 import global from '../Global.module.scss';
 // using material icons
@@ -13,8 +16,8 @@ type EditableFieldProps = {
     type: FieldTypes;
     name: string;
     label: string;
-    data: string;
-    updateField: (input: string) => void;
+    data: FormUpdateType;
+    updateField: (input: FormUpdateType) => void;
 };
 
 const EditableField:FC<EditableFieldProps> = (props) => {
@@ -37,7 +40,7 @@ const EditableField:FC<EditableFieldProps> = (props) => {
         }
     };
 
-    const saveField = (fieldData: string, event: React.SyntheticEvent) => {
+    const saveField = (fieldData: FormUpdateType, event: React.SyntheticEvent) => {
         updateField(fieldData);
         finishEdit(event);
     };
@@ -45,14 +48,28 @@ const EditableField:FC<EditableFieldProps> = (props) => {
     const determineFormStructure = () => {
         switch (type) {
         case FieldTypes.Input:
-            return <EditableInput
+            return <Input
                 name={name}
                 label={label}
                 saveField={saveField}
                 finishEdit={finishEdit}
             />;
         case FieldTypes.TextArea:
-            return <EditableTextArea
+            return <TextArea
+                name={name}
+                label={label}
+                saveField={saveField}
+                finishEdit={finishEdit}
+            />;
+        case FieldTypes.ArrayArea:
+            return <ArrayArea
+                name={name}
+                label={label}
+                saveField={saveField}
+                finishEdit={finishEdit}
+            />;
+        case FieldTypes.CountySelect:
+            return <CountySelect
                 name={name}
                 label={label}
                 saveField={saveField}
@@ -63,6 +80,17 @@ const EditableField:FC<EditableFieldProps> = (props) => {
         }
     };
 
+    const displayData = () => {
+        switch (type) {
+        case FieldTypes.ArrayArea:
+            return JSON.stringify(data);
+        case FieldTypes.Input:
+        case FieldTypes.TextArea:
+        default:
+            return data ? data : '';
+        }
+    };
+
     return (
         <>
             { areEditing ?
@@ -70,7 +98,7 @@ const EditableField:FC<EditableFieldProps> = (props) => {
                 <div className={styles.Editable}>
                     <div>
                         <p className={global.label}>{label}</p>
-                        <p>{`${data ? data : ''}`}</p>
+                        <p>{displayData()}</p>
                     </div>
                     <input
                         type="image"

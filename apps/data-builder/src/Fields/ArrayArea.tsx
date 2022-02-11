@@ -1,15 +1,15 @@
 import { FC, useRef } from 'react';
 import styles from './Editable.module.scss';
-import EditableFormArea from './EditableFormArea';
+import FormArea from './FormArea';
 
-type TextAreaProps = {
+type ArrayAreaProps = {
     name: string;
     label: string;
-    saveField: (fieldData: string, event: React.SyntheticEvent) => void;
+    saveField: (data: number|string[], event: React.SyntheticEvent) => void;
     finishEdit: (event: React.SyntheticEvent) => void;
 }
 
-const EditableTextArea: FC<TextAreaProps> = (props) => {
+const ArrayArea: FC<ArrayAreaProps> = (props) => {
     const {
         name,
         label,
@@ -20,7 +20,17 @@ const EditableTextArea: FC<TextAreaProps> = (props) => {
     const inputText = useRef<HTMLTextAreaElement>();
 
     const save = (event: React.SyntheticEvent) => {
-        saveField(inputText.current.value, event);
+        const inputValue = inputText.current.value;
+        const arrayValue = inputValue.split(',').map((str) => str.trim());
+
+        let value;
+        // eslint-disable-next-line no-undefined
+        if (arrayValue.find((val) => val === 'ALL') !== undefined) {
+            value = ['ALL'];
+        } else {
+            value = arrayValue.map((stringValue) => parseInt(stringValue, 10));
+        }
+        saveField(value, event);
     };
 
     const Field = () => {
@@ -34,7 +44,7 @@ const EditableTextArea: FC<TextAreaProps> = (props) => {
     };
 
     return (
-        <EditableFormArea
+        <FormArea
             name={name}
             label={label}
             formStyle={`${styles.Editable} ${styles.Vertical}`}
@@ -45,4 +55,4 @@ const EditableTextArea: FC<TextAreaProps> = (props) => {
     );
 };
 
-export default EditableTextArea;
+export default ArrayArea;

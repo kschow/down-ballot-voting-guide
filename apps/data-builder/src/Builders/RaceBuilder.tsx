@@ -203,6 +203,20 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace, deleteRace }) => 
                         data={race.description}
                         updateField={updateValueForAttribute('description')}
                     />
+                    <EditableField
+                        type={FieldTypes.CountySelect}
+                        name={`${raceIdentifier} County`}
+                        label="County:"
+                        data={race.county}
+                        updateField={updateValueForAttribute('county')}
+                    />
+                    <EditableField
+                        type={FieldTypes.ArrayArea}
+                        name={`${raceIdentifier} Precincts`}
+                        label="Precincts:"
+                        data={race.precincts}
+                        updateField={updateValueForAttribute('precincts')}
+                    />
                     { addButtons() }
                     <IssueList race={race} updateIssue={updateIssue} deleteIssue={deleteIssue} />
                     <CandidateList

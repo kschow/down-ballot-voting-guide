@@ -1,15 +1,15 @@
 import { FC, useRef } from 'react';
-import EditableFormArea from './EditableFormArea';
 import styles from './Editable.module.scss';
+import FormArea from './FormArea';
 
-type InputProps = {
+type TextAreaProps = {
     name: string;
     label: string;
     saveField: (fieldData: string, event: React.SyntheticEvent) => void;
     finishEdit: (event: React.SyntheticEvent) => void;
 }
 
-const EditableInput: FC<InputProps> = (props) => {
+const TextArea: FC<TextAreaProps> = (props) => {
     const {
         name,
         label,
@@ -17,27 +17,27 @@ const EditableInput: FC<InputProps> = (props) => {
         finishEdit
     } = props;
 
-    const inputText = useRef<HTMLInputElement>();
-
-    const Field = () => {
-        return <input
-            type="text"
-            size={40}
-            id={name}
-            ref={inputText}
-            autoFocus={true}
-        />;
-    };
+    const inputText = useRef<HTMLTextAreaElement>();
 
     const save = (event: React.SyntheticEvent) => {
         saveField(inputText.current.value, event);
     };
 
+    const Field = () => {
+        return <textarea
+            id={name}
+            ref={inputText}
+            rows={8}
+            cols={50}
+            autoFocus={true}
+        />;
+    };
+
     return (
-        <EditableFormArea
+        <FormArea
             name={name}
             label={label}
-            formStyle={styles.Editable}
+            formStyle={`${styles.Editable} ${styles.Vertical}`}
             saveField={save}
             finishEdit={finishEdit}
             Field={Field}
@@ -45,4 +45,4 @@ const EditableInput: FC<InputProps> = (props) => {
     );
 };
 
-export default EditableInput;
+export default TextArea;

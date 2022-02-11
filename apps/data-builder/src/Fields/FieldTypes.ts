@@ -1,6 +1,8 @@
 enum FieldTypes {
     Input,
-    TextArea
+    TextArea,
+    ArrayArea,
+    CountySelect
 }
 
 export default FieldTypes;

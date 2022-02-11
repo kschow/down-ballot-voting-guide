@@ -1,8 +1,10 @@
+import FormUpdateType from '../../Fields/FormUpdateType';
+
 const applyUpdateToAttribute = <T>(
     update: (base: T) => void,
     obj: T,
     attr: string,
-    value: string
+    value: FormUpdateType
 ) => {
     update({
         ...obj,
@@ -14,7 +16,7 @@ const curryUpdate = <T>(applyFunc) => {
     return (update: (base: T) => void) => {
         return (obj: T) => {
             return (attr: string) => {
-                return (val: string):void => {
+                return (val: FormUpdateType):void => {
                     applyFunc(update, obj, attr, val);
                 };
             };

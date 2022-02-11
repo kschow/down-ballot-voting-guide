@@ -12,7 +12,7 @@ type FormProps = {
     Field: FC;
 }
 
-const EditableFormArea: FC<FormProps> = (props) => {
+const FormArea: FC<FormProps> = (props) => {
     const {
         name,
         label,
@@ -48,4 +48,4 @@ const EditableFormArea: FC<FormProps> = (props) => {
     );
 };
 
-export default EditableFormArea;
+export default FormArea;

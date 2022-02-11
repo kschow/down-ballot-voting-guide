@@ -1,4 +1,4 @@
-import { Ballot, Candidate, Election, Issue, Race } from './Data';
+import { Ballot, Candidate, County, Election, Issue, Race } from './Data';
 
 const generateCandidate = (id: number, issues: Issue[], party: string): Candidate => {
     const positions = issues.map((issue) => {
@@ -64,6 +64,8 @@ const generateRace = (id: number, issues?: Issue[], candidates?: Candidate[]): R
         raceId: id,
         raceName: `Race #${id}`,
         description: `Race description #${id}`,
+        county: County.ALL,
+        precincts: [],
         issues: issues ? issues : [],
         candidates: candidates ? candidates : []
     };

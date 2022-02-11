@@ -13,8 +13,18 @@ export type Race = {
     raceId: number;
     raceName: string;
     description: string;
+    // eslint-disable-next-line no-warning-comments
+    // todo: remove optional here after updating json in main-app
+    county?: County;
+    precincts?: number|string[];
     issues: Issue[];
     candidates: Candidate[];
+}
+
+export enum County {
+    ALL = 'ALL',
+    TRAVIS = 'TRAVIS',
+    WILLIAMSON = 'WILLIAMSON'
 }
 
 export type Issue = {
