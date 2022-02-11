@@ -38,9 +38,9 @@ const TestSubject = () => {
                 updateField={setTextArea}
             />
             <EditableField
-                type={FieldTypes.ArrayArea}
-                name={'ArrayArea'}
-                label={'ArrayArea: '}
+                type={FieldTypes.PrecinctsArea}
+                name={'PrecinctsArea'}
+                label={'PrecinctsArea: '}
                 data={arrayArea}
                 updateField={setArrayArea}
             />
@@ -160,32 +160,76 @@ it('Updates a textarea properly', () => {
     expect(screen.queryByText('saves properly')).toBeInTheDocument();
 });
 
-it('Updates an array area properly', () => {
-    renderTestSubject();
+describe('Precincts area', () => {
+    it('Updates precincts properly', () => {
+        renderTestSubject();
 
-    const editArrayArea = screen.getByRole('button', { name: 'Edit (ArrayArea)' });
-    userEvent.click(editArrayArea);
+        const editArrayArea = screen.getByRole('button', { name: 'Edit (PrecinctsArea)' });
+        userEvent.click(editArrayArea);
 
-    const arrayAreaData = screen.getByLabelText(/ArrayArea/u);
-    userEvent.type(arrayAreaData, '1,2\n4, 23');
-    const save = screen.getByRole('button', { name: 'Save' });
-    userEvent.click(save);
+        const arrayAreaData = screen.getByLabelText(/PrecinctsArea/u);
+        userEvent.type(arrayAreaData, '1,2\n4, 23');
+        const save = screen.getByRole('button', { name: 'Save' });
+        userEvent.click(save);
 
-    expect(screen.getByText('[1, 2, 4, 23]')).toBeInTheDocument();
-});
+        expect(screen.getByText('[1, 2, 4, 23]')).toBeInTheDocument();
+    });
 
-it('Updates an array with ALL as priority', () => {
-    renderTestSubject();
+    it('Updates precincts with ALL as priority', () => {
+        renderTestSubject();
 
-    const editArrayArea = screen.getByRole('button', { name: 'Edit (ArrayArea)' });
-    userEvent.click(editArrayArea);
+        const editArrayArea = screen.getByRole('button', { name: 'Edit (PrecinctsArea)' });
+        userEvent.click(editArrayArea);
 
-    const arrayAreaData = screen.getByLabelText(/ArrayArea/u);
-    userEvent.type(arrayAreaData, '1,2, 4, ALL, 23');
-    const save = screen.getByRole('button', { name: 'Save' });
-    userEvent.click(save);
+        const arrayAreaData = screen.getByLabelText(/PrecinctsArea/u);
+        userEvent.type(arrayAreaData, '1,2, 4, ALL, 23 TRAVIS');
+        const save = screen.getByRole('button', { name: 'Save' });
+        userEvent.click(save);
 
-    expect(screen.getByText('[ALL]')).toBeInTheDocument();
+        expect(screen.getByText('[ALL]')).toBeInTheDocument();
+    });
+
+    it('Does not suport non-(ALL, TRAVIS, WILLIAMSON) string values', () => {
+        renderTestSubject();
+
+        const editArrayArea = screen.getByRole('button', { name: 'Edit (PrecinctsArea)' });
+        userEvent.click(editArrayArea);
+
+        const arrayAreaData = screen.getByLabelText(/PrecinctsArea/u);
+        userEvent.type(arrayAreaData, '12,25, Q, 29');
+        const save = screen.getByRole('button', { name: 'Save' });
+        userEvent.click(save);
+
+        expect(screen.getByText('[12, 25, 29]')).toBeInTheDocument();
+    });
+
+    it('Precincts updates support split Williamson + full Travis', () => {
+        renderTestSubject();
+
+        const editArrayArea = screen.getByRole('button', { name: 'Edit (PrecinctsArea)' });
+        userEvent.click(editArrayArea);
+
+        const arrayAreaData = screen.getByLabelText(/PrecinctsArea/u);
+        userEvent.type(arrayAreaData, '5,3, 4, TRAVIS, 77');
+        const save = screen.getByRole('button', { name: 'Save' });
+        userEvent.click(save);
+
+        expect(screen.getByText('[5, 3, 4, TRAVIS, 77]')).toBeInTheDocument();
+    });
+
+    it('Precincts updates support split Travis + full Williamson', () => {
+        renderTestSubject();
+
+        const editArrayArea = screen.getByRole('button', { name: 'Edit (PrecinctsArea)' });
+        userEvent.click(editArrayArea);
+
+        const arrayAreaData = screen.getByLabelText(/PrecinctsArea/u);
+        userEvent.type(arrayAreaData, '8, 7 WILLIAMSON, 85');
+        const save = screen.getByRole('button', { name: 'Save' });
+        userEvent.click(save);
+
+        expect(screen.getByText('[8, 7, WILLIAMSON, 85]')).toBeInTheDocument();
+    });
 });
 
 it('Updates a county select properly', () => {

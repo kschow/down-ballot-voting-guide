@@ -211,7 +211,7 @@ const RaceBuilder: FC<RaceBuilderProps> = ({ race, updateRace, deleteRace }) => 
                         updateField={updateValueForAttribute('county')}
                     />
                     <EditableField
-                        type={FieldTypes.ArrayArea}
+                        type={FieldTypes.PrecinctsArea}
                         name={`${raceIdentifier} Precincts`}
                         label="Precincts:"
                         data={race.precincts}

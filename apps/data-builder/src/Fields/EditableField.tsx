@@ -4,7 +4,7 @@ import FieldTypes from './FieldTypes';
 import FormUpdateType from './FormUpdateType';
 import Input from './Input';
 import TextArea from './TextArea';
-import ArrayArea from './ArrayArea';
+import PrecinctsArea from './PrecinctsArea';
 import CountySelect from './CountySelect';
 import styles from './Editable.module.scss';
 import global from '../Global.module.scss';
@@ -61,8 +61,8 @@ const EditableField:FC<EditableFieldProps> = (props) => {
                 saveField={saveField}
                 finishEdit={finishEdit}
             />;
-        case FieldTypes.ArrayArea:
-            return <ArrayArea
+        case FieldTypes.PrecinctsArea:
+            return <PrecinctsArea
                 name={name}
                 label={label}
                 saveField={saveField}
@@ -82,7 +82,7 @@ const EditableField:FC<EditableFieldProps> = (props) => {
 
     const displayData = () => {
         switch (type) {
-        case FieldTypes.ArrayArea: {
+        case FieldTypes.PrecinctsArea: {
             const arrayData = data as (number|string)[];
             return `[${arrayData.join(', ')}]`;
         }

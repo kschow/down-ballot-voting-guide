@@ -9,7 +9,7 @@ type ArrayAreaProps = {
     finishEdit: (event: React.SyntheticEvent) => void;
 }
 
-const ArrayArea: FC<ArrayAreaProps> = (props) => {
+const PrecinctsArea: FC<ArrayAreaProps> = (props) => {
     const {
         name,
         label,
@@ -19,20 +19,35 @@ const ArrayArea: FC<ArrayAreaProps> = (props) => {
 
     const inputText = useRef<HTMLTextAreaElement>();
 
+    const isSupportedPrecinct = (value: string) => {
+        if (value === 'ALL' ||
+            value === 'WILLIAMSON' ||
+            value === 'TRAVIS') {
+            return true;
+        }
+
+        return !isNaN(parseInt(value, 10));
+    };
+
     const save = (event: React.SyntheticEvent) => {
         const inputValue = inputText.current.value;
-        const arrayValue = inputValue.split(/[,\s+]/u).map((str) => str.trim());
+        const arrayValue = inputValue.split(/[,\s+]/u)
+            .filter((str) => isSupportedPrecinct(str));
 
-        let value;
+        let precincts;
         // eslint-disable-next-line no-undefined
         if (arrayValue.find((val) => val === 'ALL') !== undefined) {
-            value = ['ALL'];
+            precincts = ['ALL'];
         } else {
-            value = arrayValue
-                .map((stringValue) => parseInt(stringValue, 10))
-                .filter((val) => !isNaN(val));
+            precincts = arrayValue.map((stringValue) => {
+                const numberVal = parseInt(stringValue, 10);
+                if (isNaN(numberVal)) {
+                    return stringValue;
+                }
+                return numberVal;
+            });
         }
-        saveField(value, event);
+        saveField(precincts, event);
     };
 
     const Field = () => {
@@ -57,4 +72,4 @@ const ArrayArea: FC<ArrayAreaProps> = (props) => {
     );
 };
 
-export default ArrayArea;
+export default PrecinctsArea;

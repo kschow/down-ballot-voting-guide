@@ -1,7 +1,7 @@
 enum FieldTypes {
     Input,
     TextArea,
-    ArrayArea,
+    PrecinctsArea,
     CountySelect
 }
 
