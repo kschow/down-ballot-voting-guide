@@ -21,14 +21,16 @@ const ArrayArea: FC<ArrayAreaProps> = (props) => {
 
     const save = (event: React.SyntheticEvent) => {
         const inputValue = inputText.current.value;
-        const arrayValue = inputValue.split(',').map((str) => str.trim());
+        const arrayValue = inputValue.split(/[,\s+]/u).map((str) => str.trim());
 
         let value;
         // eslint-disable-next-line no-undefined
         if (arrayValue.find((val) => val === 'ALL') !== undefined) {
             value = ['ALL'];
         } else {
-            value = arrayValue.map((stringValue) => parseInt(stringValue, 10));
+            value = arrayValue
+                .map((stringValue) => parseInt(stringValue, 10))
+                .filter((val) => !isNaN(val));
         }
         saveField(value, event);
     };

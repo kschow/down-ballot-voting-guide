@@ -167,11 +167,11 @@ it('Updates an array area properly', () => {
     userEvent.click(editArrayArea);
 
     const arrayAreaData = screen.getByLabelText(/ArrayArea/u);
-    userEvent.type(arrayAreaData, '1,2, 4, 23');
+    userEvent.type(arrayAreaData, '1,2\n4, 23');
     const save = screen.getByRole('button', { name: 'Save' });
     userEvent.click(save);
 
-    expect(screen.queryByText('[1, 2, 4, 23]')).toBeInTheDocument();
+    expect(screen.getByText('[1, 2, 4, 23]')).toBeInTheDocument();
 });
 
 it('Updates an array with ALL as priority', () => {
