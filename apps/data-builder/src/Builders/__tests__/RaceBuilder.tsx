@@ -70,7 +70,7 @@ it('Updates precincts properly', () => {
     userEvent.type(precincts, '1,2,3, 4, 5');
     userEvent.click(screen.getByRole('button', { name: 'Save' }));
 
-    expect(screen.queryByText('[1,2,3,4,5]')).toBeInTheDocument();
+    expect(screen.queryByText('[1, 2, 3, 4, 5]')).toBeInTheDocument();
 });
 
 describe('Adds an issue to a race properly', () => {

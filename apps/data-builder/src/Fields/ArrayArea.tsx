@@ -5,7 +5,7 @@ import FormArea from './FormArea';
 type ArrayAreaProps = {
     name: string;
     label: string;
-    saveField: (data: number|string[], event: React.SyntheticEvent) => void;
+    saveField: (data: (number|string)[], event: React.SyntheticEvent) => void;
     finishEdit: (event: React.SyntheticEvent) => void;
 }
 

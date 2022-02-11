@@ -82,8 +82,10 @@ const EditableField:FC<EditableFieldProps> = (props) => {
 
     const displayData = () => {
         switch (type) {
-        case FieldTypes.ArrayArea:
-            return JSON.stringify(data);
+        case FieldTypes.ArrayArea: {
+            const arrayData = data as (number|string)[];
+            return `[${arrayData.join(', ')}]`;
+        }
         case FieldTypes.Input:
         case FieldTypes.TextArea:
         default:

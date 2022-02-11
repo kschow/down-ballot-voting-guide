@@ -16,7 +16,7 @@ export type Race = {
     // eslint-disable-next-line no-warning-comments
     // todo: remove optional here after updating json in main-app
     county?: County;
-    precincts?: number|string[];
+    precincts?: (number|string)[];
     issues: Issue[];
     candidates: Candidate[];
 }

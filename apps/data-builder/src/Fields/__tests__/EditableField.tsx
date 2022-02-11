@@ -171,7 +171,7 @@ it('Updates an array area properly', () => {
     const save = screen.getByRole('button', { name: 'Save' });
     userEvent.click(save);
 
-    expect(screen.queryByText('[1,2,4,23]')).toBeInTheDocument();
+    expect(screen.queryByText('[1, 2, 4, 23]')).toBeInTheDocument();
 });
 
 it('Updates an array with ALL as priority', () => {
@@ -185,7 +185,7 @@ it('Updates an array with ALL as priority', () => {
     const save = screen.getByRole('button', { name: 'Save' });
     userEvent.click(save);
 
-    expect(screen.getByText('["ALL"]')).toBeInTheDocument();
+    expect(screen.getByText('[ALL]')).toBeInTheDocument();
 });
 
 it('Updates a county select properly', () => {
