@@ -33,27 +33,31 @@ type RaceSelectionProps = {
 }
 
 const RaceSelection: FunctionComponent<RaceSelectionProps> = ({ selectRace, races }) => {
-    const { getSelectedCandidate } = useSelectedCandidates();
+    const { getSelectedCandidate, getSelectedRaces } = useSelectedCandidates();
+    const selectedRaces = getSelectedRaces();
+
     return (
         <>
             <p>
                 Please select between the following races:
             </p>
             {
-                races.map((race) => {
-                    const selectedCandidateId = getSelectedCandidate(race.raceId);
-                    const selectedCandidate =
-                        race.candidates.find((candidate) => candidate.candidateId === selectedCandidateId);
-                    return (
-                        <RaceCard
-                            key={race.raceId}
-                            race={race}
-                            raceDisplay={race.raceName}
-                            selectedCandidate={selectedCandidate ? selectedCandidate : null}
-                            selectRace={selectRace}
-                        />
-                    );
-                })
+                races
+                    .filter((race) => selectedRaces.includes(race.raceId))
+                    .map((race) => {
+                        const selectedCandidateId = getSelectedCandidate(race.raceId);
+                        const selectedCandidate =
+                            race.candidates.find((candidate) => candidate.candidateId === selectedCandidateId);
+                        return (
+                            <RaceCard
+                                key={race.raceId}
+                                race={race}
+                                raceDisplay={race.raceName}
+                                selectedCandidate={selectedCandidate ? selectedCandidate : null}
+                                selectRace={selectRace}
+                            />
+                        );
+                    })
             }
         </>
     );

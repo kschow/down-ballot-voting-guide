@@ -65,7 +65,7 @@ const generateRace = (id: number, issues?: Issue[], candidates?: Candidate[]): R
         raceName: `Race #${id}`,
         description: `Race description #${id}`,
         county: County.ALL,
-        precincts: [],
+        precincts: ['ALL'],
         issues: issues ? issues : [],
         candidates: candidates ? candidates : []
     };

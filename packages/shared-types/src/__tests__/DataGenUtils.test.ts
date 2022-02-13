@@ -96,7 +96,7 @@ it('generateRace generates the expected race', () => {
         raceName: 'Race #5',
         description: 'Race description #5',
         county: 'ALL',
-        precincts: [],
+        precincts: ['ALL'],
         issues: [
             {
                 issueId: 0,
@@ -172,7 +172,7 @@ it('generateBallots generates the expected ballot', () => {
                 raceName: 'Race #1',
                 description: 'Race description #1',
                 county: 'ALL',
-                precincts: [],
+                precincts: ['ALL'],
                 issues: [
                     {
                         issueId: 0,
@@ -213,7 +213,7 @@ it('generateBallots generates the expected ballot', () => {
                 raceName: 'Race #2',
                 description: 'Race description #2',
                 county: 'ALL',
-                precincts: [],
+                precincts: ['ALL'],
                 issues: [
                     {
                         issueId: 0,
@@ -254,7 +254,7 @@ it('generateBallots generates the expected ballot', () => {
                 raceName: 'Race #3',
                 description: 'Race description #3',
                 county: 'ALL',
-                precincts: [],
+                precincts: ['ALL'],
                 issues: [
                     {
                         issueId: 0,
@@ -345,7 +345,7 @@ it('generateElection generates the correct election off ballots', () => {
                         raceName: 'Race #1',
                         description: 'Race description #1',
                         county: 'ALL',
-                        precincts: [],
+                        precincts: ['ALL'],
                         issues: [
                             {
                                 issueId: 0,
@@ -392,7 +392,7 @@ it('generateElection generates the correct election off ballots', () => {
                         raceName: 'Race #2',
                         description: 'Race description #2',
                         county: 'ALL',
-                        precincts: [],
+                        precincts: ['ALL'],
                         issues: [
                             {
                                 issueId: 0,

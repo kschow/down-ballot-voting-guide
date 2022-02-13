@@ -62,7 +62,7 @@ it('Displays/Updates county properly', () => {
 it('Updates precincts properly', () => {
     renderElectionWithRace();
 
-    expect(screen.queryByText('[]')).toBeInTheDocument();
+    expect(screen.queryByText('[ALL]')).toBeInTheDocument();
 
     userEvent.click(screen.getByRole('button', { name: 'Edit (Race #2 Precincts)' }));
     const precincts = screen.getByLabelText(/Precincts:/u);

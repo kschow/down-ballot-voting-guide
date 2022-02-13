@@ -5,6 +5,7 @@ import RaceGuide from '../../components/SingleSelect/RaceGuide';
 import Results from '../../components/SingleSelect/Results';
 import Guide from '../../data/Guide';
 import BallotSelection from '../../components/Shared/BallotSelection';
+import CountyPrecinctSelection from '../../components/Shared/CountyPrecinctSelection';
 import { Ballot, Election, Race } from '@dbvg/shared-types';
 import { Result } from '../../data/Scoring';
 import { SelectedCandidatesProvider, useSelectedCandidates } from '../../context/SelectedCandidatesContext';
@@ -28,6 +29,11 @@ const SingleSelect = ({ election, issueOrder }: SingleSelectProps) => {
         setFlowState('raceSelection');
         setPageTitle('Select a Race');
         setSelectedRace(null);
+    };
+
+    const goToCountyPrecinct = (): void => {
+        setFlowState('countyPrecinct');
+        setPageTitle('Select your county/precinct');
     };
 
     const goToBallots = (): void => {
@@ -75,11 +81,15 @@ const SingleSelect = ({ election, issueOrder }: SingleSelectProps) => {
                             To continue, click&nbsp;
                             <button
                                 className="link-button"
-                                onClick={goToBallots}
+                                onClick={goToCountyPrecinct}
                             >here
                             </button>
                         </div>
                     </>
+            }
+            {
+                flowState === 'countyPrecinct' &&
+                    <CountyPrecinctSelection continueFn={goToBallots} />
             }
             {
                 flowState === 'ballotSelection' &&

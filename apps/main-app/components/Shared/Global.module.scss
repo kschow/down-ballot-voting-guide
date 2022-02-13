@@ -26,6 +26,14 @@
 .flexColumn {
   display: flex;
   flex-direction: column;
+
+  &.input {
+    width: Max(25%, 15rem);
+  }
+
+  * {
+    margin-bottom: .5rem;
+  }
 }
 
 .srOnly {

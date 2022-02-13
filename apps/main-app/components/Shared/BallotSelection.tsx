@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import currentElection from '../../data/current_election/2020 Primary Election.json';
+import currentElection from '../../data/current_election/2022 Primary Election.json';
 import { Ballot, Election } from '@dbvg/shared-types';
 import global from './Global.module.scss';
 
