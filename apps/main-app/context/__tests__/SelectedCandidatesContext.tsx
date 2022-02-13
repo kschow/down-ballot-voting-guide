@@ -112,6 +112,8 @@ const TestComponent = () => {
         <div>
             <button onClick={() => setCounty(County.TRAVIS)}>Select Travis County</button>
             <button onClick={() => setPrecinct(365)}>Select Precinct 365</button>
+            <button onClick={() => setCounty(County.WILLIAMSON)}>Select Williamson County</button>
+            <button onClick={() => setPrecinct(12)}>Select Precinct 12</button>
             <button onClick={() => selectCountyAndPrecinct(county, precinct)}>
                 SelectCountyAndPrecinct
             </button>
@@ -121,6 +123,42 @@ const TestComponent = () => {
         </div>
     );
 };
+
+const selectTravis365 = () => {
+    renderSelectedProvider();
+
+    userEvent.click(screen.getByRole('button', {name: 'Select Travis County'}));
+    userEvent.click(screen.getByRole('button', {name: 'Select Precinct 365'}));
+    act(() => {
+        userEvent.click(screen.getByRole('button', {name: 'SelectCountyAndPrecinct'}));
+    });
+}
+
+const selectBallot = () => {
+    selectTravis365();
+
+    act(() => {
+        userEvent.click(screen.getByRole('button', {name: 'Select Ballot'}));
+    });
+}
+const selectCandidate = () => {
+    selectBallot();
+
+    act(() => {
+        userEvent.click(screen.getByRole('button', {name: 'Select Candidate 13'}));
+    });
+}
+
+const selectWilliamson12 = () => {
+    userEvent.click(screen.getByRole('button', {name: 'Select Williamson County'}));
+    userEvent.click(screen.getByRole('button', {name: 'Select Precinct 12'}));
+    act(() => {
+        userEvent.click(screen.getByRole('button', {name: 'SelectCountyAndPrecinct'}));
+    });
+    act(() => {
+        userEvent.click(screen.getByRole('button', {name: 'Select Ballot'}));
+    });
+}
 
 const renderSelectedProvider = () => {
     render(
@@ -135,13 +173,7 @@ const renderSelectedProvider = () => {
  * Could also have used useLayoutEffect but I don't want to force the synchronous action here
  */
 it('Updates county and precinct properly', () => {
-    renderSelectedProvider();
-
-    userEvent.click(screen.getByRole('button', { name: 'Select Travis County' }));
-    userEvent.click(screen.getByRole('button', { name: 'Select Precinct 365' }));
-    act(() => {
-        userEvent.click(screen.getByRole('button', { name: 'SelectCountyAndPrecinct' }));
-    });
+    selectTravis365();
 
     const selectedCandidates = getSelectedCandidatesFromLocalStorage();
 
@@ -150,16 +182,7 @@ it('Updates county and precinct properly', () => {
 });
 
 it('Updates with a ballot filtered by county/precinct', () => {
-    renderSelectedProvider();
-
-    userEvent.click(screen.getByRole('button', { name: 'Select Travis County' }));
-    userEvent.click(screen.getByRole('button', { name: 'Select Precinct 365' }));
-    act(() => {
-        userEvent.click(screen.getByRole('button', { name: 'SelectCountyAndPrecinct' }));
-    });
-    act(() => {
-        userEvent.click(screen.getByRole('button', { name: 'Select Ballot' }));
-    });
+    selectBallot();
 
     const selectedCandidates = getSelectedCandidatesFromLocalStorage();
     const { selected } = selectedCandidates;
@@ -173,23 +196,50 @@ it('Updates with a ballot filtered by county/precinct', () => {
     expect(selected).toContainEqual({ raceId: 8, candidateId: null });
 });
 
-it('Selects a candidate properly', () => {
-    renderSelectedProvider();
+it('Switches to a different set of races if county/precinct change', () => {
+    selectBallot();
 
-    userEvent.click(screen.getByRole('button', { name: 'Select Travis County' }));
-    userEvent.click(screen.getByRole('button', { name: 'Select Precinct 365' }));
-    act(() => {
-        userEvent.click(screen.getByRole('button', { name: 'SelectCountyAndPrecinct' }));
-    });
-    act(() => {
-        userEvent.click(screen.getByRole('button', { name: 'Select Ballot' }));
-    });
-    act(() => {
-        userEvent.click(screen.getByRole('button', { name: 'Select Candidate 13' }));
-    });
+    let selectedCandidates = getSelectedCandidatesFromLocalStorage();
+    let selected  = selectedCandidates.selected;
+
+    expect(selected).toHaveLength(6);
+
+    selectWilliamson12();
+
+    selectedCandidates = getSelectedCandidatesFromLocalStorage();
+    selected = selectedCandidates.selected;
+
+    expect(selected).toHaveLength(5);
+});
+
+it('Selects a candidate properly', () => {
+    selectCandidate();
 
     const selectedCandidates = getSelectedCandidatesFromLocalStorage();
     const { selected } = selectedCandidates;
 
     expect(selected).toContainEqual({ raceId: 8, candidateId: 13 });
+});
+
+it('Does not blow away selections if races don\'t change', () => {
+    selectCandidate();
+
+    act(() => {
+        userEvent.click(screen.getByRole('button', { name: 'Select Ballot' }));
+    });
+    const selectedCandidates = getSelectedCandidatesFromLocalStorage();
+    const { selected } = selectedCandidates;
+
+    expect(selected).toContainEqual({ raceId: 8, candidateId: 13 });
+});
+
+it('Blows away selections if races change (change county/precinct)', () => {
+    selectCandidate();
+
+    selectWilliamson12();
+
+    const selectedCandidates = getSelectedCandidatesFromLocalStorage();
+    const { selected } = selectedCandidates;
+
+    expect(selected).not.toContainEqual({ raceId: 8, candidateId: 13 });
 });

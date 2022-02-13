@@ -1,4 +1,4 @@
-import { shuffle } from 'lodash/collection';
+import { shuffle } from 'lodash-es';
 import { getPositionsForIssue, getRandomIssueOrder } from './GuideUtils';
 import { IssuePositions, Race } from '@dbvg/shared-types';
 import { IssueScore, Result } from './Scoring';

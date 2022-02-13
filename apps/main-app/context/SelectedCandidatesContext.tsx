@@ -6,6 +6,7 @@ import {
     FC
 } from 'react';
 import { Ballot, Race } from '@dbvg/shared-types';
+import { isEqual } from 'lodash-es';
 
 type SelectedCandidate = {
     raceId: number;
@@ -24,6 +25,7 @@ type SelectionActions = {
     setBallotForSelection: (ballot: Ballot) => void;
     selectCandidate: (raceId: number, candidateId: number) => void;
     getSelectedCandidate: (raceId: number) => number | null;
+    getSelectedBallotId: () => number;
     getSelectedRaces: () => number[];
 }
 
@@ -76,9 +78,7 @@ const SelectedCandidatesProvider:FC = ({ children }) => {
     };
 
     const setBallotForSelection = (ballot: Ballot) => {
-        if (selectedCandidates && selectedCandidates.ballotId === ballot.ballotId) {
-            return;
-        }
+        const currentlySelectedRaces = getSelectedRaces();
 
         const initialSelected = ballot.races
             .filter((race) => isRaceInCountyPrecinct(race))
@@ -89,12 +89,17 @@ const SelectedCandidatesProvider:FC = ({ children }) => {
                 } as SelectedCandidate;
             });
 
-        const selected = {
+        const newSelectedRaces = initialSelected.map((sc) => sc.raceId);
+
+        if (isEqual(currentlySelectedRaces.sort(), newSelectedRaces.sort())) {
+            return;
+        }
+
+        setSelectedCandidates({
+            ...selectedCandidates,
             ballotId: ballot.ballotId,
             selected: initialSelected
-        } as SelectedCandidates;
-
-        setSelectedCandidates(selected);
+        });
     };
 
     const selectCandidate = (raceId: number, candidateId: number) => {
@@ -125,8 +130,15 @@ const SelectedCandidatesProvider:FC = ({ children }) => {
         return null;
     };
 
+    const getSelectedBallotId = () => {
+        return selectedCandidates.ballotId;
+    };
+
     const getSelectedRaces = () => {
-        return selectedCandidates.selected.map((selected) => selected.raceId);
+        if (selectedCandidates.selected) {
+            return selectedCandidates.selected.map((selected) => selected.raceId);
+        }
+        return [];
     };
 
     return <SelectedCandidatesContext.Provider value={
@@ -135,6 +147,7 @@ const SelectedCandidatesProvider:FC = ({ children }) => {
             setBallotForSelection,
             selectCandidate,
             getSelectedCandidate,
+            getSelectedBallotId,
             getSelectedRaces
         }}>{children}</SelectedCandidatesContext.Provider>;
 };
