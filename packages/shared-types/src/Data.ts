@@ -13,7 +13,7 @@ export type Race = {
     raceId: number;
     raceName: string;
     description: string;
-    county: County;
+    county: string;
     precincts: (number|string)[];
     issues: Issue[];
     candidates: Candidate[];
