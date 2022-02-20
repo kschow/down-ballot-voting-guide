@@ -110,6 +110,7 @@ const SingleSelect = ({ election, issueOrder }: SingleSelectProps) => {
                     <RaceGuide
                         guide={guide}
                         updatePageTitle={updatePageTitle}
+                        backToRaces={goToRaces}
                         finishRace={finishRace}
                     />
             }

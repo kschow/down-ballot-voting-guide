@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import ElectedOfficialCard from '../Shared/ElectedOfficialCard';
 import IssueCard from '../Shared/IssueCard';
 import AnswerGroup from './AnswerGroup';
@@ -8,10 +8,12 @@ import { IssuePositions } from '@dbvg/shared-types';
 type RaceGuideProps = {
     guide: Guide;
     updatePageTitle(string): void;
+    backToRaces(): void;
     finishRace(): void;
 }
 
-const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle, finishRace }) => {
+const RaceGuide: FC<RaceGuideProps> = (props) => {
+    const { guide, updatePageTitle, backToRaces, finishRace } = props;
     const issueRef = useRef(null);
     const [isFirstIssue, setIsFirstIssue] = useState(true);
     const [issuePositions, setIssuePositions] = useState(null as IssuePositions);
@@ -73,6 +75,7 @@ const RaceGuide: FunctionComponent<RaceGuideProps> = ({ guide, updatePageTitle, 
                         <AnswerGroup
                             selectedAnswer={selectedAnswer}
                             setSelectedAnswer={setSelectedAnswer}
+                            backToRaces={backToRaces}
                             submitAnswer={submitAnswer}
                             onLastIssue={guide.onLastIssue()}
                             issuePositions={issuePositions.positions}

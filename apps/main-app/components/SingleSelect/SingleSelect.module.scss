@@ -26,9 +26,12 @@
   padding: 1rem;
 }
 
-.continueContainer {
+.buttonGroup {
   text-align: right;
   margin: .5rem;
+  button {
+    padding-left: 1em;
+  }
 }
 
 .candidateScoreCard {

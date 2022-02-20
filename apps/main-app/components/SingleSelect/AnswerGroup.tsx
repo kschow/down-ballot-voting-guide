@@ -6,6 +6,7 @@ import { IssuePosition } from '@dbvg/shared-types';
 type AnswerGroupProps = {
     selectedAnswer: number;
     setSelectedAnswer(candidateId: number): void;
+    backToRaces(): void;
     submitAnswer(): void;
     onLastIssue: boolean;
     issuePositions: IssuePosition[];
@@ -14,6 +15,7 @@ type AnswerGroupProps = {
 const AnswerGroup: FunctionComponent<AnswerGroupProps> = ({
     selectedAnswer,
     setSelectedAnswer,
+    backToRaces,
     submitAnswer,
     onLastIssue,
     issuePositions
@@ -33,7 +35,13 @@ const AnswerGroup: FunctionComponent<AnswerGroupProps> = ({
                 return null;
             })
         }
-        <div className={singleSelect.continueContainer}>
+        <div className={singleSelect.buttonGroup}>
+            <button
+                className="link-button"
+                onClick={(): void => backToRaces()}
+            >
+                Back To Races
+            </button>
             <button
                 className="link-button"
                 disabled={selectedAnswer === null}

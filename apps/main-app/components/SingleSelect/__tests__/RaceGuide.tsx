@@ -20,9 +20,10 @@ const race = generateRace(12, issues, candidates);
 /* eslint @typescript-eslint/no-empty-function: 0 */
 const dummyUpdatePageTitle = (): void => {};
 const dummyFinishRace = (): void => {};
+const dummyBackToRaces = (): void => {};
 window.HTMLElement.prototype.scrollIntoView = (): void => {};
 
-it('displays the first set of answers', () => {
+it('Displays the first set of answers', () => {
     const issueOrder = [2, 0, 1];
     const guide = new Guide(race, issueOrder);
 
@@ -30,6 +31,7 @@ it('displays the first set of answers', () => {
         <RaceGuide
             guide={guide}
             updatePageTitle={dummyUpdatePageTitle}
+            backToRaces={dummyBackToRaces}
             finishRace={dummyFinishRace}
         />;
     render(component);
@@ -47,7 +49,7 @@ it('displays the first set of answers', () => {
     expect(screen.queryByText('c5-i1')).not.toBeInTheDocument();
 });
 
-it('selecting an answer changes the style to selected and only one can be selected at a time', () => {
+it('Selecting an answer changes the style to selected and only one can be selected at a time', () => {
     const issueOrder = [1, 0, 2];
     const guide = new Guide(race, issueOrder);
 
@@ -55,6 +57,7 @@ it('selecting an answer changes the style to selected and only one can be select
         <RaceGuide
             guide={guide}
             updatePageTitle={dummyUpdatePageTitle}
+            backToRaces={dummyBackToRaces}
             finishRace={dummyFinishRace}
         />;
     render(component);
@@ -74,7 +77,7 @@ it('selecting an answer changes the style to selected and only one can be select
     expect(candidateTwoAnswer).toHaveClass('selected');
 });
 
-it('continuing to the next issue is disabled until an answer is selected', () => {
+it('Continuing to the next issue is disabled until an answer is selected', () => {
     const issueOrder = [2, 0, 1];
     const guide = new Guide(race, issueOrder);
 
@@ -82,6 +85,7 @@ it('continuing to the next issue is disabled until an answer is selected', () =>
         <RaceGuide
             guide={guide}
             updatePageTitle={dummyUpdatePageTitle}
+            backToRaces={dummyBackToRaces}
             finishRace={dummyFinishRace}
         />;
     render(component);
@@ -93,7 +97,7 @@ it('continuing to the next issue is disabled until an answer is selected', () =>
     expect(continueButtonLink).not.toBeDisabled();
 });
 
-it('clicking the continue button after selecting an answer moves you onto the next set of answers', () => {
+it('Clicking the continue button after selecting an answer moves you onto the next set of answers', () => {
     const issueOrder = [2, 0, 1];
     const guide = new Guide(race, issueOrder);
 
@@ -101,6 +105,7 @@ it('clicking the continue button after selecting an answer moves you onto the ne
         <RaceGuide
             guide={guide}
             updatePageTitle={dummyUpdatePageTitle}
+            backToRaces={dummyBackToRaces}
             finishRace={dummyFinishRace}
         />;
     render(component);
@@ -120,7 +125,7 @@ it('clicking the continue button after selecting an answer moves you onto the ne
     expect(continueButtonLink).toBeDisabled();
 });
 
-it('when you get to the last issue, the button says, "Finish" instead of "Continue"', () => {
+it('When you get to the last issue, the button says, "Finish" instead of "Continue"', () => {
     const issueOrder = [1, 0, 2];
     const guide = new Guide(race, issueOrder);
 
@@ -128,6 +133,7 @@ it('when you get to the last issue, the button says, "Finish" instead of "Contin
         <RaceGuide
             guide={guide}
             updatePageTitle={dummyUpdatePageTitle}
+            backToRaces={dummyBackToRaces}
             finishRace={dummyFinishRace}
         />;
     render(component);
