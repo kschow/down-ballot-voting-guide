@@ -1,6 +1,6 @@
 import { shuffle } from 'lodash-es';
 import { getPositionsForIssue, getRandomIssueOrder } from './GuideUtils';
-import { IssuePositions, Race } from '@dbvg/shared-types';
+import { Candidate, IssuePositions, Race } from '@dbvg/shared-types';
 import { IssueScore, Result } from './Scoring';
 
 class Guide {
@@ -31,6 +31,31 @@ class Guide {
             });
             return issueScores;
         });
+    }
+
+    hasOneCandidate(): boolean {
+        return this.race.candidates.length === 1;
+    }
+
+    hasFewerThanTwoAnswered(): boolean {
+        const candidateAnswered = this.race.candidates.map((candidate) => {
+            let didCandidateAnswer = 0;
+            candidate.positions.forEach((pos) => {
+                if (pos.position) {
+                    didCandidateAnswer = 1;
+                }
+            });
+            return didCandidateAnswer;
+        });
+
+        const numberOfCandidatesAnswered =
+            candidateAnswered.reduce((sum, didAnswer) => sum + didAnswer, 0);
+
+        return numberOfCandidatesAnswered < 2;
+    }
+
+    getCandidates(): Candidate[] {
+        return this.race.candidates;
     }
 
     getNextIssuePositions(): IssuePositions {

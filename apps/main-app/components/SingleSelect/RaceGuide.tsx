@@ -4,16 +4,18 @@ import IssueCard from '../Shared/IssueCard';
 import AnswerGroup from './AnswerGroup';
 import Guide from '../../data/Guide';
 import { IssuePositions } from '@dbvg/shared-types';
+import UnopposedCandidate from './UnopposedCandidate';
 
 type RaceGuideProps = {
     guide: Guide;
     updatePageTitle(string): void;
-    backToRaces(): void;
+    backToRaces(candidateId?: number, force?: boolean): void;
     finishRace(): void;
 }
 
 const RaceGuide: FC<RaceGuideProps> = (props) => {
     const { guide, updatePageTitle, backToRaces, finishRace } = props;
+    const candidates = guide.getCandidates();
     const issueRef = useRef(null);
     const [isFirstIssue, setIsFirstIssue] = useState(true);
     const [issuePositions, setIssuePositions] = useState(null as IssuePositions);
@@ -65,6 +67,10 @@ const RaceGuide: FC<RaceGuideProps> = (props) => {
                 name={guide.race.raceName}
                 description={guide.race.description}
             />
+            {
+                guide.hasOneCandidate() &&
+                    <UnopposedCandidate candidate={candidates[0]} backToRaces={backToRaces} />
+            }
             {
                 issuePositions &&
                     <div ref={issueRef}>

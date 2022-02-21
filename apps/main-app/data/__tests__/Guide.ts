@@ -8,7 +8,7 @@ import { generateScore } from '../__testdata__/testscoring';
 import Guide from '../Guide';
 
 describe('Guide scoring', () => {
-    it('initializes scores to proper values for all issues/candidates', () => {
+    it('Initializes scores to proper values for all issues/candidates', () => {
         const expectedInitialScore = [
             {
                 issueId: 2,
@@ -109,7 +109,7 @@ describe('Guide scoring', () => {
         expect(guide.score).toStrictEqual(expectedInitialScore);
     });
 
-    it('updateScore adds scores to the right issues and candidates', () => {
+    it('UpdateScore adds scores to the right issues and candidates', () => {
         const expectedUpdatedScore = [
             {
                 issueId: 0,
@@ -261,7 +261,7 @@ describe('Guide scoring', () => {
         expect(guide.score).toStrictEqual(expectedUpdatedScore);
     });
 
-    it('tallies up score by candidate and sorts candidates by total score', () => {
+    it('Tallies up score by candidate and sorts candidates by total score', () => {
         const expectedResults = [
             {
                 candidateId: 2,
@@ -351,4 +351,49 @@ describe('Guide scoring', () => {
 
         expect(guide.tallyResults()).toStrictEqual(expectedResults);
     });
+});
+
+it('hasOneCandidate returns true if the guide only includes one candidate', () => {
+    const issues = generateIssues(5);
+    const candidate = generateCandidate(1, issues, 'democrat');
+
+    const race = generateRace(100, issues, [candidate]);
+    const guide = new Guide(race);
+
+    expect(guide.hasOneCandidate()).toBe(true);
+});
+
+it('hasOneCandidate returns false if the guide has more than one candidate', () => {
+    const issues = generateIssues(2);
+    const candidate1 = generateCandidate(1, issues, 'democrat');
+    const candidate2 = generateCandidate(2, issues, 'democrat');
+
+    const race = generateRace(101, issues, [candidate1, candidate2]);
+    const guide = new Guide(race);
+
+    expect(guide.hasOneCandidate()).toBe(false);
+});
+
+it('hasFewerThanTwoAnswered returns true if the guide only has one candidate that answered', () => {
+    const issues = generateIssues(4);
+    const candidate1 = generateCandidate(1, issues, 'democrat');
+    const candidate2 = generateNullCandidate(2, issues);
+    const candidate3 = generateNullCandidate(3, issues);
+
+    const race = generateRace(102, issues, [candidate1, candidate2, candidate3]);
+    const guide = new Guide(race);
+
+    expect(guide.hasFewerThanTwoAnswered()).toBe(true);
+});
+
+it('hasFewerThanTwoAnswered returns false if the guide has more than one candidate that answered', () => {
+    const issues = generateIssues(4);
+    const candidate1 = generateCandidate(1, issues, 'democrat');
+    const candidate2 = generateCandidate(2, issues, 'democrat');
+    const candidate3 = generateCandidate(3, issues, 'democrat');
+
+    const race = generateRace(103, issues, [candidate1, candidate2, candidate3]);
+    const guide = new Guide(race);
+
+    expect(guide.hasFewerThanTwoAnswered()).toBe(false);
 });

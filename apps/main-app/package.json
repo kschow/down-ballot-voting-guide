@@ -11,6 +11,7 @@
     "test": "jest --verbose=true --watchAll=true",
     "test-ci": "jest --verbose=false --watchAll=false",
     "lint": "eslint 'components/**/**.{ts,tsx}' 'data/**/**.{ts,tsx}' 'pages/**/**.{ts,tsx}'",
+    "lint-fix": "eslint --fix 'components/**/**.{ts,tsx}' 'data/**/**.{ts,tsx}' 'pages/**/**.{ts,tsx}'",
     "tint": "npm run test-ci && npm run lint"
   },
   "dependencies": {
